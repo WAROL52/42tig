@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "libft.h": "c",
+        "ctype.h": "c",
+        "stdio.h": "c",
+        "main.h": "c",
+        "random": "c",
+        "array": "c",
+        "deque": "c",
+        "string": "c",
+        "vector": "c",
+        "iterator": "c",
+        "string_view": "c",
+        "stdarg.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}
