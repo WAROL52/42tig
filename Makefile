@@ -80,7 +80,7 @@ fclean :clean
 	@rm -rf out/*.a
 	@echo "delete out/*.a : OK!"
 
-gitpushall:fclean
+gitpushall:
 	@find libft/Makefile || cd libft/Makefile && make gitpush m="$m"
 	git add .
 	git commit -m "$m" 
