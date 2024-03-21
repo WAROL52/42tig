@@ -18,4 +18,4 @@
 •memchr {cm:2024-02-25}
 •memcmp {cm:2024-02-25}
 •strnstr {cm:2024-02-25}
-•atoi {cm:2024-02-25}
+•atoi {cm:2024-02-25}    vdfv    dfv  ggerg                   sdvs

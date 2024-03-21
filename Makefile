@@ -1,5 +1,5 @@
 # .SILENT:clean
-.PHONY: all norminette  run log clean mrproper test test-w test-c test-wc 
+.PHONY: all clean help
 
 CC= gcc        # compilateur
 CFLAGS= -Wall -Wextra -Werror  # options de compilation pour les sources C 
@@ -64,11 +64,14 @@ define run
 endef
 
 test-w\:%:
-	watch -n 0.2 -c "make test:$(subst test-w:,,$@)"
+	watch -n 0.2 -c -d "make test:$(subst test-w:,,$@)"
 
 test\:%:
 	$(call run,$(subst test:,,$@))
-
+libftTester:
+	@cd libft
+	@find libft/libftTester/Makefile || git clone git@github.com:Tripouille/libftTester.git libft/libftTester
+	@cd libft/libftTester && make
 clean :
 	@rm -rf out/*.o
 	@echo "delete out/*.o : OK!"
@@ -79,5 +82,5 @@ fclean :clean
 
 gitpush:fclean
 	git add .
-	git commit -m "$m"
-	git push
+	git commit -m "$m" 
+	git push 

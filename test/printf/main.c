@@ -187,6 +187,6 @@ int	main(void)
 	// ft_test_unsigned_decima();
 	// ft_test_hexadecimal_lowercase();
 	// ft_test_hexadecimal_uppercase();
-    ft_printf("mandeeeee");
+    ft_printf("mandeeeee 3");
 	return (0);
 }
