@@ -1,5 +1,5 @@
 # .SILENT:clean
-.PHONY: all clean help
+.PHONY: all clean help gitpush
 
 CC= gcc        # compilateur
 CFLAGS= -Wall -Wextra -Werror  # options de compilation pour les sources C 
@@ -79,6 +79,12 @@ clean :
 fclean :clean
 	@rm -rf out/*.a
 	@echo "delete out/*.a : OK!"
+
+gitpushall:fclean
+	@find libft/Makefile || cd libft/Makefile && make gitpush m="$m"
+	git add .
+	git commit -m "$m" 
+	git push 
 
 gitpush:fclean
 	git add .
