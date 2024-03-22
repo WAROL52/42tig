@@ -94,7 +94,7 @@ define gitpushchild
 	else \
 		echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; \
 	fi
-	
+
 endef
 
 gitpush\:%:
@@ -109,6 +109,7 @@ ifdef m
 	@$(foreach mot,$(GIT_MODULE_NAMES), \
         $(call gitpushchild,$(mot),$m) \
     )
+	@echo "\n------------------------------"
 	git add .
 	git commit -m "$m" 
 	git push 
