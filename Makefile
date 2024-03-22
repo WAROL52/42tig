@@ -1,5 +1,5 @@
 # .SILENT:clean
-.PHONY: all clean help gitpush
+
 
 CC= gcc        # compilateur
 CFLAGS= -Wall -Wextra -Werror  # options de compilation pour les sources C 
@@ -32,7 +32,13 @@ echoObj = @echo "$(call textObj,${1})${2}"
 echoOK = @echo "$(call textOk,${1})${2}" 
 echoError = @echo "$(call textError,${1})${2}" 
 echoWarn = @echo "$(call textWarn,${1})${2}"
-
+GIT_MODULES=$(shell cat .gitmodules)
+GIT_MODULE_NAMES=$(shell awk '/\[submodule .*?\]/{getline; print $$3}' ".gitmodules")
+.PHONY: all clean help gitpush test\:$(GIT_MODULE_NAMES) test-w\:$(GIT_MODULE_NAMES)
+all:
+	@echo $(GIT_MODULES)
+	@echo 
+	@echo $(GIT_MODULE_NAMES)
 define init
 	$(eval TESTNAME=${1})
 	$(eval PROGNAME=$(OUT_DIR)/$(TESTNAME).a)
@@ -80,13 +86,44 @@ fclean :clean
 	@rm -rf out/*.a
 	@echo "delete out/*.a : OK!"
 
-gitpushall:
-	@find libft/Makefile || cd libft/Makefile && make gitpush m="$m"
-	git add .
-	git commit -m "$m" 
-	git push 
-
 gitpush:fclean
 	git add .
 	git commit -m "$m" 
 	git push 
+
+define gitpushchild
+	$(call echoObj,gitpush:,$1)
+	@if [ -e $1/Makefile ]; then \
+		(cd $1 && make gitpush m="$m" && echo "$(call textObj,gitpush:)$1 $(call textOk,OK)") || echo "$(call textObj,gitpush:)$1 $(call textError,KO)"; \
+	else \
+		echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; \
+	fi
+endef
+
+gitpush-all:
+ifdef m
+	$(call map,$(GIT_MODULE_NAMES),gitpushchild)
+else
+	@echo "La variable $(call textObj,m)est réquise!"
+endif
+
+gitpush\-childs:
+	echo $(strip $(MAKEFLAGS))
+	@echo "Liste des règles appelées "
+
+gitpush\:%:
+ifdef m
+	$(call gitpushchild,$(subst gitpush:,,$@),$m)
+else
+	@echo "La variable $(call textObj,m)est réquise!"
+endif
+
+
+
+define map
+	wf=$(firstword $1)
+	@echo "$(wf)"
+	$(ifdef $(firstword $1),$(call map,$1))
+endef
+
+
