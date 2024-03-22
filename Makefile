@@ -94,7 +94,7 @@ define gitpushchild
 	else \
 		echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; \
 	fi
-
+	
 endef
 
 gitpush\:%:
