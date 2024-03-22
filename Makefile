@@ -86,11 +86,6 @@ fclean :clean
 	@rm -rf out/*.a
 	@echo "delete out/*.a : OK!"
 
-gitpush:fclean
-	git add .
-	git commit -m "$m" 
-	git push 
-
 define gitpushchild
 	@echo "\n------------------------------"
 	$(call echoObj,gitpush:,$1)
@@ -102,7 +97,14 @@ define gitpushchild
 
 endef
 
-gitpush-all:fclean
+gitpush\:%:
+ifdef m
+	$(call gitpushchild,$(subst gitpush:,,$@),$m)
+else
+	@echo "La variable $(call textObj,m)est réquise!"
+endif
+
+gitpush:fclean
 ifdef m
 	@$(foreach mot,$(GIT_MODULE_NAMES), \
         $(call gitpushchild,$(mot),$m) \
@@ -113,15 +115,3 @@ ifdef m
 else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
-
-gitpush\-childs:
-	echo $(strip $(MAKEFLAGS))
-	@echo "Liste des règles appelées "
-
-gitpush\:%:
-ifdef m
-	$(call gitpushchild,$(subst gitpush:,,$@),$m)
-else
-	@echo "La variable $(call textObj,m)est réquise!"
-endif
-
