@@ -92,17 +92,24 @@ gitpush:fclean
 	git push 
 
 define gitpushchild
+	@echo "\n------------------------------"
 	$(call echoObj,gitpush:,$1)
 	@if [ -e $1/Makefile ]; then \
 		(cd $1 && make gitpush m="$m" && echo "$(call textObj,gitpush:)$1 $(call textOk,OK)") || echo "$(call textObj,gitpush:)$1 $(call textError,KO)"; \
 	else \
 		echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; \
 	fi
+
 endef
 
-gitpush-all:
+gitpush-all:fclean
 ifdef m
-	$(call map,$(GIT_MODULE_NAMES),gitpushchild)
+	@$(foreach mot,$(GIT_MODULE_NAMES), \
+        $(call gitpushchild,$(mot),$m) \
+    )
+	git add .
+	git commit -m "$m" 
+	git push 
 else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
@@ -117,13 +124,4 @@ ifdef m
 else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
-
-
-
-define map
-	wf=$(firstword $1)
-	@echo "$(wf)"
-	$(ifdef $(firstword $1),$(call map,$1))
-endef
-
 
