@@ -110,9 +110,9 @@ ifdef m
         $(call gitpushchild,$(mot),$m) \
     )
 	@echo "\n------------------------------"
+	$(call echoObj,gitpush:,Workspace)
 	git add .
-	git commit -m "$m" 
-	git push 
+	(git commit -m "$m" && git push && echo "$(call textObj,gitpush:)Workspace $(call textOk,OK)")|| echo "$(call textObj,gitpush:)Workspace $(call textError,KO)"
 else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
