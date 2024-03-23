@@ -163,4 +163,4 @@ remove:
 remove\:%:
 	git submodule deinit -f $(subst remove:,,$@)
 
-.PHONY: all clean help gitpush run varinfo submodule gitpull reinstall
+.PHONY: all clean help gitpush run varinfo submodule gitpull reinstall install 
