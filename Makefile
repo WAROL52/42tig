@@ -157,18 +157,10 @@ install:
 install\:%:
 	git submodule update --init $(subst install:,,$@)
 
-reinstall:
-	git submodule add git@github.com:WAROL52/42-libft.git libft
-	git submodule add git@github.com:WAROL52/42-printf.git printf
-	git submodule add git@github.com:WAROL52/42-get_next_line.git get_next_line
-
 remove:
-	# git submodule deinit -f --all
-	# rm -rf $(LIB_NAMES)
+	git submodule deinit -f --all
 
 remove\:%:
 	git submodule deinit -f $(subst remove:,,$@)
-	# find $(subst remove:,,$@)/* -delete
-	# rm -rf $(subst remove:,,$@)
 
 .PHONY: all clean help gitpush run varinfo submodule gitpull reinstall
