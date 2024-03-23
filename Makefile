@@ -148,6 +148,9 @@ else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
 
+gitpull:
+	git pull --recurse-submodules
+
 submodule\:init:
 	git submodule update --init --recursive
 
@@ -156,4 +159,4 @@ submodule\:update:
 
 submodule: submodule\:init submodule\:update
 
-.PHONY: all clean help gitpush run varinfo submodule
+.PHONY: all clean help gitpush run varinfo submodule gitpull submodule\:init submodule\:update
