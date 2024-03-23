@@ -187,6 +187,7 @@ int	main(void)
 	// ft_test_unsigned_decima();
 	// ft_test_hexadecimal_lowercase();
 	// ft_test_hexadecimal_uppercase();
-    ft_printf("mandeeeee 3");
+    ft_printf("mandeeeee 412313121 gr ge gerg2");
+	printOk("je suis OK");
 	return (0);
 }

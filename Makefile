@@ -1,17 +1,18 @@
 # .SILENT:clean
-
-
 CC= gcc        # compilateur
 CFLAGS= -Wall -Wextra -Werror  # options de compilation pour les sources C 
-
-
-TESTNAME=get_next_line
 OUT_DIR=out
-PROGNAME=$(OUT_DIR)/$(TESTNAME).a
-LIB_DIR = $(TESTNAME)
-MAIN_DIR = test/$(LIB_DIR)
-FILE_SOURCE = $(wildcard $(LIB_DIR)/*.c) $(wildcard $(MAIN_DIR)/*.c)
-FILE_OBJ = $(wildcard $(OUT_DIR)/*.o)	
+RUN_DIR=run
+UTILS_DIR=utils
+RUN_SOURCES=$(wildcard $(RUN_DIR)/*.c)
+
+GIT_MODULES=$(shell cat .gitmodules)
+LIB_NAMES=$(shell awk '/\[submodule .*?\]/{getline; print $$3}' ".gitmodules")
+
+TEST_SOURCES=$(foreach name,$(LIB_NAMES),$(wildcard $(RUN_DIR)/$(name)/*.c))
+TEST_SOURCES_WITHOUT_MAIN=$(filter-out %/main.c,$(TEST_SOURCES))
+LIB_SOURCES=$(foreach name,$(LIB_NAMES),$(wildcard $(name)/*.c))
+UTILS_SOURCES=$(wildcard $(UTILS_DIR)/*.c)
 
 COM_COLOR = \033[0;34m
 OBJ_COLOR = \033[0;36m
@@ -19,6 +20,9 @@ OK_COLOR = \033[0;32m
 ERROR_COLOR = \033[0;31m
 WARN_COLOR = \033[0;33m
 NO_COLOR = \033[m
+
+progName=$(OUT_DIR)/$1.a
+fileSource = $(wildcard $(RUN_DIR)/$1/*.c) $(wildcard $1/*.c) $(UTILS_SOURCES)
 
 textcolor =${1}${2} $(NO_COLOR)
 textCom =$(call textcolor,$(COM_COLOR),${1})
@@ -32,59 +36,27 @@ echoObj = @echo "$(call textObj,${1})${2}"
 echoOK = @echo "$(call textOk,${1})${2}" 
 echoError = @echo "$(call textError,${1})${2}" 
 echoWarn = @echo "$(call textWarn,${1})${2}"
-GIT_MODULES=$(shell cat .gitmodules)
-GIT_MODULE_NAMES=$(shell awk '/\[submodule .*?\]/{getline; print $$3}' ".gitmodules")
-.PHONY: all clean help gitpush test\:$(GIT_MODULE_NAMES) test-w\:$(GIT_MODULE_NAMES)
-all:
-	@echo $(GIT_MODULES)
-	@echo 
-	@echo $(GIT_MODULE_NAMES)
-define init
-	$(eval TESTNAME=${1})
-	$(eval PROGNAME=$(OUT_DIR)/$(TESTNAME).a)
-	$(eval LIB_DIR = $(TESTNAME))
-	$(eval MAIN_DIR := test/$(LIB_DIR))
-	$(eval FILE_SOURCE := $(wildcard $(LIB_DIR)/*.c) $(wildcard $(MAIN_DIR)/*.c))
-	$(eval FILE_OBJ := $(OUT_DIR)/*.o)
-endef
 
 define generate_obj
-	@mkdir -p out
-	@cd $(OUT_DIR) && $(CC) -c $(CFLAGS) $(foreach file,$(FILE_SOURCE),../$(file))
+	@mkdir -p $(OUT_DIR)
+	@cd $(OUT_DIR) && $(CC) -c $(CFLAGS) $(foreach file,$1,../$(file))
 	$(call echoObj,generate_obj:,$(call textOk,OK))
 endef
 
 define compile
-	$(call echoObj,compilation:,$(TESTNAME))
-	$(call generate_obj,${1})
-	@$(CC) -o $(PROGNAME) $(FILE_OBJ)
+	@find $1/Makefile
+	$(call echoObj,compilation:,$1)
+	$(call generate_obj,$(call fileSource,$1))
+	@$(CC) -o $(call progName,$1) $(OUT_DIR)/*.o
 	$(call echoObj,compilation:,$(call textOk,OK))
 endef
 
 define run
-	$(call init,${1})
-	$(call compile)
-	$(call echoWarn,./$(PROGNAME))
-	@./$(PROGNAME)
+	$(call compile,${1})
+	$(call echoWarn,./$(call progName,$1))
+	@./$(call progName,$1)
 	@echo 
 endef
-
-test-w\:%:
-	watch -n 0.2 -c -d "make test:$(subst test-w:,,$@)"
-
-test\:%:
-	$(call run,$(subst test:,,$@))
-libftTester:
-	@cd libft
-	@find libft/libftTester/Makefile || git clone git@github.com:Tripouille/libftTester.git libft/libftTester
-	@cd libft/libftTester && make
-clean :
-	@rm -rf out/*.o
-	@echo "delete out/*.o : OK!"
-
-fclean :clean
-	@rm -rf out/*.a
-	@echo "delete out/*.a : OK!"
 
 define gitpushchild
 	@echo "\n------------------------------"
@@ -97,6 +69,65 @@ define gitpushchild
 
 endef
 
+all:varinfo run
+
+varinfo:
+	$(call echoObj,CC:,$(CC))
+	$(call echoObj,CFLAGS:,$(CFLAGS))
+	$(call echoObj,OUT_DIR:,$(OUT_DIR))
+	$(call echoObj,RUN_DIR:,$(RUN_DIR))
+	$(call echoObj,LIB_NAMES:,$(LIB_NAMES))
+	$(call echoObj,LIB_SOURCES:,$(LIB_SOURCES))
+	$(call echoObj,GIT_MODULES:,$(GIT_MODULES))
+	$(call echoObj,RUN_SOURCES:,$(RUN_SOURCES))
+	$(call echoObj,TEST_SOURCES:,$(TEST_SOURCES))
+	$(call echoObj,TEST_SOURCES_WITHOUT_MAIN:,$(TEST_SOURCES_WITHOUT_MAIN))
+	@echo
+
+run-w\:%:fclean
+	@rm -rf out/*.a
+	watch -n 0.2 -c -d "make run:$(subst run-w:,,$@)"
+
+run\:%:
+	$(call run,$(subst run:,,$@))
+
+run:
+	@rm -rf out/*.a
+	$(call generate_obj,$(RUN_SOURCES) $(LIB_SOURCES) $(TEST_SOURCES_WITHOUT_MAIN) $(UTILS_SOURCES))
+	@$(CC) -o $(OUT_DIR)/main.a $(OUT_DIR)/*.o
+	$(call echoObj,compilation:,$(call textOk,OK))
+	$(call echoWarn,./$(call progName,main))
+	@$(OUT_DIR)/main.a
+	@echo
+
+test\:libft:
+	@find libft/Makefile
+	@find libft/libftTester/Makefile || git clone git@github.com:Tripouille/libftTester.git libft/libftTester
+	@cd libft/libftTester && make
+
+test\:printf:
+	@find printf/Makefile
+	@find libft/libftTester/Makefile || git clone git@github.com:Tripouille/libftTester.git libft/libftTester
+	@cd libft/libftTester && make
+
+test\:get_next_line:
+	@find get_next_line/Makefile
+	@find libft/libftTester/Makefile || git clone git@github.com:Tripouille/libftTester.git libft/libftTester
+	@cd libft/libftTester && make
+
+test:
+	@(find libft/Makefile && make test\:libft)||echo KO
+	@(find printf/Makefile && make test\:printf)||echo KO
+	@(find get_next_line/Makefile && make test\:get_next_line)||echo KO
+
+clean :
+	@rm -rf out/*.o
+	@echo "delete out/*.o : OK!"
+
+fclean :clean
+	@rm -rf out/*.a
+	@echo "delete out/*.a : OK!"
+
 gitpush\:%:
 ifdef m
 	$(call gitpushchild,$(subst gitpush:,,$@),$m)
@@ -106,8 +137,8 @@ endif
 
 gitpush:fclean
 ifdef m
-	@$(foreach mot,$(GIT_MODULE_NAMES), \
-        $(call gitpushchild,$(mot),$m) \
+	@$(foreach moduleName,$(LIB_NAMES), \
+        $(call gitpushchild,$(moduleName),$m) \
     )
 	@echo "\n------------------------------"
 	$(call echoObj,gitpush:,Workspace)
@@ -116,3 +147,5 @@ ifdef m
 else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
+
+.PHONY: all clean help gitpush run varinfo
