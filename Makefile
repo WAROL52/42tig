@@ -142,8 +142,6 @@ ifdef m
     )
 	@echo "\n------------------------------"
 	$(call echoObj,gitpush:,Workspace)
-	git submodule deinit -f --all
-	rm -rf $(LIB_NAMES)
 	git add .
 	(git commit -m "$m" && git push && echo "$(call textObj,gitpush:)Workspace $(call textOk,OK)")|| echo "$(call textObj,gitpush:)Workspace $(call textError,KO)"
 else
@@ -157,14 +155,20 @@ install:
 	git submodule update --init --recursive
 
 install\:%:
-	git submodule update --init $(subst submodule:,,$@)
+	git submodule update --init $(subst install:,,$@)
+
+reinstall:
+	git submodule add git@github.com:WAROL52/42-libft.git libft
+	git submodule add git@github.com:WAROL52/42-printf.git printf
+	git submodule add git@github.com:WAROL52/42-get_next_line.git get_next_line
 
 remove:
-	git submodule deinit -f --all
-	rm -rf $(LIB_NAMES)
+	# git submodule deinit -f --all
+	# rm -rf $(LIB_NAMES)
 
 remove\:%:
 	git submodule deinit -f $(subst remove:,,$@)
-	rm -rf $(subst remove:,,$@)
+	# find $(subst remove:,,$@)/* -delete
+	# rm -rf $(subst remove:,,$@)
 
-.PHONY: all clean help gitpush run varinfo submodule gitpull
+.PHONY: all clean help gitpush run varinfo submodule gitpull reinstall
