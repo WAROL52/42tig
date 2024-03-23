@@ -151,12 +151,10 @@ endif
 gitpull:
 	git pull --recurse-submodules
 
-submodule\:init:
+submodule:
 	git submodule update --init --recursive
 
-submodule\:update:
-	git submodule update --recursive --remote
+submodule\:%:
+	git submodule update --init $(subst submodule\:,,$@)
 
-submodule: submodule\:init submodule\:update
-
-.PHONY: all clean help gitpush run varinfo submodule gitpull submodule\:init submodule\:update
+.PHONY: all clean help gitpush run varinfo submodule gitpull
