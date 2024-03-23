@@ -142,6 +142,8 @@ ifdef m
     )
 	@echo "\n------------------------------"
 	$(call echoObj,gitpush:,Workspace)
+	git submodule deinit -f --all
+	rm -rf $(LIB_NAMES)
 	git add .
 	(git commit -m "$m" && git push && echo "$(call textObj,gitpush:)Workspace $(call textOk,OK)")|| echo "$(call textObj,gitpush:)Workspace $(call textError,KO)"
 else
@@ -151,10 +153,18 @@ endif
 gitpull:
 	git pull --recurse-submodules
 
-submodule:
+install:
 	git submodule update --init --recursive
 
-submodule\:%:
-	git submodule update --init $(subst submodule\:,,$@)
+install\:%:
+	git submodule update --init $(subst submodule:,,$@)
+
+remove:
+	git submodule deinit -f --all
+	rm -rf $(LIB_NAMES)
+
+remove\:%:
+	git submodule deinit -f $(subst remove:,,$@)
+	rm -rf $(subst remove:,,$@)
 
 .PHONY: all clean help gitpush run varinfo submodule gitpull
