@@ -148,4 +148,12 @@ else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
 
-.PHONY: all clean help gitpush run varinfo
+submodule\:init:
+	git submodule update --init --recursive
+
+submodule\:update:
+	git submodule update --recursive --remote
+
+submodule: submodule\:init submodule\:update
+
+.PHONY: all clean help gitpush run varinfo submodule
