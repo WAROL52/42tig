@@ -62,7 +62,7 @@ define gitpushchild
 	@echo "\n------------------------------"
 	$(call echoObj,gitpush:,$1)
 	@if [ -e $1/Makefile ]; then \
-		(@cd $1 && @make gitpush m="$m" && echo "$(call textObj,gitpush:)$1 $(call textOk,OK)") || echo "$(call textObj,gitpush:)$1 $(call textError,KO)"; \
+		(@cd $1 && make gitpush m="$m" && echo "$(call textObj,gitpush:)$1 $(call textOk,OK)") || echo "$(call textObj,gitpush:)$1 $(call textError,KO)"; \
 	else \
 		echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; \
 	fi
@@ -143,7 +143,7 @@ ifdef m
 	@echo "\n------------------------------"
 	$(call echoObj,gitpush:,Workspace)
 	git add .
-	(git commit -m "$m" && git push && echo "$(call textObj,gitpush:)Workspace $(call textOk,OK)")|| echo "$(call textObj,gitpush:)Workspace $(call textError,KO)"
+	@(git commit -m "$m" && git push && echo "$(call textObj,gitpush:)Workspace $(call textOk,OK)")|| echo "$(call textObj,gitpush:)Workspace $(call textError,KO)"
 else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
