@@ -77,7 +77,9 @@ endef
 
 define initEnv
 	@echo "MY_NAME=$(MY_NAME)"> .env
-	@echo >> .env
+	@echo "PUSH_TITLE=$(PUSH_TITLE)" >> .env
+	@echo "PUSH_MESSAGE=$(PUSH_MESSAGE)" >> .env
+	@echo "PUSH_COUNT=$(PUSH_COUNT)" >> .env
 	@echo "GITHUB_URL=\\" >> .env
 	$(call git_url,update_env)
 endef
@@ -109,6 +111,17 @@ endef
 
 define git_var
 	$(eval url_$(word 1,$1)=$(word 2,$1))
+endef
+
+define push
+	@$(foreach moduleName,$(LIB_NAMES), \
+        $(call gitpushchild,$(moduleName),$1) \
+    )
+	@echo "\n------------------------------"
+	$(call echoObj,git push:,Workspace)
+	git add .
+	@echo 'git commit -m "$1" && git push'
+	@(git commit -m "$1" && git push && echo "$(call textObj,git push:)Workspace $(call textOk,OK)")|| echo "$(call textObj,git push:)Workspace $(call textError,KO)"
 endef
 
 all:varinfo
@@ -184,17 +197,14 @@ ifdef m
 else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
+push-auto:
+	$(call push,($(PUSH_COUNT))[$(PUSH_TITLE)]:$(PUSH_MESSAGE))
+	$(eval PUSH_COUNT=$(call math,$(PUSH_COUNT),+,1))
+	$(call initEnv)
 
 push:fclean
 ifdef m
-	@$(foreach moduleName,$(LIB_NAMES), \
-        $(call gitpushchild,$(moduleName),$m) \
-    )
-	@echo "\n------------------------------"
-	$(call echoObj,git push:,Workspace)
-	git add .
-	@echo 'git commit -m "$m" && git push'
-	@(git commit -m "$m" && git push && echo "$(call textObj,git push:)Workspace $(call textOk,OK)")|| echo "$(call textObj,git push:)Workspace $(call textError,KO)"
+	$(call push,$m)
 else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
@@ -239,5 +249,8 @@ delete\:%:
 
 init:
 	$(eval MY_NAME=$(MY_NAME_DEFAULT))
+	$(eval PUSH_TITLE=$(PUSH_TITLE_DEFAULT))
+	$(eval PUSH_MESSAGE=$(PUSH_MESSAGE_DEFAULT))
+	$(eval PUSH_COUNT=$(PUSH_COUNT_DEFAULT))
 	$(eval GITHUB_URL=$(GITHUB_URL_DEFAULT))
 	$(call initEnv)

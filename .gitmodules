@@ -1,0 +1,9 @@
+[submodule "lib/libft"]
+	path = lib/libft
+	url = git@github.com:WAROL52/42-libft.git
+[submodule "lib/printf"]
+	path = lib/printf
+	url = git@github.com:WAROL52/42-printf.git
+[submodule "lib/get_next_line"]
+	path = lib/get_next_line
+	url = git@github.com:WAROL52/42-get_next_line.git
