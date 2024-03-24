@@ -168,3 +168,11 @@ remove\:%:
 	git submodule deinit -f $(subst remove:,,$@)
 
 .PHONY: all clean help gitpush run varinfo submodule gitpull reinstall install 
+
+add\:%:
+ifdef url
+	@echo $@
+	@echo $(url)
+else
+	@echo url est requise
+endif
