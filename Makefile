@@ -68,7 +68,7 @@ define gitpushchild
 	@echo "\n------------------------------"
 	$(call echoObj,git push:,$1)
 	@if [ -e $1/Makefile ]; then \
-		(cd $1 && make push m="$m" && echo "$(call textObj,git push:)$1 $(call textOk,OK)") || echo "$(call textObj,git push:)$1 $(call textError,KO)"; \
+		(cd $1 && make push m="$2" && echo "$(call textObj,git push:)$1 $(call textOk,OK)") || echo "$(call textObj,git push:)$1 $(call textError,KO)"; \
 	else \
 		echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; \
 	fi
@@ -200,7 +200,7 @@ endif
 push-auto:
 	$(eval PUSH_COUNT=$(call math,$(PUSH_COUNT),+,1))
 	$(call initEnv)
-	$(call push,$(PUSH_TITLE)-$(PUSH_COUNT)-$(PUSH_MESSAGE))
+	$(call push,[$(PUSH_TITLE)]($(PUSH_COUNT)): $(PUSH_MESSAGE))
 
 push:fclean
 ifdef m
