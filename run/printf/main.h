@@ -13,6 +13,6 @@
 
 
 # include "../../utils/utils.h"
-#include "../../printf/libftprintf.h"
+#include "../../lib/printf/libftprintf.h"
 
 #include <stdio.h>

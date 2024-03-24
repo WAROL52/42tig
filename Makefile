@@ -1,6 +1,10 @@
 # .SILENT:clean
+.PHONY: all clean help gitpush run varinfo submodule gitpull reinstall install add
+include .env
+include .default.env
 CC= gcc        # compilateur
 CFLAGS= -Wall -Wextra -Werror  # options de compilation pour les sources C 
+LIB_DIR=lib
 OUT_DIR=out
 RUN_DIR=run
 UTILS_DIR=utils
@@ -22,7 +26,7 @@ WARN_COLOR = \033[0;33m
 NO_COLOR = \033[m
 
 progName=$(OUT_DIR)/$1.a
-fileSource = $(wildcard $(RUN_DIR)/$1/*.c) $(wildcard $1/*.c) $(UTILS_SOURCES)
+fileSource = $(wildcard $(RUN_DIR)/$1/*.c) $(wildcard $(LIB_DIR)/$1/*.c) $(UTILS_SOURCES)
 
 textcolor =${1}${2} $(NO_COLOR)
 textCom =$(call textcolor,$(COM_COLOR),${1})
@@ -37,6 +41,8 @@ echoOK = @echo "$(call textOk,${1})${2}"
 echoError = @echo "$(call textError,${1})${2}" 
 echoWarn = @echo "$(call textWarn,${1})${2}"
 
+math=$(shell awk "BEGIN {print $1 $2 $3}")
+
 define generate_obj
 	@mkdir -p $(OUT_DIR)
 	@cd $(OUT_DIR) && $(CC) -c $(CFLAGS) $(foreach file,$1,../$(file))
@@ -44,7 +50,7 @@ define generate_obj
 endef
 
 define compile
-	@find $1/Makefile
+	@find $(LIB_DIR)/$1/Makefile
 	$(call echoObj,compilation:,$1)
 	$(call generate_obj,$(call fileSource,$1))
 	@$(CC) -o $(call progName,$1) $(OUT_DIR)/*.o
@@ -60,24 +66,65 @@ endef
 
 define gitpushchild
 	@echo "\n------------------------------"
-	$(call echoObj,gitpush:,$1)
+	$(call echoObj,git push:,$1)
 	@if [ -e $1/Makefile ]; then \
-		(cd $1 && make gitpush m="$m" && echo "$(call textObj,gitpush:)$1 $(call textOk,OK)") || echo "$(call textObj,gitpush:)$1 $(call textError,KO)"; \
+		(cd $1 && make push m="$m" && echo "$(call textObj,git push:)$1 $(call textOk,OK)") || echo "$(call textObj,git push:)$1 $(call textError,KO)"; \
 	else \
 		echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; \
 	fi
 
 endef
 
-all:varinfo run
+define initEnv
+	@echo "MY_NAME=$(MY_NAME)"> .env
+	@echo >> .env
+	@echo "GITHUB_URL=\\" >> .env
+	$(call git_url,update_env)
+endef
+
+define update_env
+	@echo "$1\\" >> .env
+endef
+
+define update_url
+	$(if $(findstring $1,$(GITHUB_URL)),,$(call update_env,$1))
+endef
+
+define git_add
+	@(find .gitmodules || touch .gitmodules)
+	(git submodule add -f $(word 2,$1) $(LIB_DIR)/$(word 1,$1))|| echo "KO"
+endef
+
+define git_map
+	$(eval list=$(strip $1))
+	$(eval item=$(wordlist 1,2, $(strip $1)))
+	$(eval newlist=$(wordlist 3,$(words $(strip $1)), $(strip $1)))
+	$(if $(item),$(call $2,$(item)))
+	$(if $(newlist),$(call git_map,$(newlist),$2))
+endef
+
+define git_url
+	$(call git_map,$(GITHUB_URL),$1)
+endef
+
+define git_var
+	$(eval url_$(word 1,$1)=$(word 2,$1))
+endef
+
+all:varinfo
 
 varinfo:
+	$(call echoObj,MY_NAME:,$(MY_NAME))
 	$(call echoObj,CC:,$(CC))
 	$(call echoObj,CFLAGS:,$(CFLAGS))
 	$(call echoObj,OUT_DIR:,$(OUT_DIR))
 	$(call echoObj,RUN_DIR:,$(RUN_DIR))
 	$(call echoObj,LIB_NAMES:,$(LIB_NAMES))
 	$(call echoObj,LIB_SOURCES:,$(LIB_SOURCES))
+	$(call echoObj,GITHUB_URL:,$(GITHUB_URL))
+	$(call echoObj,URL_LIBFT:,$(URL_LIBFT))
+	$(call echoObj,URL_PRINTF:,$(URL_PRINTF))
+	$(call echoObj,URL_GET_NEXT_LINE:,$(URL_GET_NEXT_LINE))
 	$(call echoObj,GIT_MODULES:,$(GIT_MODULES))
 	$(call echoObj,RUN_SOURCES:,$(RUN_SOURCES))
 	$(call echoObj,TEST_SOURCES:,$(TEST_SOURCES))
@@ -131,48 +178,66 @@ fclean :clean
 	@rm -rf out/*.a
 	@echo "delete out/*.a : OK!"
 
-gitpush\:%:
+push\:%:
 ifdef m
-	$(call gitpushchild,$(subst gitpush:,,$@),$m)
+	$(call gitpushchild,$(subst push:,,$@),$m)
 else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
 
-gitpush:fclean
+push:fclean
 ifdef m
 	@$(foreach moduleName,$(LIB_NAMES), \
         $(call gitpushchild,$(moduleName),$m) \
     )
 	@echo "\n------------------------------"
-	$(call echoObj,gitpush:,Workspace)
+	$(call echoObj,git push:,Workspace)
 	git add .
 	@echo 'git commit -m "$m" && git push'
-	@(git commit -m "$m" && git push && echo "$(call textObj,gitpush:)Workspace $(call textOk,OK)")|| echo "$(call textObj,gitpush:)Workspace $(call textError,KO)"
+	@(git commit -m "$m" && git push && echo "$(call textObj,git push:)Workspace $(call textOk,OK)")|| echo "$(call textObj,git push:)Workspace $(call textError,KO)"
 else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
 
-gitpull:
+pull:
 	git pull --recurse-submodules
 
 install:
-	git submodule update --init --recursive
+	git submodule update --init --recursive -f
 
 install\:%:
-	git submodule update --init $(subst install:,,$@)
+	git submodule update --init $(LIB_DIR)/$(subst install:,,$@)
 
 remove:
 	git submodule deinit -f --all
 
 remove\:%:
-	git submodule deinit -f $(subst remove:,,$@)
+	git submodule deinit -f $(LIB_DIR)/$(subst remove:,,$@)
 
-.PHONY: all clean help gitpush run varinfo submodule gitpull reinstall install 
+add : 
+	echo "$(GITHUB_URL)"
+	$(call git_url,git_add)
 
 add\:%:
 ifdef url
-	@echo $@
-	@echo $(url)
+	$(eval giturl=$(subst add:,,$@) $(url))
+	$(call git_add,$(giturl))
+	$(call initEnv)
+	$(call update_url,$(giturl))
+	
 else
-	@echo url est requise
+	@echo "La variable $(call textObj,url)est réquise!"
 endif
+
+delete\:%:
+	$(eval libname=$(subst delete:,,$@))
+	$(call git_url,git_var)
+	$(eval GITHUB_URL=$(filter-out $(libname) $(url_$(libname)),$(GITHUB_URL)))
+	$(call initEnv)
+	@find $(LIB_DIR)/$(libname)
+	git rm -f $(LIB_DIR)/$(libname)
+
+init:
+	$(eval MY_NAME=$(MY_NAME_DEFAULT))
+	$(eval GITHUB_URL=$(GITHUB_URL_DEFAULT))
+	$(call initEnv)

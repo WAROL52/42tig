@@ -179,8 +179,6 @@ void	ft_test_hexadecimal_uppercase(void)
 }
 int	main(void)
 {
-	char *c="123465";
-	
 	// ft_test_single_character();
 	// ft_test_single_string();
 	// ft_test_single_pointer();
@@ -191,6 +189,5 @@ int	main(void)
 	// ft_test_hexadecimal_uppercase();
     ft_printf("mandeeeee 4120313121 gr ge gerg gerger  2");
 	printOk("je suis OK");
-	c[0]='c';
 	return (0);
 }
