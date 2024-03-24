@@ -200,7 +200,7 @@ endif
 push-auto:
 	$(eval PUSH_COUNT=$(call math,$(PUSH_COUNT),+,1))
 	$(call initEnv)
-	$(call push,\[$(PUSH_TITLE)\]\($(PUSH_COUNT)\)\:$(PUSH_MESSAGE))
+	$(call push,$(PUSH_TITLE)-$(PUSH_COUNT)-$(PUSH_MESSAGE))
 
 push:fclean
 ifdef m
