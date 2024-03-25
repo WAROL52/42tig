@@ -173,10 +173,10 @@ test\:libft:
 	@cd libft/libftTester && make
 
 test\:printf:
-	@find printf/Makefile
-	@norminette $(wildcard printf/*.c) || echo "norminette: KO"
-	@find printf/ft_printf_tester/Makefile || git clone https://github.com/paulo-santana/ft_printf_tester.git printf/ft_printf_tester
-	@cd printf/ft_printf_tester && sh test m
+	@find $(LIB_DIR)/printf/Makefile
+	@norminette $(wildcard $(LIB_DIR)/printf/*.c) || echo "norminette: KO"
+	@find $(LIB_DIR)/printf/ft_printf_tester/Makefile || git clone https://github.com/paulo-santana/ft_printf_tester.git $(LIB_DIR)/printf/ft_printf_tester
+	@cd $(LIB_DIR)/printf/ft_printf_tester && sh test m
 
 test\:get_next_line:
 	@find get_next_line/Makefile
