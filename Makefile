@@ -201,7 +201,7 @@ ifdef m
 else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
-push-auto:
+push\:auto:
 	$(eval PUSH_COUNT=$(call math,$(PUSH_COUNT),+,1))
 	$(call initEnv)
 	$(call push,[$(PUSH_TITLE)]($(PUSH_COUNT)): $(PUSH_MESSAGE))
