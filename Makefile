@@ -2,6 +2,10 @@
 .PHONY: all clean help gitpush run varinfo submodule gitpull reinstall install add
 include .env
 include .default.env
+include .gituman/.env
+include .gituman/.default.env
+include .gituman/Makefile
+
 CC= gcc        # compilateur
 CFLAGS= -Wall -Wextra -Werror  # options de compilation pour les sources C 
 LIB_DIR=lib
