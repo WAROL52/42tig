@@ -92,6 +92,10 @@ define update_url
 	$(if $(findstring $1,$(GITHUB_URL)),,$(call update_env,$1))
 endef
 
+define checkout_master
+	@cd $(LIB_DIR)/$(word 1,$1) && git checkout master
+endef
+
 define git_add
 	@(find .gitmodules || touch .gitmodules)
 	(git submodule add -f $(word 2,$1) $(LIB_DIR)/$(word 1,$1))|| echo "KO"
@@ -214,9 +218,12 @@ pull:
 
 install:
 	git submodule update --init --recursive -f
+	$(call git_url,checkout_master)
 
 install\:%:
 	git submodule update --init $(LIB_DIR)/$(subst install:,,$@)
+	$(call git_url,git_var)
+	$(call checkout_master,$(subst install:,,$@),$(url_$(libname)))
 
 remove:
 	git submodule deinit -f --all
