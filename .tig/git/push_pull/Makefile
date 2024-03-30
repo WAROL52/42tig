@@ -10,7 +10,7 @@ endef
 # @(git commit -m "$1" && git push && echo "$(call textObj,git push:)$(CURRENT_DIR) $(call textOk,OK)")|| echo "$(call textObj,git push:)$(CURRENT_DIR) $(call textError,KO)"
 
 define git_push_childs
-	@echo "\n------------------------------"
+	@$(call echoObj,\n------------------------------)
 	@$(call echoObj,git push:,$1)
 	@ find $1/.git || (echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; false)
 	@$(call push_to_github,$1,$2)
