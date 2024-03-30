@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rrabetsy <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 11:42:05 by rrabetsy          #+#    #+#             */
-/*   Updated: 2024/03/20 13:02:31 by rrabetsy         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-# include "../../lib/get_next_line/get_next_line.h"
-# include "../../utils/utils.h"
-
+#include "../../repos/get_next_line/get_next_line.h"
+#include "../../utils/utils.h"
 #include <stdio.h>

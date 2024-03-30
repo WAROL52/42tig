@@ -1,0 +1,1 @@
+include $(TIG_DIR)/run/c/Makefile
