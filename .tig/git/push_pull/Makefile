@@ -1,5 +1,5 @@
 define push_to_github
-	$(call run_shell, cd $1,pwd,git add ., git commit -m '$2', git push $(GIT_REMOTE) $(GIT_BRANCH))
+	$(call run_shell_safe, cd $1,pwd,git add ., git commit -m '$2', git push $(GIT_REMOTE) $(GIT_BRANCH))
 endef
 # $(call runCmd,1,git add .)
 # $(call runCmd,2,git commit -m '$1')

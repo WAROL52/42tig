@@ -24,17 +24,36 @@ logEnd=$(call logOK,$1,Finish)
 
 cmdshell=$(call echoWarn,[$2]:,$1) && $1 $(if $(subst 0,,$(strip $(SUCCESS_SHOW))),&&$(call echoWarn,[$2]:,$(call textOk,$(SUCCESS_MESSAGE))))
 
-cmdshell_with_error=$(call cmdshell,$1,$2) || ($(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE))))
+cmdshell_with_error=$(call cmdshell,$1,$2) || $(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE)))
 
 define run_shell
-	$(call cmdshell_with_error,$1,1)
-
+	$(call cmdshell_with_error,$1,1)\
+	$(if $2,&&$(call cmdshell_with_error,$2,2))\
+	$(if $3,&&$(call cmdshell_with_error,$3,3))\
+	$(if $4,&&$(call cmdshell_with_error,$4,4))\
+	$(if $5,&&$(call cmdshell_with_error,$5,5))\
+	$(if $6,&&$(call cmdshell_with_error,$6,6))\
+	$(if $7,&&$(call cmdshell_with_error,$7,7))\
+	$(if $9,&&$(call cmdshell_with_error,$9,9))\
+	$(if $(10),&&$(call cmdshell_with_error,$(10),10))\
+	$(if $(11),&&$(call cmdshell_with_error,$(11),11))\
+	$(if $(12),&&$(call cmdshell_with_error,$(12),12))\
+	$(if $(13),&&$(call cmdshell_with_error,$(13),13))\
+	$(if $(14),&&$(call cmdshell_with_error,$(14),14))\
+	$(if $(15),&&$(call cmdshell_with_error,$(15),15))\
+	$(if $(16),&&$(call cmdshell_with_error,$(16),16))\
+	$(if $(17),&&$(call cmdshell_with_error,$(17),17))\
+	$(if $(18),&&$(call cmdshell_with_error,$(18),18))\
+	$(if $(19),&&$(call cmdshell_with_error,$(19),19))\
+	$(if $(20),&&$(call cmdshell_with_error,$(20),20))||\
+	$(call echoWarn,[cmd]:,$(call textError,$(ERROR_MESSAGE)))
+	@echo "FIN"
 endef
 
 cmdshell_safe=$(call cmdshell,$1,$2) || ($(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE)))&& false)
 
 define run_shell_safe
-	@$(call cmdshell_safe,$1,1)\
+	$(call cmdshell_safe,$1,1)\
 	$(if $2,&&$(call cmdshell_safe,$2,2))\
 	$(if $3,&&$(call cmdshell_safe,$3,3))\
 	$(if $4,&&$(call cmdshell_safe,$4,4))\
@@ -52,8 +71,10 @@ define run_shell_safe
 	$(if $(17),&&$(call cmdshell_safe,$(17),17))\
 	$(if $(18),&&$(call cmdshell_safe,$(18),18))\
 	$(if $(19),&&$(call cmdshell_safe,$(19),19))\
-	$(if $(20),&&$(call cmdshell_safe,$(20),20))
+	$(if $(20),&&$(call cmdshell_safe,$(20),20))||\
+	$(call echoWarn,[cmd]:,$(call textError,$(ERROR_MESSAGE)))
 	@echo "FIN"
+	
 endef
 
 varinfo:
