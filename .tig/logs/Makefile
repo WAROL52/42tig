@@ -24,7 +24,7 @@ logEnd=$(call logOK,$1,Finish)
 
 define runCmd 
 	$(call echoWarn,[$1]:,$2)
-	@($2 && echo "$(call textWarn,[$1]:)$(call textOk,OK)") || echo "$(call textObj,git push:)$1 $(call textError,KO)"
+	@($2 && echo "$(call textWarn,[$1]:)$(call textOk,OK)") || echo "$(call textWarn,[$1]:)$(call textError,Error!)"
 endef
 
 varinfo:
