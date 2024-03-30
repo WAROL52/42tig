@@ -12,14 +12,10 @@ endef
 define git_push_childs
 	@echo "\n------------------------------"
 	$(call echoObj,git push:,$1)
-	@echo [ -e $1/Makefile ]
+	@ find $1/.git || (echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; false)
+	$(call push_to_github,$1,$2)
 
 endef
-# @if [ -e $1/Makefile ]; then \
-# 	$(call push_to_github,$1,$2); \
-# else \
-# 	echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; \
-# fi
 
 define git_push
 	@$(foreach moduleName,$(REPOS_NAMES),$(call git_push_childs,$(REPOS_DIR)/$(moduleName),$1))
