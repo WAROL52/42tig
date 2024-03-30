@@ -12,7 +12,7 @@ endef
 define git_push_childs
 	@echo "\n------------------------------"
 	$(call echoObj,git push:,$1)
-	@echo "[ -e $1/Makefile ]"
+	@echo [ -e $1/Makefile ]
 
 endef
 # @if [ -e $1/Makefile ]; then \
