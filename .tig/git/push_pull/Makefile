@@ -19,7 +19,7 @@ endef
 
 define git_push
 	@$(foreach moduleName,$(REPOS_NAMES),$(call git_push_childs,$(REPOS_DIR)/$(moduleName),$1))
-	@echo "\n------------------------------$(REPOS_NAMES)"
+	@$(call echoObj,\n------------------------------)
 	@$(call echoObj,git push:,$(CURRENT_DIR))
 	@$(call run_shell_safe, pwd, git add ., git commit -m '$1', git push $(GIT_REMOTE) $(GIT_BRANCH))
 endef
