@@ -16,7 +16,7 @@ echoCom = @echo "$(call textCom,${1})${2}"
 echoObj = @echo "$(call textObj,${1})${2}"
 echoOK = @echo "$(call textOk,${1})${2}" 
 echoError = @echo "$(call textError,${1})${2}" 
-echoWarn = @echo "$(call textWarn,${1})${2}"
+echoWarn = @echo `$(call textWarn,${1})${2}`
 
 logOK=$(call echoObj,$1,$(call textOk,$2))
 logStart=$(call logOK,$1,Start)
