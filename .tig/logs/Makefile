@@ -21,6 +21,11 @@ echoWarn = (echo "$(call textWarn,${1})${2}")
 logOK=$(call echoObj,$1,$(call textOk,$2))
 logStart=$(call logOK,$1,Start)
 logEnd=$(call logOK,$1,Finish)
+define logTitle
+	@$(call echoObj,\n|------------------------------|)
+	@$(call echoObj,|$1,$2)
+	@$(call echoObj,|------------------------------|)
+endef
 
 cmdshell=$(call echoWarn,[$2]:,$1) && $1 $(if $(subst 0,,$(strip $(SUCCESS_SHOW))),&&$(call echoWarn,[$2]:,$(call textOk,$(SUCCESS_MESSAGE))))
 
