@@ -1,9 +1,11 @@
 define push_to_github
 	$(call runCmd,1,git add .)
-	@git add .
-	@echo 'git commit -m "$1" && git push'
-	@(git commit -m "$1" && git push && echo "$(call textObj,git push:)$(CURRENT_DIR) $(call textOk,OK)")|| echo "$(call textObj,git push:)$(CURRENT_DIR) $(call textError,KO)"
+	$(call runCmd,1,git commit -m "$1")
 endef
+
+# @git add .
+# @echo 'git commit -m "$1" && git push'
+# @(git commit -m "$1" && git push && echo "$(call textObj,git push:)$(CURRENT_DIR) $(call textOk,OK)")|| echo "$(call textObj,git push:)$(CURRENT_DIR) $(call textError,KO)"
 
 define git_push_childs
 	@echo "\n------------------------------"

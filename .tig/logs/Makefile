@@ -24,8 +24,9 @@ logEnd=$(call logOK,$1,Finish)
 
 define runCmd 
 	$(call echoWarn,[$1]:,$2)
-	$2
+	$(shell $2)
 endef
+
 varinfo:
 	$(call echoObj,MY_NAME:,$(MY_NAME))
 	$(call echoObj,CC:,$(CC))
