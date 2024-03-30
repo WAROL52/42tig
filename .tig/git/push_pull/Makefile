@@ -19,8 +19,8 @@ define git_push_childs
 
 endef
 
-# @$(foreach moduleName,$(REPOS_NAMES),$(call git_push_childs,$(REPOS_DIR)/$(moduleName),$1))
 define git_push
+	@$(foreach moduleName,$(REPOS_NAMES),$(call git_push_childs,$(REPOS_DIR)/$(moduleName),$1))
 	@echo "\n------------------------------"
 	$(call echoObj,git push:,$(CURRENT_DIR))
 	$(call push_to_github,$1)
