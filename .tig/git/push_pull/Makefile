@@ -13,7 +13,7 @@ define git_push_childs
 	@echo "\n------------------------------"
 	$(call echoObj,git push:,$1)
 	@ find $1/.git || (echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; false)
-	$(call push_to_github,$1,$2)
+	@$(call push_to_github,$1,$2)
 
 endef
 
