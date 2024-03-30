@@ -1,6 +1,6 @@
 define push_to_github
 	$(call runCmd,1,git add .)
-	$(call runCmd,1,git commit -m "$1")
+	$(call runCmd,2,git commit -m '$1')
 endef
 
 # @git add .
