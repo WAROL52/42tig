@@ -1,8 +1,9 @@
 define push_to_github
-	$(call runCmd,1,git add .)
-	$(call runCmd,2,git commit -m '$1')
-	$(call runCmd,3,git push $(GIT_REMOTE) $(GIT_BRANCH))
+	$(call runCmds,1,cd $1,git add ., git commit -m '$2', git push $(GIT_REMOTE) $(GIT_BRANCH))
 endef
+# $(call runCmd,1,git add .)
+# $(call runCmd,2,git commit -m '$1')
+# $(call runCmd,3,git push $(GIT_REMOTE) $(GIT_BRANCH))
 
 # @git add .
 # @echo 'git commit -m "$1" && git push'
@@ -23,7 +24,7 @@ define git_push
 	@$(foreach moduleName,$(REPOS_NAMES),$(call git_push_childs,$(REPOS_DIR)/$(moduleName),$1))
 	@echo "\n------------------------------"
 	$(call echoObj,git push:,$(CURRENT_DIR))
-	$(call push_to_github,$1)
+	$(call push_to_github,,$1)
 endef
 
 define git_push_auto

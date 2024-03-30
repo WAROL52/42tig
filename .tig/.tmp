@@ -1,7 +1,7 @@
 MY_NAME=WAROL52
 PUSH_TITLE=Auto-push
 PUSH_MESSAGE=this is an automatic push
-PUSH_COUNT=15
+PUSH_COUNT=17
 GITHUB_URL=\
 libft git@github.com:WAROL52/42-libft.git\
 printf git@github.com:WAROL52/42-printf.git\

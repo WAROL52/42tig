@@ -27,6 +27,14 @@ define runCmd
 	@($2 && echo "$(call textWarn,[$1]:)$(call textOk,OK)") || echo "$(call textWarn,[$1]:)$(call textError,Error!)"
 endef
 
+define runCmds 
+	$(if $1,$(call runCmd,1,$1))
+	$(if $2,$(call runCmd,2,$2))
+	$(if $3,$(call runCmd,3,$3))
+	$(if $4,$(call runCmd,4,$4))
+	$(if $5,$(call runCmd,5,$5))
+endef
+
 varinfo:
 	$(call echoObj,MY_NAME:,$(MY_NAME))
 	$(call echoObj,CC:,$(CC))
