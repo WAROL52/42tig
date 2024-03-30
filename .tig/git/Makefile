@@ -7,7 +7,7 @@ GIT_TARGET=$(GIT_ALIAS)$(SEPARATOR)
 
 $(GIT_TARGET)init:
 	$(call git_init)
-	$(call logEnd,$@)
+	@$(call logEnd,$@)
 
 $(GIT_TARGET)add\:%:
 ifdef url
@@ -19,35 +19,35 @@ ifdef url
 else
 	@echo "La variable $(call textObj,url)est réquise!"
 endif
-	$(call logEnd,$@)
+	@$(call logEnd,$@)
 
 $(GIT_TARGET)add:
 	$(call git_url,git_add)
-	$(call logEnd,$@)
+	@$(call logEnd,$@)
 
 $(GIT_TARGET)delete\:%:
 	$(call git_delete,$(subst $(GIT_TARGET)delete:,,$@))
-	$(call logEnd,$@)
+	@$(call logEnd,$@)
 
 $(GIT_TARGET)install\:%:
 	$(call git_install,$(subst $(GIT_TARGET)install:,,$@))
-	$(call logEnd,$@)
+	@$(call logEnd,$@)
 
 $(GIT_TARGET)install:
 	$(call git_install_all)
-	$(call logEnd,$@)
+	@$(call logEnd,$@)
 
 $(GIT_TARGET)remove\:%:
 	$(call git_remove,$(subst $(GIT_TARGET)remove:,,$@))
-	$(call logEnd,$@)
+	@$(call logEnd,$@)
 
 $(GIT_TARGET)remove:
 	$(call git_remove_all)
-	$(call logEnd,$@)
+	@$(call logEnd,$@)
 
 $(GIT_TARGET)push\:auto:
 	$(call git_push_auto)
-	$(call logEnd,$@)
+	@$(call logEnd,$@)
 
 $(GIT_TARGET)push\:%:clean-out
 ifdef m
@@ -62,8 +62,8 @@ ifdef m
 else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
-	$(call logEnd,$@)
+	@$(call logEnd,$@)
 
 $(GIT_TARGET)pull:
 	git pull --recurse-submodules
-	$(call logEnd,$@)
+	@$(call logEnd,$@)
