@@ -4,9 +4,8 @@ endef
 
 define git_push_childs
 	$(call logTitle,git push:,$1)
-	@ find $1/.git || (echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; false)
-	@$(call push_to_github,$1,$2)
-
+	@echo "F=$(wildcard $1/.git)"
+	$(if $(wildcard $1/.git),@$(call push_to_github,$1,$2))
 endef
 
 define git_push
