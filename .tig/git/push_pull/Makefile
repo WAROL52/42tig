@@ -4,7 +4,7 @@ endef
 
 define git_push_childs
 	$(call logTitle,git push:,$1)
-	@$(if $(wildcard $1/.git),$(call push_to_github,$1,$2), echo "Le fichier $(call textObj,$1/Makefile)est réquise!")
+	@$(if $(wildcard $1/.git),$(call push_to_github,$1,$2), echo "Le repos $(call textObj,$1)n'est pas installé!")
 
 endef
 
