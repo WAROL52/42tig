@@ -27,7 +27,8 @@ cmdshell=$(call echoWarn,[$2]:,$1) && $1 $(if $(subst 0,,$(strip $(SUCCESS_SHOW)
 cmdshell_with_error=$(call cmdshell,$1,$2) || ($(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE))))
 
 define run_shell
-	
+	$(call cmdshell_with_error,$1,1)
+
 endef
 
 cmdshell_safe=$(call cmdshell,$1,$2) || ($(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE)))&& false)
