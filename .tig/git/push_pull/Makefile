@@ -12,17 +12,18 @@ endef
 define git_push_childs
 	@echo "\n------------------------------"
 	$(call echoObj,git push:,$1)
-	@if [ -e $1/Makefile ]; then \
-		(cd $1 && make push m="$2" && echo "$(call textObj,git push:)$1 $(call textOk,OK)") || echo "$(call textObj,git push:)$1 $(call textError,KO)"; \
-	else \
-		echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; \
-	fi
+	@echo "[ -e $1/Makefile ]"
 
 endef
+# @if [ -e $1/Makefile ]; then \
+# 	$(call push_to_github,$1,$2); \
+# else \
+# 	echo "Le fichier $(call textObj,$1/Makefile)est réquise!"; \
+# fi
 
 define git_push
-	@$(foreach moduleName,$(REPOS_NAMES),$(call push_to_github,$(REPOS_DIR)/$(moduleName),$1))
-	@echo "\n------------------------------"
+	@$(foreach moduleName,$(REPOS_NAMES),$(call git_push_childs,$(REPOS_DIR)/$(moduleName),$1))
+	@echo "\n------------------------------$(REPOS_NAMES)"
 	$(call echoObj,git push:,$(CURRENT_DIR))
 	$(call run_shell_safe, pwd, git add ., git commit -m '$1', git push $(GIT_REMOTE) $(GIT_BRANCH))
 endef
