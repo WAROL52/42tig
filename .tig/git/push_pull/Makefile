@@ -1,5 +1,5 @@
 define push_to_github
-	$(call logCmd,1,git add .)
+	$(call runCmd,1,git add .)
 	@git add .
 	@echo 'git commit -m "$1" && git push'
 	@(git commit -m "$1" && git push && echo "$(call textObj,git push:)$(CURRENT_DIR) $(call textOk,OK)")|| echo "$(call textObj,git push:)$(CURRENT_DIR) $(call textError,KO)"
