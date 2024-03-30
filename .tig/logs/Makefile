@@ -24,7 +24,7 @@ logEnd=$(call logOK,$1,Finish)
 
 define runCmd 
 	$(call echoWarn,[$1]:,$2)
-	$(shell $2)
+	$2
 endef
 
 varinfo:
