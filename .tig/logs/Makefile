@@ -47,7 +47,7 @@ define run_shell
 	$(if $(19),&&$(call cmdshell_with_error,$(19),19))\
 	$(if $(20),&&$(call cmdshell_with_error,$(20),20))||\
 	$(call echoWarn,[cmd]:,$(call textError,$(ERROR_MESSAGE)))
-	@echo "FIN"
+
 endef
 
 cmdshell_safe=$(call cmdshell,$1,$2) || ($(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE)))&& false)
@@ -73,8 +73,7 @@ define run_shell_safe
 	$(if $(19),&&$(call cmdshell_safe,$(19),19))\
 	$(if $(20),&&$(call cmdshell_safe,$(20),20))||\
 	$(call echoWarn,[cmd]:,$(call textError,$(ERROR_MESSAGE)))
-	@echo "FIN"
-	
+
 endef
 
 varinfo:
