@@ -21,6 +21,7 @@ echoWarn = @echo "$(call textWarn,${1})${2}"
 logOK=$(call echoObj,$1,$(call textOk,$2))
 logStart=$(call logOK,$1,Start)
 logEnd=$(call logOK,$1,Finish)
+logCmd=$(call echoWarn,[$1]:,$2)
 
 varinfo:
 	$(call echoObj,MY_NAME:,$(MY_NAME))
