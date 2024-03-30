@@ -70,6 +70,5 @@ call\:%:
 	$(call logEnd,$@)
 
 tst:
-	@echo "REPOS_NAMES=$(REPOS_NAMES)"
-	$(call foreach_repos,repos_get_name)
+	$(call run_shell_safe,pwd,cd repos ,pwd,ls)
 
