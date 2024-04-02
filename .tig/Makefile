@@ -43,6 +43,8 @@ define for_each
 	$(if $(newlist), $(call for_each,$(newlist),$2,$(_step)))
 endef
 
+isTrue=$(subst 0,,$(strip $1))
+
 
 run-w\:%:fclean
 	@rm -rf out/*.a
