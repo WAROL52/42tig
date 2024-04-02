@@ -29,7 +29,7 @@ endef
 
 cmdshell=$(call echoWarn,[$2]:,$1) && $1 $(if $(subst 0,,$(strip $(SUCCESS_SHOW))),&&$(call echoWarn,[$2]:,$(call textOk,$(SUCCESS_MESSAGE))))
 
-cmdshell_with_error=$(call cmdshell,$1,$2) || $(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE)))
+cmdshell_with_error=$(call cmdshell,$1,$2) || $(if $(call isTrue,$(SILENT_ERROR)),,$(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE))))
 
 define run_shell
 	$(call cmdshell_with_error,$1,1)\
