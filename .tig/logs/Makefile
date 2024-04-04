@@ -77,7 +77,7 @@ define run_shell_safe
 	$(if $(18),&&$(call cmdshell_safe,$(18),18))\
 	$(if $(19),&&$(call cmdshell_safe,$(19),19))\
 	$(if $(20),&&$(call cmdshell_safe,$(20),20))||\
-	$(call echoWarn,[cmd]:,$(call textError,$(ERROR_MESSAGE)))
+	$(call echoWarn,[cmd:finish]:,$(call textError,$(ERROR_MESSAGE)))
 
 endef
 
