@@ -46,7 +46,7 @@ endef
 isTrue=$(subst 0,,$(strip $1))
 
 
-run-w\:%:fclean
+run-w\:%:
 	@rm -rf out/*.a
 	watch -n 0.2 -c -d "make run:$(subst run-w:,,$@)"
 

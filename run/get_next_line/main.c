@@ -1,20 +1,33 @@
 #include "main.h"
 
-
+void fd_printfile(char *path);
 int	main(void)
 {
-	int fd;
-	char *buf;
-	size_t count;
-
-	count = 50;
-
-	buf = (char *)malloc(sizeof(char) * count);
-	printf("salut WRO   dfgL\n");
-	fd = open("out/texte.txt", O_RDONLY);
-
-	read(fd, buf, count);
-	get_next_line(1);
-	printf("fd:%d , %s\n", fd, buf);
+	fd_printfile("others/texte.txt");
+	fd_printfile("others/texte2.txt");
 	return (0);
+}
+void fd_printfile(char *path)
+{
+	int fd;
+	char *str_oneline;
+	int index;
+
+	printf("\n\n");
+	printf("path=%s\n",path);
+	printf("BUFFER_SIZE=%d\n",BUFFER_SIZE);
+	fd = open(path, O_RDONLY);
+	printf("fd:%d\n",fd);
+	str_oneline=get_next_line(fd);
+	index=1;
+	while(str_oneline)
+	{
+		printf("[%d]:%s",index,str_oneline);
+		if(str_oneline)
+			free(str_oneline);
+		str_oneline = get_next_line(fd);
+		index++;
+	}
+	if(str_oneline)
+		free(str_oneline);
 }
