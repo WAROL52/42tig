@@ -55,7 +55,7 @@ define run_shell
 
 endef
 
-cmdshell_safe=$(call cmdshell,$1,$2) || ($(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE)))&& false)
+cmdshell_safe=$(call cmdshell,$1,$2) $(if $(call isTrue,$(ERROR_SHOW)),|| ($(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE)))&& false))
 
 define run_shell_safe
 	$(call cmdshell_safe,$1,1)\
