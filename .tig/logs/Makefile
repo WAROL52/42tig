@@ -51,7 +51,7 @@ define run_shell
 	$(if $(18),&&$(call cmdshell_with_error,$(18),18))\
 	$(if $(19),&&$(call cmdshell_with_error,$(19),19))\
 	$(if $(20),&&$(call cmdshell_with_error,$(20),20))||\
-	$(call echoWarn,[cmd]:,$(call textError,$(ERROR_MESSAGE)))
+	$(call echoWarn,[cmd:finish]:,$(call textError,$(ERROR_MESSAGE)))
 
 endef
 
