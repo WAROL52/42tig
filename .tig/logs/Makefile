@@ -1,10 +1,3 @@
-COM_COLOR = \033[0;34m
-OBJ_COLOR = \033[0;36m
-OK_COLOR = \033[0;32m
-ERROR_COLOR = \033[0;31m
-WARN_COLOR = \033[0;33m
-NO_COLOR = \033[m
-
 textcolor =${1}${2} $(NO_COLOR)$3
 textCom =$(call textcolor,$(COM_COLOR),${1},${2})
 textObj =$(call textcolor,$(OBJ_COLOR),${1},${2})
