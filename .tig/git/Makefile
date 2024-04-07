@@ -5,7 +5,7 @@ include $(TIG_DIR)/git/repos_branch/Makefile
 
 GIT_TARGET=$(GIT_ALIAS)$(SEPARATOR)
 gitalias=$(foreach _alias,$1,$(GIT_TARGET)$(_alias))
-gitaliasWithargs=$(foreach _alias,$1,$(GIT_TARGET)$(_alias)\:%)
+gitaliasWithargs=$(foreach _alias,$1,$(GIT_TARGET)$(_alias)\:$(if $2,$2,%))
 gitaliasArg=$(shell echo $1 | sed 's/.*://g')
 
 $(GIT_TARGET)init:
@@ -48,9 +48,9 @@ $(GIT_TARGET)remove:
 	$(call git_remove_all)
 	@$(call logEnd,$@)
 
-$(call gitalias,$(GIT_ALIAS_PUSH))\:auto:
-	@echo "gitalias=$(call gitalias,$(GIT_ALIAS_PUSH))"
-	@echo "gitaliasWithargs=$(call gitaliasWithargs,$(GIT_ALIAS_PUSH))"
+$(call gitaliasWithargs,$(GIT_ALIAS_PUSH),auto):
+	@echo "auto= $(call gitaliasWithargs,$(GIT_ALIAS_PUSH),auto)"
+	@echo "rest=$(call gitaliasWithargs,$(GIT_ALIAS_PUSH))"
 	$(call git_push_auto)
 	@$(call logEnd,$@)
 
