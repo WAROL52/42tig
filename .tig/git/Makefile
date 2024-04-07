@@ -65,5 +65,5 @@ endif
 	@$(call logEnd,$@)
 
 $(GIT_TARGET)pull:
-	git pull --recurse-submodules
+	$(call run_shell_safe,git pull --recurse-submodules)
 	@$(call logEnd,$@)
