@@ -4,7 +4,7 @@ void fd_printfile(char *path);
 int	main(void)
 {
 	fd_printfile("others/texte.txt");
-	fd_printfile("others/texte2.txt");
+	// fd_printfile("others/texte2.txt");
 	return (0);
 }
 void fd_printfile(char *path)
@@ -28,6 +28,7 @@ void fd_printfile(char *path)
 		str_oneline = get_next_line(fd);
 		index++;
 	}
-	if(str_oneline)
-		free(str_oneline);
+	close(fd);
+	// if(str_oneline)
+	// 	free(str_oneline);
 }

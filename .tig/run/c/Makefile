@@ -18,3 +18,9 @@ define run
 	@./$(call progName,$1)
 	@echo 
 endef
+
+define vrun
+	$(call compile,${1})
+	@$(call run_shell_safe,valgrind --leak-check=full ./$(call progName,$1))
+	@echo 
+endef
