@@ -49,6 +49,8 @@ $(GIT_TARGET)remove:
 	@$(call logEnd,$@)
 
 $(call gitalias,$(GIT_ALIAS_PUSH))\:auto:
+	@echo "gitalias=$(call gitalias,$(GIT_ALIAS_PUSH))"
+	@echo "gitaliasWithargs=$(call gitaliasWithargs,$(GIT_ALIAS_PUSH))"
 	$(call git_push_auto)
 	@$(call logEnd,$@)
 
