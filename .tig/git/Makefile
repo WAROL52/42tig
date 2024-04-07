@@ -4,6 +4,9 @@ include $(TIG_DIR)/git/install_remove/Makefile
 include $(TIG_DIR)/git/repos_branch/Makefile
 
 GIT_TARGET=$(GIT_ALIAS)$(SEPARATOR)
+gitalias=$(foreach _alias,$1,$(GIT_TARGET)$(_alias))
+gitaliasWithargs=$(foreach _alias,$1,$(GIT_TARGET)$(_alias)\:%)
+gitaliasArg=$(shell echo $1 | sed 's/.*://g')
 
 $(GIT_TARGET)init:
 	$(call git_init)
@@ -45,18 +48,18 @@ $(GIT_TARGET)remove:
 	$(call git_remove_all)
 	@$(call logEnd,$@)
 
-$(GIT_TARGET)push\:auto:
+$(call gitalias,$(GIT_ALIAS_PUSH))\:auto:
 	$(call git_push_auto)
 	@$(call logEnd,$@)
 
-$(GIT_TARGET)push\:%:clean-out
+$(call gitaliasWithargs,$(GIT_ALIAS_PUSH)):clean-out
 ifdef m
-	$(call git_push_childs,$(subst $(GIT_TARGET)push:,,$@),$m)
+	$(call git_push_childs,$(call gitaliasArg,$@),$m)
 else
 	@echo "La variable $(call textObj,m)est réquise!"
 endif
 
-$(GIT_TARGET)push:clean-out
+$(call gitalias,$(GIT_ALIAS_PUSH)):clean-out
 ifdef m
 	$(call push,$m)
 else
@@ -64,6 +67,6 @@ else
 endif
 	@$(call logEnd,$@)
 
-$(GIT_TARGET)pull:
+$(call gitalias,$(GIT_ALIAS_PULL)):
 	@$(call cmd_safe,git pull --recurse-submodules)
 	@$(call logEnd,$@)
