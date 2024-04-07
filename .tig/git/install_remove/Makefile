@@ -10,7 +10,7 @@ define git_install_all
 endef
 
 define git_remove
-	@git submodule deinit -f $(REPOS_DIR)/$1
+	@$(call cmd_safe,git submodule deinit -f $(REPOS_DIR)/$1)
 endef
 
 define git_remove_all

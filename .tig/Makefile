@@ -74,5 +74,5 @@ call\:%:
 	$(call logEnd,$@)
 
 tst:
-	$(call run_shell_safe,pwd,cd repos ,pwd,ls)
+	$(call cmd_safe,pwd,cd repos ,pwd,ls)
 

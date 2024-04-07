@@ -31,7 +31,7 @@ cmdshell=$(call echoWarn,[$2]:,$1) && $1 $(if $(subst 0,,$(strip $(SUCCESS_SHOW)
 
 cmdshell_with_error=$(call cmdshell,$1,$2) $(if $(call isTrue,$(ERROR_SHOW)),|| $(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE))))
 
-define run_shell
+define cmd
 	$(call cmdshell_with_error,$1,1)\
 	$(if $2,&&$(call cmdshell_with_error,$2,2))\
 	$(if $3,&&$(call cmdshell_with_error,$3,3))\
@@ -57,7 +57,7 @@ endef
 
 cmdshell_safe=$(call cmdshell,$1,$2) $(if $(call isTrue,$(ERROR_SHOW)),|| ($(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE)))&& false))
 
-define run_shell_safe
+define cmd_safe
 	$(call cmdshell_safe,$1,1)\
 	$(if $2,&&$(call cmdshell_safe,$2,2))\
 	$(if $3,&&$(call cmdshell_safe,$3,3))\
