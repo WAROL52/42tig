@@ -3,18 +3,18 @@ include $(TIG_DIR)/git/add_delete/Makefile
 include $(TIG_DIR)/git/install_remove/Makefile
 include $(TIG_DIR)/git/repos_branch/Makefile
 
-GIT_TARGET=$(GIT_ALIAS)$(SEPARATOR)
+GIT_TARGET=$(GIT_PREFIX_ALIAS)$(SEPARATOR)
 gitalias=$(foreach _alias,$1,$(GIT_TARGET)$(_alias))
 gitaliasWithargs=$(foreach _alias,$1,$(GIT_TARGET)$(_alias)\:$(if $2,$2,%))
-gitaliasArg=$(shell echo $1 | sed 's/.*://g')
+gitaliasArg=$(shell echo $1 | sed 's/$(GIT_TARGET).*://g')
 
-$(GIT_TARGET)init:
+$(call gitalias,$(GIT_ALIAS_INIT)):
 	$(call git_init)
 	@$(call logEnd,$@)
 
-$(GIT_TARGET)add\:%:
+$(call gitaliasWithargs,$(GIT_ALIAS_ADD)):
 ifdef url
-	$(eval name=$(subst $(GIT_TARGET)add:,,$@))
+	$(eval name=$(call gitaliasArg,$@))
 	$(eval giturl=$(name) $(url))
 	$(call git_add,$(giturl))
 	$(call save_in_tmp)
@@ -24,33 +24,31 @@ else
 endif
 	@$(call logEnd,$@)
 
-$(GIT_TARGET)add:
+$(call gitalias,$(GIT_ALIAS_ADD)):
 	$(call git_url,git_add)
 	@$(call logEnd,$@)
 
-$(GIT_TARGET)delete\:%:
-	$(call git_delete,$(subst $(GIT_TARGET)delete:,,$@))
+$(call gitaliasWithargs,$(GIT_ALIAS_DELETE)):
+	$(call git_delete,$(call gitaliasArg,$@))
 	@$(call logEnd,$@)
 
-$(GIT_TARGET)install\:%:
-	$(call git_install,$(subst $(GIT_TARGET)install:,,$@))
+$(call gitaliasWithargs,$(GIT_ALIAS_INSTALL)):
+	$(call git_install,$(call gitaliasArg,$@))
 	@$(call logEnd,$@)
 
-$(GIT_TARGET)install:
+$(call gitalias,$(GIT_ALIAS_INSTALL)):
 	$(call git_install_all)
 	@$(call logEnd,$@)
 
-$(GIT_TARGET)remove\:%:
-	$(call git_remove,$(subst $(GIT_TARGET)remove:,,$@))
+$(call gitaliasWithargs,$(GIT_ALIAS_REMOVE)):
+	$(call git_remove,$(call gitaliasArg,$@))
 	@$(call logEnd,$@)
 
-$(GIT_TARGET)remove:
+$(call gitalias,$(GIT_ALIAS_REMOVE)):
 	$(call git_remove_all)
 	@$(call logEnd,$@)
 
 $(call gitaliasWithargs,$(GIT_ALIAS_PUSH),auto):
-	@echo "auto= $(call gitaliasWithargs,$(GIT_ALIAS_PUSH),auto)"
-	@echo "rest=$(call gitaliasWithargs,$(GIT_ALIAS_PUSH))"
 	$(call git_push_auto)
 	@$(call logEnd,$@)
 
