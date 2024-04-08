@@ -28,7 +28,6 @@ void fd_printfile(char *path)
 		str_oneline = get_next_line(fd);
 		index++;
 	}
-	close(fd);
 	// if(str_oneline)
 	// 	free(str_oneline);
 }
