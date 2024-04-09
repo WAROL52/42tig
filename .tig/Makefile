@@ -20,7 +20,7 @@ TEST_SOURCES_WITHOUT_MAIN=$(filter-out %/main.c,$(TEST_SOURCES))
 LIB_SOURCES=$(foreach name,$(LIB_NAMES),$(wildcard $(name)/*.c))
 UTILS_SOURCES=$(wildcard $(UTILS_DIR)/*.c)
 CURRENT_DIR:=$(shell echo $${PWD##*/})
-progName=$(OUT_DIR)/$1.a
+progName=$(OUT_DIR)/$1.out
 fileSource = $(wildcard $(RUN_DIR)/$1/*.c) $(wildcard $(REPOS_DIR)/$1/*.c) $(UTILS_SOURCES)
 
 math=$(shell awk "BEGIN {print $1 $2 $3}")

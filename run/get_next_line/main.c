@@ -24,7 +24,9 @@ void fd_printfile(char *path)
 	{
 		printf("[%d]:%s",index,str_oneline);
 		if(str_oneline)
+		{
 			free(str_oneline);
+		}
 		str_oneline = get_next_line(fd);
 		index++;
 	}
