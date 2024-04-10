@@ -48,7 +48,7 @@ $(call gitalias,$(GIT_ALIAS_REMOVE)):
 	$(call git_remove_all)
 	@$(call logEnd,$@)
 
-$(call gitaliasWithargs,$(GIT_ALIAS_PUSH),auto):
+$(call gitaliasWithargs,$(GIT_ALIAS_PUSH),auto):clean-out
 	$(call git_push_auto)
 	@$(call logEnd,$@)
 
