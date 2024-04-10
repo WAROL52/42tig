@@ -49,12 +49,15 @@ isTrue=$(subst 0,,$(strip $1))
 run-w\:%:
 	@rm -rf out/*.a
 	watch -n 0.2 -c -d "make run:$(subst run-w:,,$@)"
+	@$(call logEnd,$@)
 
 run\:%:
 	$(call run,$(subst run:,,$@))
+	@$(call logEnd,$@)
 
 vrun\:%:
 	$(call vrun,$(subst vrun:,,$@))
+	@$(call logEnd,$@)
 run:
 	@rm -rf out/*.a
 	$(call generate_obj,$(RUN_SOURCES) $(LIB_SOURCES) $(TEST_SOURCES_WITHOUT_MAIN) $(UTILS_SOURCES))
@@ -63,16 +66,26 @@ run:
 	$(call echoWarn,./$(call progName,main))
 	@$(OUT_DIR)/main.a
 	@echo
+	@$(call logEnd,$@)
 
 clean-out :
-	@rm -rf out/*
-	@echo "delete out/* : OK!"
+	@$(call cmd,\
+	rm -rf $(REPOS_DIR)/get_next_line/*.o,\
+	rm -rf $(REPOS_DIR)/get_next_line/*.a,\
+	rm -rf $(REPOS_DIR)/get_next_line/$(TEST_DIRNAME),\
+	rm -rf $(REPOS_DIR)/printf/*.o,\
+	rm -rf $(REPOS_DIR)/printf/*.a,\
+	rm -rf $(REPOS_DIR)/printf/$(TEST_DIRNAME),\
+	rm -rf $(REPOS_DIR)/libft/*.o,\
+	rm -rf $(REPOS_DIR)/libft/*.a,\
+	rm -rf $(REPOS_DIR)/libft/$(TEST_DIRNAME),\
+	rm -rf out/*\
+	)
+	@$(call logEnd,$@)
 
 call\:%:
 	$(eval _callname=$(subst call:,,$@))
 	$(call $(_callname),$1,$2,$3)
-	$(call logEnd,$@)
+	@$(call logEnd,$@)
 
-tst:
-	$(call cmd_safe,pwd,cd repos ,pwd,ls)
 

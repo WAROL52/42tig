@@ -1,17 +1,22 @@
-test\:libft:
-	@find libft/Makefile
-	@norminette $(wildcard libft/*.c) || echo "norminette: KO"
-	@find libft/libftTester/Makefile || git clone git@github.com:Tripouille/libftTester.git libft/libftTester
-	@cd libft/libftTester && make
+include $(TIG_DIR)/test/printf/Makefile
+include $(TIG_DIR)/test/libft/Makefile
+include $(TIG_DIR)/test/get_next_line/Makefile
 
-test\:printf:
-	@find $(REPOS_DIR)/printf/Makefile
-	@norminette $(wildcard $(REPOS_DIR)/printf/*.c) || echo "norminette: KO"
-	@find $(REPOS_DIR)/printf/ft_printf_tester/Makefile || git clone https://github.com/paulo-santana/ft_printf_tester.git $(REPOS_DIR)/printf/ft_printf_tester
-	@cd $(REPOS_DIR)/printf/ft_printf_tester && sh test m
+define norminette
+	$(call logTitle,Norminette:,$1)
+	@norminette $(REPOS_DIR)/$1 || echo "norminette: KO"
+endef
+define runtest
+	@find $(REPOS_DIR)/$1/Makefile
+	$(if $(findstring 1,$4),$(call norminette,$1))
 
-test\:get_next_line:
-	@find $(REPOS_DIR)/get_next_line/Makefile
-	@norminette $(wildcard get_next_line/*.c) || echo "norminette: KO"
-	$(call cmd_safe,cd $(REPOS_DIR)/get_next_line,find gnlTester/Makefile || git clone https://github.com/Tripouille/gnlTester.git gnlTester, cd gnlTester, make)
+	$(call logTitle,Test:,$1)
+	@$(call cmd_safe,\
+		cd $(REPOS_DIR)/$1,\
+		find $(TEST_DIRNAME)/Makefile || git clone $2 $(TEST_DIRNAME),\
+		cd $(TEST_DIRNAME),\
+		$3\
+	)
+endef
+
 

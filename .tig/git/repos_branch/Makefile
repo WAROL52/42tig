@@ -45,3 +45,7 @@ endef
 define giturl_tmp_update
 	$(if $(findstring $1,$(GITHUB_URL)),,$(call giturl_tmp_push,$1))
 endef
+
+define giturl_clean
+	echo "$1"
+endef
