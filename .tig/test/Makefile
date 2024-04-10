@@ -11,7 +11,7 @@ test\:printf:
 	@cd $(REPOS_DIR)/printf/ft_printf_tester && sh test m
 
 test\:get_next_line:
-	@find get_next_line/Makefile
+	@find $(REPOS_DIR)/get_next_line/Makefile
 	@norminette $(wildcard get_next_line/*.c) || echo "norminette: KO"
-	@find get_next_line/gnlTester/Makefile || git clone https://github.com/Tripouille/gnlTester.git get_next_line/gnlTester
-	@cd get_next_line/gnlTester && make
+	$(call cmd_safe,cd $(REPOS_DIR)/get_next_line,find gnlTester/Makefile || git clone https://github.com/Tripouille/gnlTester.git gnlTester, cd gnlTester, make)
+
