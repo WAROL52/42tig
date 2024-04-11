@@ -22,12 +22,15 @@ void fd_printfile(char *path)
 	index=1;
 	while(str_oneline)
 	{
-		printf("[%d]:%s$",index,str_oneline);
+		printf("[>%d]:%s$",index,str_oneline);
 		if(str_oneline)
 		{
 			free(str_oneline);
 		}
 		str_oneline = get_next_line(fd);
 		index++;
+		if (index == 10)
+			break;
+		
 	}
 }
