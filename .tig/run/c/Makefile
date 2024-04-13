@@ -18,6 +18,6 @@ endef
 
 define vrun
 	$(call compile,${1})
-	@$(call cmd_safe,valgrind --leak-check=full ./$(call progName,$1))
+	@$(call cmd_safe,valgrind $(CFLAGS_VALGRIND) ./$(call progName,$1))
 	@echo 
 endef
