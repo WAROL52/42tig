@@ -31,6 +31,5 @@ void fd_printfile(char *path)
 		index++;
 		if (index == 10)
 			break;
-		
 	}
 }

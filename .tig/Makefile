@@ -58,6 +58,15 @@ run\:%:
 vrun\:%:
 	$(call vrun,$(subst vrun:,,$@))
 	@$(call logEnd,$@)
+
+lldb\:%:
+	$(call lldb,$(subst lldb:,,$@))
+	@$(call logEnd,$@)
+
+gdb\:%:
+	$(call gdb,$(subst gdb:,,$@))
+	@$(call logEnd,$@)
+
 run:
 	@rm -rf out/*.a
 	$(call generate_obj,$(RUN_SOURCES) $(LIB_SOURCES) $(TEST_SOURCES_WITHOUT_MAIN) $(UTILS_SOURCES))

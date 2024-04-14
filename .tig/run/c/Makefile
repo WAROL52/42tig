@@ -21,3 +21,15 @@ define vrun
 	@$(call cmd_safe,valgrind $(CFLAGS_VALGRIND) ./$(call progName,$1))
 	@echo 
 endef
+
+define lldb
+	$(call compile,${1})
+	@$(call cmd_safe,$(LLDB) ./$(call progName,$1))
+	@echo 
+endef
+
+define gdb
+	$(call compile,${1})
+	@$(call cmd_safe,$(GDB) ./$(call progName,$1))
+	@echo 
+endef
