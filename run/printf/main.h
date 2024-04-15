@@ -2,17 +2,19 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rrabetsy <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 15:44:35 by rrabetsy          #+#    #+#             */
-/*   Updated: 2024/03/20 15:45:48 by rrabetsy         ###   ########.fr       */
+/*                                                    +:+ +:+
+	+:+     */
+/*   By: rrabetsy <rrabetsy@student.42.fr>          +#+  +:+
+	+#+        */
+/*                                                +#+#+#+#+#+
+	+#+           */
+/*   Created: 2024/04/15 16:57:57 by rrabetsy          #+#    #+#             */
+/*   Updated: 2024/04/15 16:57:57 by rrabetsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-# include "../../utils/utils.h"
-#include "../../lib/printf/libftprintf.h"
-
+#include "../../repos/printf/libftprintf.h"
+#include "../../utils/utils.h"
 #include <stdio.h>
+
+void	exemple_c(void);
