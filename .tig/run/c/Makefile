@@ -4,7 +4,7 @@ define generate_obj
 endef
 
 define compile
-	@find $(REPOS_DIR)/$1/Makefile
+	@find $(REPOS_DIR)/$1/.git
 	@$(call echoObj,compilation:,$1)
 	@$(call generate_obj,$(call fileSource,$1))
 	@$(call cmd_safe,$(CC) $(CFLAGS) -o $(call progName,$1)   $(OUT_DIR)/*.o)
