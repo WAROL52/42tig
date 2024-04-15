@@ -18,7 +18,7 @@ void	fd_printfile(char *path)
 	int index;
 
 	printf("\n\n");
-	printf("path=%s\n", path);
+	printf("paths=%s\n", path);
 	printf("BUFFER_SIZE=%d\n", BUFFER_SIZE);
 	fd = open(path, O_RDONLY);
 	printf("fd:%d\n", fd);
