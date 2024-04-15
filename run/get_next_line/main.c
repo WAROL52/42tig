@@ -6,9 +6,9 @@ void	ft_fdtest_multiple(void);
 void	ft_printline(int num, int fd);
 int	main(void)
 {
-	// fd_printfile("others/texte.txt");
+	fd_printfile("others/texte.txt");
 	// fd_printfile("others/texte2.txt");
-	ft_fdtest_multiple();
+	// ft_fdtest_multiple();
 	return (0);
 }
 void	fd_printfile(char *path)
