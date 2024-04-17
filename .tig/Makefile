@@ -24,7 +24,7 @@ progName=$(OUT_DIR)/$1.out
 
 allfileSource = $(if $(findstring get_next_line,$1),$(foreach file,$(GET_NEXT_LINE_SOURCE),$(REPOS_DIR)/$1/$(file)),\
 				$(if $(findstring get_next_line_bonus,$1),$(GET_NEXT_LINE_BONUS_SOURCE),\
-				$(wildcard $(REPOS_DIR)/$1/*.c)))
+				$(wildcard $(REPOS_DIR)/$1/**/*.c) $(wildcard $(REPOS_DIR)/$1/*.c)))
 fileSource = $(call allfileSource,$1) $(wildcard $(RUN_DIR)/$1/*.c) $(UTILS_SOURCES)
 
 math=$(shell awk "BEGIN {print $1 $2 $3}")

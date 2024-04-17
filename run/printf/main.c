@@ -15,9 +15,14 @@
 
 #include "main.h"
 
-
-int	main(void)
+int main(void)
 {
 	exemple_c();
+	char *str = ft_strformat("Bonjour %[red,i,b,<,..+]s", "Rolio");
+	if (str)
+	{
+		printf("str:\033[1;35m'\033[3;32m%s\033[35;1m'\033[0m\n", str);
+		free(str);
+	}
 	return (0);
 }

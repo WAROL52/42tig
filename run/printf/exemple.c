@@ -6,13 +6,12 @@
 /*   By: rrabetsy <rrabetsy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 18:41:59 by rrabetsy          #+#    #+#             */
-/*   Updated: 2024/04/15 20:09:31 by rrabetsy         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:05:33 by rrabetsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	exemple_c(void)
+void exemple_c(void)
 {
-	printf("[%lld%c]\n", (long long int)123, 49);
 }
