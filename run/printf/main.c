@@ -18,11 +18,6 @@
 int main(void)
 {
 	exemple_c();
-	char *str = ft_strformat("Bonjour %s<{red;b;blk;}>", "Rolio");
-	if (str)
-	{
-		printf("str:\033[1;35m'\033[0m%s\033[35;1m'\033[0m\n", str);
-		free(str);
-	}
+	ft_printf("str:\033[1;35m'\033[0mBonjour c:%c %s<{red;b;blk;}>!\033[35;1m'\033[0m\n", 'R', "rolio");
 	return (0);
 }
