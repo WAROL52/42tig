@@ -18,7 +18,7 @@
 int main(void)
 {
 	exemple_c();
-	char *str = ft_strformat("Bonjour %[green;blk;]s", "Rolio");
+	char *str = ft_strformat("Bonjour %s<{red;b;blk;}>", "Rolio");
 	if (str)
 	{
 		printf("str:\033[1;35m'\033[0m%s\033[35;1m'\033[0m\n", str);
