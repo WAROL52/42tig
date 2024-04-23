@@ -69,4 +69,5 @@ endif
 
 $(call gitalias,$(GIT_ALIAS_PULL)):
 	@$(call cmd_safe,git pull --recurse-submodules)
+	$(call foreach_repos,giturl_checkout)
 	@$(call logEnd,$@)
