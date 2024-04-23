@@ -50,7 +50,7 @@ endef
 isTrue=$(subst 0,,$(strip $1))
 
 
-run-w\:%:
+run-w\:%:clean-out
 	@rm -rf out/*.a
 	watch -n 0.2 -c -d "make run:$(subst run-w:,,$@)"
 	@$(call logEnd,$@)
