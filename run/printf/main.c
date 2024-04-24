@@ -19,6 +19,6 @@ int main(void)
 {
 	exemple_c();
 	printf(">>>p:%p\n", exemple_c);
-	ft_printf("str:\033[1;35m'\033[0mBonjour p:%p c:%c %s<{red;b;blk;}>!\033[35;1m'\033[0m\n", exemple_c, 'R', "rolio");
+	ft_printf("str::===\033[1;35m'\033[0mBonjour hu:%hu hd:%hd p:%p c:%c %s<{red;b;blk;}>!\033[35;1m'\033[0m\n", 456, 123, exemple_c, 'R', "rolio");
 	return (0);
 }
