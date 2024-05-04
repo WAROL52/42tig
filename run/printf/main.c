@@ -17,8 +17,10 @@
 
 int main(void)
 {
+	int nbr;
+	nbr = 123;
 	exemple_c();
-	printf("[%010d]azezeazeazeazaez\n", 123);
-	ft_printf("[%010d]azezeazeazeazaez\n", 123);
+	printf(">[%10.5d]\n", nbr);
+	ft_printf("=[%10.5d]\n", nbr);
 	return (0);
 }
