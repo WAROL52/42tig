@@ -19,12 +19,15 @@
 int	main(void)
 {
 	int nbr;
-	char *str = ">[%d]\n";
-	nbr = -101;
+	int c1;
+	int c2;
+	char *str = ">[%c]\n";
+	nbr = 0;
 	exemple_c();
-	ft_printf(str, nbr);
+	c1 = ft_printf("[%x]\n", 9223372036854775807LL);
 	printf("---\n");
-	printf(str, nbr);
+	c2 = printf("[%x]\n", 9223372036854775807LL);
 	printf("---\n");
+	printf("c1:%d|c2:%d\n", c1, c2);
 	return (0);
 }
