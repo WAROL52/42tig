@@ -15,12 +15,14 @@
 
 #include "main.h"
 
-int main(void)
+
+int	main(void)
 {
 	int nbr;
-	nbr = 123;
+	char *str = ">[% -+.6d]\n";
+	nbr = 12345;
 	exemple_c();
-	printf(">[%10.5d]\n", nbr);
-	ft_printf("=[%10.5d]\n", nbr);
+	printf(str, nbr);
+	ft_printf(str, nbr);
 	return (0);
 }
