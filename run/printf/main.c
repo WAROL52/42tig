@@ -19,10 +19,12 @@
 int	main(void)
 {
 	int nbr;
-	char *str = ">[% -+.6d]\n";
-	nbr = 12345;
+	char *str = ">[%d]\n";
+	nbr = -101;
 	exemple_c();
-	printf(str, nbr);
 	ft_printf(str, nbr);
+	printf("---\n");
+	printf(str, nbr);
+	printf("---\n");
 	return (0);
 }

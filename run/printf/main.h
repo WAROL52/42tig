@@ -13,8 +13,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../repos/printf/libftprintf.h"
+#include "../../repos/printf/ft_printf.h"
 #include "../../utils/utils.h"
 #include <stdio.h>
 
-void exemple_c(void);
+
+void	exemple_c(void);
