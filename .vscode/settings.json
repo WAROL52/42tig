@@ -25,7 +25,8 @@
     "tuple": "c",
     "type_traits": "c",
     "utility": "c",
-    "libftprintf.h": "c"
+    "libftprintf.h": "c",
+    "ostream": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled",
   "svg.preview.background": "transparent"

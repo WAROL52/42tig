@@ -21,12 +21,12 @@ int	main(void)
 	int nbr;
 	int c1;
 	int c2;
-	char *str = ">[%1s]\n";
-	nbr = 0;
+	char *str = "[_%-4d_]\n";
+	nbr = -15;
 	exemple_c();
-	c1 = ft_printf(str, "");
+	c1 = ft_printf(str, nbr);
 	printf("---\n");
-	c2 = printf(str, "");
+	c2 = printf(str, nbr);
 	printf("---\n");
 	printf("c1:%d|c2:%d\n", c1, c2);
 	return (0);
