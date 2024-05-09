@@ -1,7 +1,7 @@
 MY_NAME=WAROL52
 PUSH_TITLE=Auto-push
 PUSH_MESSAGE=salut rolio man
-PUSH_COUNT=3
+PUSH_COUNT=4
 GITHUB_URL=\
 libft git@github.com:WAROL52/42-libft.git\
 printf git@github.com:WAROL52/42-printf.git\

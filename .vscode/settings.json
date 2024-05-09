@@ -26,7 +26,8 @@
     "type_traits": "c",
     "utility": "c",
     "libftprintf.h": "c",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "time.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled",
   "svg.preview.background": "transparent"
