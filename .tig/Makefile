@@ -81,19 +81,24 @@ run:
 	@echo
 	@$(call logEnd,$@)
 
-clean-out :
+clean-out : clean-test clean-file
+
+clean-file :
 	@$(call cmd,\
 	rm -rf $(REPOS_DIR)/get_next_line/*.o,\
 	rm -rf $(REPOS_DIR)/get_next_line/*.a,\
-	rm -rf $(REPOS_DIR)/get_next_line/$(TEST_DIRNAME),\
 	rm -rf $(REPOS_DIR)/printf/*.o,\
 	rm -rf $(REPOS_DIR)/printf/*.a,\
-	rm -rf $(REPOS_DIR)/printf/$(TEST_DIRNAME),\
 	rm -rf $(REPOS_DIR)/libft/*.o,\
 	rm -rf $(REPOS_DIR)/libft/*.a,\
-	rm -rf $(REPOS_DIR)/libft/$(TEST_DIRNAME),\
-	rm -rf out/*\
-	)
+	rm -rf out/*)
+	@$(call logEnd,$@)
+
+clean-test :
+	@$(call cmd,\
+	rm -rf $(REPOS_DIR)/get_next_line/$(TEST_DIRNAME),\
+	rm -rf $(REPOS_DIR)/printf/$(TEST_DIRNAME),\
+	rm -rf $(REPOS_DIR)/libft/$(TEST_DIRNAME))
 	@$(call logEnd,$@)
 
 call\:%:

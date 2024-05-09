@@ -16,6 +16,7 @@
 #include "../../repos/printf/ft_printf.h"
 #include "../../utils/utils.h"
 #include <stdio.h>
+#include <string.h>
 
 
 void	exemple_c(void);
