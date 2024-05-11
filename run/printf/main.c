@@ -30,7 +30,10 @@ int	main(void)
 	// test_minus_0();
 	// test_s();
 	// test_dot_d();
-	printf(">>[%-9sScience!]\n", "Aperture");
-	ft_printf("=>[%-9sScience!]\n", "Aperture");
+	int nbr;
+	nbr = 0;
+
+	printf(">>[%010d]\n", nbr);
+	ft_printf("=>[%010d]\n", nbr);
 	return (0);
 }
