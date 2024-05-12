@@ -31,9 +31,8 @@ int	main(void)
 	// test_s();
 	// test_dot_d();
 	int nbr;
-	nbr = 0;
+	nbr = 10;
 
-	printf(">>[%010d]\n", nbr);
-	ft_printf("=>[%010d]\n", nbr);
+	ft_printf("=>[$<( ok; ):ma reponse est%d>$]\n", nbr);
 	return (0);
 }

@@ -13,11 +13,7 @@ endef
 
 define run
 	$(call compile,$1)
-	@time -f "\
-	---------------------------\n\
-	[Temps écoulé : %E / CPU : %U secondes]\n\
-	---------------------------\
-	" "$(call progName,$1)"
+	@$(call cmd_safe,./$(call progName,$1))
 endef
 
 define vrun
