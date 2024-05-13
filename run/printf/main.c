@@ -33,6 +33,7 @@ int	main(void)
 	int nbr;
 	nbr = 10;
 
-	ft_printf("=>[$<( ok; ):ma reponse est%d>$]\n", nbr);
+	ft_printf("=>[$<( black; bg:red; i; b; u; ):ma reponse est %d>$]\n", nbr);
+	// printf("==[$<( 33; i; b; u; ):ma reponse est %d>$]\n", nbr);
 	return (0);
 }
