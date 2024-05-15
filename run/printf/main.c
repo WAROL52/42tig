@@ -33,7 +33,7 @@ int	main(void)
 	int nbr;
 	nbr = 10;
 
-	ft_printf("=>[TEST$<( 33 1 b u; ):ma reponse est $<(red;):%d>$]\n", nbr);
+	ft_printf("d:[ $<( 33; i; b; ):j'ai %d>$ et bla bla bla \n", nbr);
 	// printf("==[$<( 33; i; b; u; ):ma reponse est %d>$]\n", nbr);
 	return (0);
 }
