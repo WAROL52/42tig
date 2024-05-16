@@ -49,13 +49,16 @@ endef
 
 isTrue=$(subst 0,,$(strip $1))
 
+run\:%:
+	$(call make_run_c,$(subst run:,,$@))
+	@$(call logEnd,$@)
 
 run-w\:%:clean-out
 	@rm -rf out/*.a
 	watch -n 0.2 -c -d "make run:$(subst run-w:,,$@)"
 	@$(call logEnd,$@)
 
-run\:%:
+crun\:%:
 	$(call run,$(subst run:,,$@))
 	@$(call logEnd,$@)
 
@@ -106,4 +109,10 @@ call\:%:
 	$(call $(_callname),$1,$2,$3)
 	@$(call logEnd,$@)
 
+clean\:%:
+	$(call make_clean_c,$(subst clean:,,$@))
+	@$(call logEnd,$@)
 
+fclean\:%:
+	$(call make_fclean_c,$(subst fclean:,,$@))
+	@$(call logEnd,$@)
