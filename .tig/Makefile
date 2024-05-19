@@ -55,7 +55,8 @@ run\:%:
 
 run-w\:%:clean-out
 	@rm -rf out/*.a
-	watch -n 0.2 -c -d "make run:$(subst run-w:,,$@)"
+	@$(call make_fclean_c,$(subst run-w:,,$@))
+	@watch -n 0.2 -c -d "make run:$(subst run-w:,,$@)"
 	@$(call logEnd,$@)
 
 crun\:%:

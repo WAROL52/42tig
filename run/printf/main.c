@@ -33,7 +33,9 @@ int	main(void)
 	int nbr;
 	nbr = 10;
 
-	ft_printf("d:[ $<( 33; i; b; ):j'ai %10d>$ et bla bla bla \n", nbr);
+	ft_printf("d:[@{red;}:j'ai\
+		%010d  @{i;}: c'est bolt {/}] et bla bla bla \n",
+				nbr);
 	// printf("==[$<( 33; i; b; u; ):ma reponse est %d>$]\n", nbr);
 	return (0);
 }
