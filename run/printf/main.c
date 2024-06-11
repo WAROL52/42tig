@@ -33,7 +33,7 @@ int	main(void)
 	int nbr;
 	nbr = 10;
 
-	int r=ft_printf(" un deux trois [%#X] \n",nbr);
+	int r=ft_printf(" un deux @{ b; i; u; inv; }: trois  tgr[%#X] {/}45654654 \n",nbr);
 	int r2=printf(" un deux trois [%#X] \n", nbr);
 	printf("r:%d r2:%d\n",r,r2);
 	return (0);
