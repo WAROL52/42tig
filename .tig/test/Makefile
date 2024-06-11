@@ -7,7 +7,6 @@ define norminette
 	@norminette $(REPOS_DIR)/$1 || echo "norminette: KO"
 endef
 define runtest
-	@find $(REPOS_DIR)/$1/Makefile
 	$(if $(findstring 1,$4),$(call norminette,$1))
 
 	$(call logTitle,Test:,$1)
