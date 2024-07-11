@@ -19,22 +19,25 @@ void	fd_printfile(char *path)
 
 	printf("\n\n");
 	printf("paths=%s\n", path);
-	printf("BUFFER_SIZE=%d\n", BUFFER_SIZE);
+	printf("BUFFER_SIZEs=%d\n", BUFFER_SIZE);
 	fd = open(path, O_RDONLY);
 	printf("fd:%d\n", fd);
-	str_oneline = get_next_line(fd);
 	index = 1;
-	while (str_oneline)
+	while (1)
 	{
-		printf("[%d]:%s$", index, str_oneline);
+		// printf("_____________________\n");
+		str_oneline = get_next_line(fd);
+		printf("[%d]:%s", index, str_oneline);
 		if (str_oneline)
 		{
+			// printf("free(p:%p)\n", str_oneline);
 			free(str_oneline);
 		}
-		str_oneline = get_next_line(fd);
-		index++;
-		if (index == 10)
+		else
 			break ;
+		index++;
+		// if (index == 10)
+		// 	break ;5000000000
 	}
 }
 void	ft_printline(int num, int fd)

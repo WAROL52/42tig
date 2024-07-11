@@ -4,7 +4,7 @@ define generate_obj
 endef
 
 define compile
-	@find $(REPOS_DIR)/$1/.git
+	@find $(REPOS_DIR)/$1/.git | echo "find $(REPOS_DIR)/$1/.git OK"
 	@$(call echoObj,compilation:,$1)
 	@$(call generate_obj,$(call fileSource,$1))
 	@$(call cmd_safe,$(CC) $(CFLAGS) -o $(call progName,$1)   $(OUT_DIR)/*.o)
@@ -18,7 +18,7 @@ endef
 
 define vrun
 	$(call compile,${1})
-	@$(call cmd_safe,valgrind $(CFLAGS_VALGRIND) ./$(call progName,$1))
+	@$(call cmd_safe,time valgrind $(CFLAGS_VALGRIND) ./$(call progName,$1))
 	@echo 
 endef
 
