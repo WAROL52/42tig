@@ -50,7 +50,15 @@ Compiler() {
 	echo ""
 	echo ""
 }
+norminette -R get_next_line.h get_next_line.c get_next_line_utils.c get_next_line_utils_bonus.c get_next_line_bonus.h get_next_line_bonus.c
 Compiler 1
 Compiler 10
 Compiler 42
 Compiler 100
+git clone https://github.com/Tripouille/gnlTester.git
+cd gnlTester
+make
+cd ..
+git clone https://github.com/kodpe/42test-gnl-station-2022.git
+cd 42test-gnl-station-2022
+make
