@@ -7,3 +7,6 @@
 [submodule "repos/libft"]
 	path = repos/libft
 	url = git@github.com:WAROL52/42-libft.git
+[submodule "repos/minitalk"]
+	path = repos/minitalk
+	url = git@github.com:WAROL52/42-minitalk.git
