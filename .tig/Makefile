@@ -29,6 +29,8 @@ fileSource = $(call allfileSource,$1) $(wildcard $(RUN_DIR)/$1/*.c) $(UTILS_SOUR
 
 math=$(shell awk "BEGIN {print $1 $2 $3}")
 
+BASH_FUNC=bash -c 'source ./$(TIG_DIR)/bash/core.sh && $1Workspace'
+
 define save_in_tmp
 	@echo "MY_NAME=$(MY_NAME)"> $(TMP_SRC)
 	@echo "PUSH_TITLE=$(PUSH_TITLE)" >> $(TMP_SRC)
