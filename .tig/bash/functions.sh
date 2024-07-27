@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source $(dirname "$(realpath "$BASH_SOURCE")")/env.sh
+source $(dirname "$(realpath "$BASH_SOURCE")")/monitor.sh
 
 function cmd_safe(){
 	while true; do
