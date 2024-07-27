@@ -118,3 +118,6 @@ fclean\:%:
 	$(call make_fclean_c,$(subst fclean:,,$@))
 	@$(call logEnd,$@)
 
+help:
+	@(python3 -m pip list | grep "rich" || python3 -m pip install rich --user --break-system-packages) > $(TIG_DIR)/buff
+	@python3 -m rich.markdown README.md

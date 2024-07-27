@@ -18,6 +18,3 @@ define runtest
 	)
 endef
 
-help:
-	@(python3 -m pip list | grep "rich" || python3 -m pip install rich) > $(TIG_DIR)/buff
-	@python3 -m rich.markdown README.md
