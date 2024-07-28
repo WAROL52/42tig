@@ -19,8 +19,12 @@ define logTitle
 	@$(call echoObj,|$1,$2)
 	@$(call echoObj,|------------------------------|)
 endef
+NOLOG=
+NOLOG:PHONY
+	$(eval NOLOG=narto)
+	$(call phony)
 
-cmdshell=$(call echoWarn,[$2]:,$1) && $1 $(if $(subst 0,,$(strip $(SUCCESS_SHOW))),&&$(call echoWarn,[$2]:,$(call textOk,$(SUCCESS_MESSAGE))))
+cmdshell=$(if $(NOLOG),true,$(call echoWarn,[$2]:,$1)) && $1 $(if $(subst 0,,$(strip $(SUCCESS_SHOW))),&&$(call echoWarn,[$2]:,$(call textOk,$(SUCCESS_MESSAGE))))
 
 cmdshell_with_error=$(call cmdshell,$1,$2) $(if $(call isTrue,$(ERROR_SHOW)),|| $(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE))))
 

@@ -1,3 +1,9 @@
+.PHONY: all clean help gitpush run varinfo submodule gitpull reinstall install add git\:init NOLOG
+PHONY:
+	@echo > $(TIG_DIR)/.log
+define phony
+	@echo > $(TIG_DIR)/.log
+endef
 ifndef TIG_DIR
 TIG_DIR=.tig
 endif
@@ -8,7 +14,6 @@ include $(TIG_DIR)/test/Makefile
 include $(TIG_DIR)/run/Makefile
 include $(TIG_DIR)/logs/Makefile
 
-.PHONY: all clean help gitpush run varinfo submodule gitpull reinstall install add git\:init
 
 RUN_SOURCES=$(wildcard $(RUN_DIR)/*.c)
 
@@ -123,3 +128,23 @@ fclean\:%:
 help:
 	@(python3 -m pip list | grep "rich" || python3 -m pip install rich --user --break-system-packages) > $(TIG_DIR)/buff
 	@python3 -m rich.markdown README.md
+
+MAKE_DEPS= $(if $(DEPS),$(TIG_DIR)/make,)
+
+define make_log 
+	echo "[$$(date +%F_%T)] $1" >> $(TIG_DIR)/make
+endef
+
+make:$(TIG_DIR)/make
+$(TIG_DIR)/make:$(DEPS)
+	$(call make_log,$(COMMANDS))
+	@$(call cmd,$(COMMANDS))
+	@$(call logEnd,$@)
+
+define make_watch 
+	(python3 -m pip list | grep "watchdog" || python3 -m pip install watchdog --user --break-system-packages) > $(TIG_DIR)/buff
+	python3 $(TIG_DIR)/bin/watch.py "$1" "$2"
+endef
+
+watch:
+	@$(call make_watch,$(COMMANDS),$(DEPS))
