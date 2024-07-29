@@ -1,5 +1,10 @@
 #!/bin/bash
 
+source $(dirname "$(realpath "$BASH_SOURCE")")/env.sh
+source $(dirname "$(realpath "$BASH_SOURCE")")/screens/menu.sh
+source $(dirname "$(realpath "$BASH_SOURCE")")/screens/list.sh
+source $(dirname "$(realpath "$BASH_SOURCE")")/screens/workspace.sh
+
 char=" "
 lines=$1
 # Nombre de répétitions
@@ -37,3 +42,64 @@ function screenLoop() {
 	IS_RINNING=true
 }
 
+# ///////////////////////////////////////////////////////////////////////////////
+
+
+# screenOf_list
+# controlOf_list
+
+function monitorMenu(){
+	screenLoop "screenMenu" "menuChoise"
+}
+
+function monitorList(){
+	screenLoop "screenList" "listChoise"
+}
+
+function monitorAdd(){
+	screenLoop "screenAdd" "addChoise"
+}
+
+function monitorDelete(){
+	screenLoop "screenDelete" "deleteChoise"
+}
+
+function monitorInstall(){
+	screenLoop "screenInstall" "installChoise"
+}
+
+function monitorUninstall(){
+	screenLoop "screenUninstall" "uninstallChoise"
+}
+
+function monitorPush(){
+	screenLoop "screenPush" "pushChoise"
+}
+
+function monitorPull(){
+	screenLoop "screenPull" "pullChoise"
+}
+
+function monitorRun(){
+	screenLoop "screenRun" "runChoise"
+}
+
+function monitorTest(){
+	screenLoop "screenTest" "testChoise"
+}
+
+function monitorPerf(){
+	screenLoop "screenPerf" "perfChoise"
+}
+
+function monitorWorkspace(){
+	screenLoop "screenOf_workspace" "controlOf_workspace"
+}
+
+function monitorRegister(){
+	screenLoop "screenOf_Register" "controlOf_Register"
+}
+
+function monitorEnv(){
+	screenLoop "screenOf_Env" "controlOf_Env"
+}

@@ -45,7 +45,6 @@ function menuChoise(){
 		"perf") monitorPerf
 			;;
 		"q"|"Q") echo "Bonne journée et à la prochaine ...";
-		WaitEnter
 		IS_RINNING=false
 		  ;;
 		*) echo " ${Red} Mauvais choix${Normal}" && sleep 0.5

@@ -1,5 +1,5 @@
 TIG_DIR=.tig
 
 all:
-	@$(call BASH_FUNC,menu)
+	@bash -c 'source ./$(TIG_DIR)/bash/core.sh && monitorMenu'
 include $(TIG_DIR)/Makefile

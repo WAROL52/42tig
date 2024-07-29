@@ -6,16 +6,6 @@ function screenList() {
 	screenLine ""
 	screenLine "> register"
 	screenLine "> workspace"
-	screenLine "> workspace"
-	screenLine "> workspace"
-	screenLine "> workspace"
-	screenLine "> workspace"
-	screenLine "> workspace"
-	screenLine "> workspace"
-	screenLine "> workspace"
-	screenLine "> workspace"
-	screenLine "> workspace"
-	screenLine "> workspace"
 	screenLine "> env"
 	screenLine $dot
 	screenFooter
@@ -24,15 +14,12 @@ function screenList() {
 function listChoise(){
 	read  -p ">> "  choix
 	case "$choix" in
-		"list")
-		screenLoop "screenList" "menuChoise"
+		"register") monitorRegister
 			;;
-		2) a=3;b=5;c=$((a+b));echo "calcul= $c";WaitEnter
+		"workspace") monitorWorkspace
 			;;
-		3) Multiply
+		"env") monitorEnv
 			;;
-		4) Web
-				;;
 		"q"|"Q")
 		IS_RINNING=false
 		  ;;
