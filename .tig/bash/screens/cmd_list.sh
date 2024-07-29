@@ -6,6 +6,16 @@ function screenList() {
 	screenLine ""
 	screenLine "> register"
 	screenLine "> workspace"
+	screenLine "> workspace"
+	screenLine "> workspace"
+	screenLine "> workspace"
+	screenLine "> workspace"
+	screenLine "> workspace"
+	screenLine "> workspace"
+	screenLine "> workspace"
+	screenLine "> workspace"
+	screenLine "> workspace"
+	screenLine "> workspace"
 	screenLine "> env"
 	screenLine $dot
 	screenFooter
