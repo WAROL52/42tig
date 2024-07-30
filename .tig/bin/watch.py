@@ -38,7 +38,6 @@ class CommandHandler(FileSystemEventHandler):
             if not isMacth:
                 isMacth=any( re.match(escape_to_regex(el),event.src_path) for el in self.extensions)
 
-            print(isMacth,event.src_path)
             if isMacth:
                 command=self.command.replace("@FILENAME",event.src_path).replace("@TYPE",event.event_type)
                 os.system(command)
@@ -62,10 +61,7 @@ if __name__ == "__main__":
 
     command = sys.argv[1]
     extensions = [a for a in sys.argv[2].split(' ') if a]
-    print("argv",sys.argv)
-    print("extensions",extensions)
     if "*" in extensions: extensions=[]
-    print(extensions)
     path = "."  # Surveille le répertoire courant   
     event_handler = CommandHandler(command, extensions)
     observer = Observer()

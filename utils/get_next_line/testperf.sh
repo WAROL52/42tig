@@ -1,4 +1,5 @@
 #!/bin/bash
+
 TESTDIR=./test
 MAINFILE=$TESTDIR/main.c
 PROGNAME=$TESTDIR/test.out
