@@ -6,7 +6,7 @@ import time
 from watchdog.observers import Observer # type: ignore
 from watchdog.events import FileSystemEventHandler # type: ignore
 import re
-DECALAGE=0.015
+DECALAGE=0.05
 def escape_to_regex(pattern):
     # Échapper les caractères spéciaux de regex
     escaped_pattern = re.escape(pattern)

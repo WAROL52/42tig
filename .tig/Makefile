@@ -65,12 +65,21 @@ run\:%:
 	@$(call make_run,$(subst run:,,$@))
 	@$(call logEnd,$@)
 
+PATERN_C=./$(UTILS_DIR)/$1/*.c ./$(REPOS_DIR)/$1/*.c ./$(RUN_DIR)/$1/*.c
+PATERN_H=./$(UTILS_DIR)/$1/*.h ./$(REPOS_DIR)/$1/*.h ./$(RUN_DIR)/$1/*.h
+PATERN_SH=./$(UTILS_DIR)/$1/*.sh ./$(REPOS_DIR)/$1/*.sh ./$(RUN_DIR)/$1/*.sh
+PATERN_TXT=./$(UTILS_DIR)/$1/*.txt ./$(REPOS_DIR)/$1/*.txt ./$(RUN_DIR)/$1/*.txt
+PATERN_MAKEFILE=./$(UTILS_DIR)/$1/*Makefile ./$(REPOS_DIR)/$1/*Makefile ./$(RUN_DIR)/$1/*Makefile
+PATERN_PY=./$(UTILS_DIR)/$1/*.py ./$(REPOS_DIR)/$1/*.py ./$(RUN_DIR)/$1/*.py
+
+PATERN_ALL= $(call PATERN_C,$1) $(call PATERN_H,$1) $(call PATERN_SH,$1) $(call PATERN_MAKEFILE,$1) $(call PATERN_PY,$1)
+DEPS=
 run-w\:%:clean-out
 	@rm -rf out/*.a
 	@$(call make_fclean_c,$(subst run-w:,,$@))
 	@# @watch -n 0.2 -c -d "make run:$(subst run-w:,,$@)"
 	@sleep 1 ; clear
-	@$(call make_watch, $(call bash_function,run_workspase,$(subst run-w:,,$@)) ,./$(UTILS_DIR)/$(subst run-w:,,$@)/* ./$(REPOS_DIR)/$(subst run-w:,,$@)/* ./$(RUN_DIR)/$(subst run-w:,,$@)/*)
+	@$(call make_watch, $(call bash_function,run_workspase,$(subst run-w:,,$@)) ,$(call PATERN_ALL,$(subst run-w:,,$@)) $(DEPS))
 	@$(call logEnd,$@)
 
 crun\:%:

@@ -11,6 +11,6 @@ export Reverse="\033[7m"
 export Title="\033[0;37;44m"
 export Normal="\033[0m"
 export Title=`echo -e '\033[0;37;44m'`
-export Blank=`echo -e '\033[0;37;47m'`
+export Blank="\033[0;30;47m"
 
 export IS_RINNING=true

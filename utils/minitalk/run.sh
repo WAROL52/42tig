@@ -36,9 +36,25 @@ function logVar(){
 	UTILS_PATH=$UTILS_PATH
 	"
 }
+function vrun(){
+	local progname=$1
+	local arg=$2
+	local tmp=$3
+	(valgrind $CFLAGS_VALGRIND $progname $arg) 2> $tmp
+	echo -e "${Blank}$progname ${Normal}${Reverse}"
+	grep "in use at exit" < $tmp | sed 's/^==[0-9]*==     in use at exit/Memoire/'
+	grep "total heap usage" < $tmp | sed 's/^==[0-9]*==   total heap usage/Allocation/'
+	echo -e "${Normal}"
+}
 function run() {
+	local tmp=$OUT_PATH/tmp
+	local tmpVClient=$OUT_PATH/tmpVClient
+	local tmpVServer=$OUT_PATH/tmpVServer
+	local tmp=$OUT_PATH/tmp
+	mkdir -p $OUT_PATH
 	cd $WORKSPACE_PATH
-	pwd
-	make
-	
+	make CFLAGS="$CFLAGS $CFLAGSW" > $tmp
+	vrun ./server "" $tmpVServer 
+	# vrun ./client "12345  \"BonJour rolio\"" $tmpVClient
+	# (valgrind $CFLAGS_VALGRIND ./client 12345  "BonJour rolio") 2> $tmpVClient 
 }
