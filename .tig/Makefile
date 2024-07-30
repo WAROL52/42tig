@@ -141,8 +141,11 @@ $(TIG_DIR)/make:$(DEPS)
 
 define make_watch 
 	(python3 -m pip list | grep "watchdog" || python3 -m pip install watchdog --user --break-system-packages) > $(TIG_DIR)/buff
+	
 	python3 $(TIG_DIR)/bin/watch.py "$1" "$2"
 endef
 
+TEST=NO
 watch:
-	@$(call make_watch,$(COMMANDS),$(DEPS))
+	$(eval TEST=$(subst ", \", $(COMMANDS)))
+	@$(call make_watch,$(TEST),$(DEPS))

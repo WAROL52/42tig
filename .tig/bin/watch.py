@@ -1,11 +1,20 @@
 import os
 import sys
+import subprocess
+import shlex
 import time
 from watchdog.observers import Observer # type: ignore
 from watchdog.events import FileSystemEventHandler # type: ignore
-
-DECALAGE=0
-
+import re
+DECALAGE=0.015
+def escape_to_regex(pattern):
+    # Échapper les caractères spéciaux de regex
+    escaped_pattern = re.escape(pattern)
+    
+    # Remplacer l'échappement du caractère '*' par '.*'
+    final_pattern = escaped_pattern.replace(r'\*', '.*')
+    
+    return final_pattern
 class CommandHandler(FileSystemEventHandler):
     lastime=0
     last_src_path=""
@@ -20,10 +29,19 @@ class CommandHandler(FileSystemEventHandler):
         if self.last_src_path != event.src_path or int(DELTA) > DECALAGE :
             self.lastime=currtime
             self.last_src_path=event.src_path
-            extensions=[el for el in self.extensions if el.startswith(".") and not el.startswith("./")]
-            files=[el for el in self.extensions if True]
-            if event.src_path in files or any(event.src_path.endswith(ext) for ext in extensions):
-                os.system(self.command.replace("@FILENAME",event.src_path).replace("@TYPE",event.event_type))
+            isMacth=not len(self.extensions)
+            if not isMacth:isMacth=event.src_path in self.extensions
+            if not isMacth:
+                listExt=[el for el in self.extensions if el.startswith(".") and not el.startswith("./")]
+                isMacth=any(event.src_path.endswith(ext) for ext in listExt)
+
+            if not isMacth:
+                isMacth=any( re.match(escape_to_regex(el),event.src_path) for el in self.extensions)
+
+            print(isMacth,event.src_path)
+            if isMacth:
+                command=self.command.replace("@FILENAME",event.src_path).replace("@TYPE",event.event_type)
+                os.system(command)
 
     def on_modified(self, event):
         self.run(event)
@@ -43,7 +61,11 @@ if __name__ == "__main__":
         sys.exit(1)
 
     command = sys.argv[1]
-    extensions = sys.argv[2].split(' ')
+    extensions = [a for a in sys.argv[2].split(' ') if a]
+    print("argv",sys.argv)
+    print("extensions",extensions)
+    if "*" in extensions: extensions=[]
+    print(extensions)
     path = "."  # Surveille le répertoire courant   
     event_handler = CommandHandler(command, extensions)
     observer = Observer()
