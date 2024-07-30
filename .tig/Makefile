@@ -13,6 +13,7 @@ include $(TIG_DIR)/git/Makefile
 include $(TIG_DIR)/test/Makefile
 include $(TIG_DIR)/run/Makefile
 include $(TIG_DIR)/logs/Makefile
+include $(TIG_DIR)/bash/Makefile
 
 
 RUN_SOURCES=$(wildcard $(RUN_DIR)/*.c)
@@ -54,14 +55,22 @@ endef
 
 isTrue=$(subst 0,,$(strip $1))
 
+define make_run
+	bash -c 'source ./$(UTILS_DIR)/$1/run.sh && run'
+endef
+
+
 run\:%:
-	$(call make_run_c,$(subst run:,,$@))
+	@# $(call make_run_c,$(subst run:,,$@))
+	@$(call make_run,$(subst run:,,$@))
 	@$(call logEnd,$@)
 
 run-w\:%:clean-out
 	@rm -rf out/*.a
 	@$(call make_fclean_c,$(subst run-w:,,$@))
-	@watch -n 0.2 -c -d "make run:$(subst run-w:,,$@)"
+	@# @watch -n 0.2 -c -d "make run:$(subst run-w:,,$@)"
+	@sleep 1 ; clear
+	@$(call make_watch, $(call bash_function,run_workspase,$(subst run-w:,,$@)) ,./$(UTILS_DIR)/$(subst run-w:,,$@)/* ./$(REPOS_DIR)/$(subst run-w:,,$@)/* ./$(RUN_DIR)/$(subst run-w:,,$@)/*)
 	@$(call logEnd,$@)
 
 crun\:%:

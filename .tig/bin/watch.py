@@ -62,6 +62,8 @@ if __name__ == "__main__":
     command = sys.argv[1]
     extensions = [a for a in sys.argv[2].split(' ') if a]
     if "*" in extensions: extensions=[]
+    print(command)
+    print(extensions)
     path = "."  # Surveille le répertoire courant   
     event_handler = CommandHandler(command, extensions)
     observer = Observer()

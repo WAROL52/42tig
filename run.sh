@@ -1,2 +1,2 @@
-
-make run:get_next_line
+clear
+make run:minitalk 2> tet

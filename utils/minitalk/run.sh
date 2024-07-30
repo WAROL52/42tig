@@ -37,6 +37,8 @@ function logVar(){
 	"
 }
 function run() {
-	echo "A FAIRE..."
-	logVar
+	cd $WORKSPACE_PATH
+	pwd
+	make
+	
 }
