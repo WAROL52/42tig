@@ -1,7 +1,7 @@
 import os
 import sys
 import subprocess
-import shlex
+import threading
 import time
 from watchdog.observers import Observer # type: ignore
 from watchdog.events import FileSystemEventHandler # type: ignore
@@ -15,12 +15,39 @@ def escape_to_regex(pattern):
     final_pattern = escaped_pattern.replace(r'\*', '.*')
     
     return final_pattern
+
+
+def debounce(wait):
+    def decorator(fn):
+        timer = None
+        
+        def debounced(*args, **kwargs):
+            nonlocal timer
+            if timer is not None:
+                timer.cancel()
+            timer = threading.Timer(wait, lambda: fn(*args, **kwargs))
+            timer.start()
+        
+        return debounced
+    return decorator
+
+
+# Exemple d'utilisation
+@debounce(1.0)  # 1 seconde de délai
+def excec(command,self):
+    if self.oldProcess:
+        self.oldProcess.kill()
+    self.oldProcess = subprocess.Popen(command, shell=True)
+
+
 class CommandHandler(FileSystemEventHandler):
     lastime=0
     last_src_path=""
+    oldProcess=None
     def __init__(self, command, extensions):
         self.command = command
         self.extensions = extensions
+        excec(command,self)
     
     def run(self,event):
         if event.is_directory: return
@@ -40,7 +67,7 @@ class CommandHandler(FileSystemEventHandler):
 
             if isMacth:
                 command=self.command.replace("@FILENAME",event.src_path).replace("@TYPE",event.event_type)
-                os.system(command)
+                excec(command,self)
 
     def on_modified(self, event):
         self.run(event)

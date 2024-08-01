@@ -40,21 +40,29 @@ function vrun(){
 	local progname=$1
 	local arg=$2
 	local tmp=$3
+	echo -e "${Blank}$progname $arg ${Normal}${Normal}"
 	(valgrind $CFLAGS_VALGRIND $progname $arg) 2> $tmp
-	echo -e "${Blank}$progname ${Normal}${Reverse}"
+	echo -e "${Reverse}"
 	grep "in use at exit" < $tmp | sed 's/^==[0-9]*==     in use at exit/Memoire/'
 	grep "total heap usage" < $tmp | sed 's/^==[0-9]*==   total heap usage/Allocation/'
 	echo -e "${Normal}"
 }
 function run() {
+	jobs -l
 	local tmp=$OUT_PATH/tmp
 	local tmpVClient=$OUT_PATH/tmpVClient
 	local tmpVServer=$OUT_PATH/tmpVServer
 	local tmp=$OUT_PATH/tmp
 	mkdir -p $OUT_PATH
 	cd $WORKSPACE_PATH
-	make CFLAGS="$CFLAGS $CFLAGSW" > $tmp
-	vrun ./server "" $tmpVServer 
-	# vrun ./client "12345  \"BonJour rolio\"" $tmpVClient
-	# (valgrind $CFLAGS_VALGRIND ./client 12345  "BonJour rolio") 2> $tmpVClient 
+	make re CFLAGS="$CFLAGS $CFLAGSW" > $tmp
+	
+	if [ $? -gt 0 ]; then
+    	echo "Les chaînes sont identiques."
+	else
+		vrun ./server "" $tmpVServer &
+		sleep 1
+		read -p "Entrer le PID :" PID_SERVER
+		vrun ./client "$PID_SERVER  AnJour-Rolio" $tmpVClient
+	fi
 }

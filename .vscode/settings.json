@@ -2,5 +2,9 @@
 	"files.associations": {
 		"*.tsx": "typescriptreact",
 		"stdio.h": "c"
-	}
+	},
+	"files.exclude": {
+		"**/.tig": false
+	},
+	"C_Cpp.errorSquiggles": "disabled"
 }
