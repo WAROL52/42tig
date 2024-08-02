@@ -48,7 +48,7 @@ function vrun(){
 	echo -e "${Normal}"
 }
 function run() {
-	jobs -l
+	echo 123
 	local tmp=$OUT_PATH/tmp
 	local tmpVClient=$OUT_PATH/tmpVClient
 	local tmpVServer=$OUT_PATH/tmpVServer
