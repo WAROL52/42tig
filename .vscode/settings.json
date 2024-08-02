@@ -1,7 +1,8 @@
 {
 	"files.associations": {
 		"*.tsx": "typescriptreact",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"header.h": "c"
 	},
 	"files.exclude": {
 		"**/.tig": false
