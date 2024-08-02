@@ -48,7 +48,6 @@ function vrun(){
 	echo -e "${Normal}"
 }
 function run() {
-	echo 123
 	local tmp=$OUT_PATH/tmp
 	local tmpVClient=$OUT_PATH/tmpVClient
 	local tmpVServer=$OUT_PATH/tmpVServer
@@ -62,7 +61,7 @@ function run() {
 	else
 		vrun ./server "" $tmpVServer &
 		sleep 1
-		read -p "Entrer le PID :" PID_SERVER
+		read -p "[CMD]:Entrer le PID :" PID_SERVER
 		vrun ./client "$PID_SERVER  AnJour-Rolio" $tmpVClient
 	fi
 }
