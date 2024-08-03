@@ -38,10 +38,10 @@ function logVar(){
 }
 function vrun(){
 	local progname=$1
-	local arg=$2
-	local tmp=$3
-	echo -e "${Blank}$progname $arg ${Normal}${Normal}"
-	(valgrind $CFLAGS_VALGRIND $progname $arg) 2> $tmp
+	local tmp=$2
+	local args=$3
+	echo -e "${Blank}$progname $args ${Normal}${Normal}"
+	(valgrind $CFLAGS_VALGRIND $progname $args) 2> $tmp
 	echo -e "${Reverse}"
 	grep "in use at exit" < $tmp | sed 's/^==[0-9]*==     in use at exit/Memoire/'
 	grep "total heap usage" < $tmp | sed 's/^==[0-9]*==   total heap usage/Allocation/'
@@ -59,9 +59,9 @@ function run() {
 	if [ $? -gt 0 ]; then
     	echo "Les chaînes sont identiques."
 	else
-		vrun ./server "" $tmpVServer &
+		vrun ./server $tmpVServer "" &
 		sleep 1
 		read -p "[CMD]:Entrer le PID :" PID_SERVER
-		vrun ./client "$PID_SERVER  AnJour-Rolio" $tmpVClient
+		vrun ./client $tmpVClient "$PID_SERVER abcdefghijklmnopkrstuvwxyz"
 	fi
 }
