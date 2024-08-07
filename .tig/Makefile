@@ -65,14 +65,14 @@ run\:%:
 	@$(call make_run,$(subst run:,,$@))
 	@$(call logEnd,$@)
 
-PATERN_C=./$(UTILS_DIR)/$1/*.c ./$(REPOS_DIR)/$1/*.c ./$(RUN_DIR)/$1/*.c
-PATERN_H=./$(UTILS_DIR)/$1/*.h ./$(REPOS_DIR)/$1/*.h ./$(RUN_DIR)/$1/*.h
-PATERN_SH=./$(UTILS_DIR)/$1/*.sh ./$(REPOS_DIR)/$1/*.sh ./$(RUN_DIR)/$1/*.sh
-PATERN_TXT=./$(UTILS_DIR)/$1/*.txt ./$(REPOS_DIR)/$1/*.txt ./$(RUN_DIR)/$1/*.txt
-PATERN_MAKEFILE=./$(UTILS_DIR)/$1/*Makefile ./$(REPOS_DIR)/$1/*Makefile ./$(RUN_DIR)/$1/*Makefile
-PATERN_PY=./$(UTILS_DIR)/$1/*.py ./$(REPOS_DIR)/$1/*.py ./$(RUN_DIR)/$1/*.py
+GET_PATERN=./$(UTILS_DIR)/$1/*$2 ./$(REPOS_DIR)/$1/*$2 ./$(RUN_DIR)/$1/*$2
+PATERN_C= $(call GET_PATERN,$1,.c) $(call GET_PATERN,$1,.h) $(call GET_PATERN,$1,.cpp)
+PATERN_CMD= $(call GET_PATERN,$1,.sh)
+PATERN_TXT= $(call GET_PATERN,$1,.txt) $(call GET_PATERN,$1,.text)
+PATERN_MAKEFILE= $(call GET_PATERN,$1,Makefile)
+PATERN_PY= $(call GET_PATERN,$1,.py)
 
-PATERN_ALL= $(call PATERN_C,$1) $(call PATERN_H,$1) $(call PATERN_SH,$1) $(call PATERN_MAKEFILE,$1) $(call PATERN_PY,$1)
+PATERN_ALL= $(call PATERN_C,$1) $(call PATERN_CMD,$1) $(call PATERN_MAKEFILE,$1) $(call PATERN_PY,$1) $(call PATERN_TXT,$1)
 DEPS=
 run-w\:%:clean-out
 	@rm -rf out/*.a

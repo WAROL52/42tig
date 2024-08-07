@@ -6,7 +6,7 @@ import time
 from watchdog.observers import Observer # type: ignore
 from watchdog.events import FileSystemEventHandler # type: ignore
 import re
-DECALAGE=0.05
+DECALAGE=1
 def escape_to_regex(pattern):
     # Échapper les caractères spéciaux de regex
     escaped_pattern = re.escape(pattern)
@@ -33,7 +33,7 @@ def debounce(wait):
 
 
 # Exemple d'utilisation
-@debounce(1.0)  # 1 seconde de délai
+@debounce(1)  # 1 seconde de délai
 def excec(command,self):
     if self.oldProcess:
         self.oldProcess.kill()
