@@ -60,8 +60,8 @@ function run() {
     	echo "Les chaînes sont identiques."
 	else
 		vrun ./server $tmpVServer "" &
-		sleep 3
+		sleep 1
 		read -p "[CMD]:Entrer le PID :" PID_SERVER
-		vrun ./client $tmpVClient "$PID_SERVER abc"
+		vrun ./client $tmpVClient "$PID_SERVER a😁a"
 	fi
 }
