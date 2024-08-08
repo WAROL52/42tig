@@ -10,3 +10,6 @@
 [submodule "Workspace/minitalk"]
 	path = Workspace/minitalk
 	url = git@github.com:WAROL52/42-minitalk.git
+[submodule "Workspace/push_swap"]
+	path = Workspace/push_swap
+	url = git@github.com:WAROL52/42-push_swap.git
