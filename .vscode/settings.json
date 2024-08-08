@@ -2,7 +2,12 @@
 	"files.associations": {
 		"*.tsx": "typescriptreact",
 		"stdio.h": "c",
-		"header.h": "c"
+		"header.h": "c",
+		"push_swap.h": "c",
+		"cstdlib": "c",
+		"*.tcc": "c",
+		"memory": "c",
+		"new": "c"
 	},
 	"files.exclude": {
 		"**/.tig": false
