@@ -23,11 +23,9 @@ OUT_PATH=$OUT_PATH
 function vrun(){
 	local progname=$1
 	local tmp=$2
-	local args1=$3
-	local args2=$4
 	local t1=$(date '+%s')
-	echo -e "${Blank}$progname "$args1" \"$args2\" ${Normal}${Normal}"
-	(valgrind $CFLAGS_VALGRIND $progname "$args1" "$args2") 2> $tmp
+	echo -e "${Blank}$progname "$3" "$4" "$5" "$6" "$7" "$8" "$9" ${Normal}${Normal}"
+	(valgrind $CFLAGS_VALGRIND $progname $3 $4 $5 $6 $7 $8 $9 ) 2> $tmp
 	local t2=$(date '+%s')
 	timesDiff=$(($t2 - $t1))
 	echo -e "${Reverse}"
@@ -46,7 +44,6 @@ function infinityRun() {
 function run() {
 	local tmp=$OUT_PATH/tmp
 	local tmpVClient=$OUT_PATH/tmpVClient
-	local textArgs=$(< $UTILS_PATH/args.txt)
 	mkdir -p $OUT_PATH
 	cd $WORKSPACE_PATH
 
@@ -54,6 +51,8 @@ function run() {
 	if [ $? -gt 0 ]; then
     	echo "Les chaînes sont identiques."
 	else
-		vrun ./push_swap $tmpVClient "$textArgs" "10 30 20 40 50"
+		vrun ./push_swap $tmpVClient 5 2 4 1 3 6
+		vrun ./push_swap $tmpVClient "3 6 5" 2 4 1
+ 		vrun ./push_swap $tmpVClient 5 1 3 6 2 4
 	fi
 }
