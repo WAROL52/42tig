@@ -6,7 +6,12 @@ import time
 from watchdog.observers import Observer # type: ignore
 from watchdog.events import FileSystemEventHandler # type: ignore
 import re
-DECALAGE=1
+DECALAGE=0.0125
+COLOR_RED="\033[91;1m"
+COLOR_BLUE="\033[94;1m"
+COLOR_YELLO="\033[93;1m"
+COLOR_GREEN="\033[92;1m"
+COLOR_NORMAL="\033[0m"
 def escape_to_regex(pattern):
     # Échapper les caractères spéciaux de regex
     escaped_pattern = re.escape(pattern)
@@ -31,17 +36,18 @@ def debounce(wait):
         return debounced
     return decorator
 
-
 # Exemple d'utilisation
 @debounce(1)  # 1 seconde de délai
 def excec(command,self):
-    if self.oldProcess:
-        self.oldProcess.kill()
+    self.print("Exécution de la commande...",COLOR_GREEN)
+    self.execCount+=1
+    time.sleep(1.5)
     self.oldProcess = subprocess.Popen(command, shell=True)
 
 
 class CommandHandler(FileSystemEventHandler):
     lastime=0
+    execCount=0
     last_src_path=""
     oldProcess=None
     def __init__(self, command, extensions):
@@ -49,6 +55,16 @@ class CommandHandler(FileSystemEventHandler):
         self.extensions = extensions
         excec(command,self)
     
+    def print(self,msg,color=COLOR_NORMAL,desc=""):
+        print(f"{COLOR_BLUE}\033[7m![{self.execCount}]({desc}): {COLOR_NORMAL} {color}{msg}{COLOR_NORMAL}")
+
+    def terminate(self):
+        if self.oldProcess:
+            self.print("terminer le processus.....",COLOR_RED)
+            self.oldProcess.terminate()
+            self.oldProcess.wait()
+            self.oldProcess = None
+
     def run(self,event):
         if event.is_directory: return
         currtime=time.time()
@@ -67,7 +83,10 @@ class CommandHandler(FileSystemEventHandler):
 
             if isMacth:
                 command=self.command.replace("@FILENAME",event.src_path).replace("@TYPE",event.event_type)
+                self.print(f"{event.src_path} {event.event_type}",COLOR_YELLO)
+                self.terminate()
                 excec(command,self)
+                
 
     def on_modified(self, event):
         self.run(event)
@@ -98,7 +117,8 @@ if __name__ == "__main__":
     observer.start()
     try:
         while True:
-            time.sleep(1)
+            time.sleep(0.1)
     except KeyboardInterrupt:
+        event_handler.terminate()
         observer.stop()
     observer.join()
