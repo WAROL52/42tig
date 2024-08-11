@@ -5,20 +5,20 @@
 #-----------------------------
 # Pour aider ...
 # ----------------------------
-UTILS_DIR=$UTILS_DIR
-REPOS_DIR=$REPOS_DIR
-RUN_DIR=$RUN_DIR
-CFLAGS=$CFLAGS
-CFLAGSW=$CFLAGSW
-CFLAGS_VALGRIND=$CFLAGS_VALGRIND
-OUT_DIR=$OUT_DIR
-TIG_DIR=$TIG_DIR
-PROJET_NAME=$PROJET_NAME
+readonly UTILS_DIR=$UTILS_DIR
+readonly REPOS_DIR=$REPOS_DIR
+readonly RUN_DIR=$RUN_DIR
+readonly CFLAGS=$CFLAGS
+readonly CFLAGSW=$CFLAGSW
+readonly CFLAGS_VALGRIND=$CFLAGS_VALGRIND
+readonly OUT_DIR=$OUT_DIR
+readonly TIG_DIR=$TIG_DIR
+readonly PROJET_NAME=$PROJET_NAME
 # ----------------------------
-WORKSPACE_PATH=$WORKSPACE_PATH
-RUN_PATH=$RUN_PATH
-UTILS_PATH=$UTILS_PATH
-OUT_PATH=$OUT_PATH
+readonly WORKSPACE_PATH=$WORKSPACE_PATH
+readonly RUN_PATH=$RUN_PATH
+readonly UTILS_PATH=$UTILS_PATH
+readonly OUT_PATH=$OUT_PATH
 ##############################
 function vrun(){
 	local progname=$1
@@ -51,7 +51,7 @@ function run() {
 	if [ $? -gt 0 ]; then
     	echo "Les chaînes sont identiques."
 	else
-		vrun ./push_swap $tmpVClient 5 2 4 1 55
+		vrun ./push_swap $tmpVClient "5 2 4 1 55"
 		vrun ./push_swap $tmpVClient '3 6 5' 2 4 10
  		vrun ./push_swap $tmpVClient 5 1 3 6 2 4
 	fi
