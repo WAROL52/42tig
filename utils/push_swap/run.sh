@@ -25,7 +25,7 @@ function vrun(){
 	local tmp=$2
 	local t1=$(date '+%s')
 	echo -e "${Blank}$progname  '$3' '$4' '$5' '$6' '$7' '$8' '$9' ${Normal}${Normal}"
-	(valgrind $CFLAGS_VALGRIND $progname "$3" "$4" "$5" "$6" "$7" "$8" "$9" ) 2> $tmp
+	(valgrind $CFLAGS_VALGRIND $progname "$3" $4 $5 $6 $7 $8 $9 ) 2> $tmp
 	local t2=$(date '+%s')
 	timesDiff=$(($t2 - $t1))
 	echo -e "${Reverse}"
@@ -51,7 +51,7 @@ function run() {
 	if [ $? -gt 0 ]; then
     	echo "Les chaînes sont identiques."
 	else
-		vrun ./push_swap $tmpVClient "5 2 4 1 55"
+		vrun ./push_swap $tmpVClient '5 2 4 1 55'
 		vrun ./push_swap $tmpVClient '3 6 5' 2 4 10
  		vrun ./push_swap $tmpVClient 5 1 3 6 2 4
 	fi
