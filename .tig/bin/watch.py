@@ -41,7 +41,7 @@ def debounce(wait):
 def excec(command,self):
     self.print("Exécution de la commande...",COLOR_GREEN)
     self.execCount+=1
-    time.sleep(1.5)
+    time.sleep(1)
     self.oldProcess = subprocess.Popen(command, shell=True)
 
 
