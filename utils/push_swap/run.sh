@@ -32,7 +32,7 @@ function vrun(){
 	echo "Temps: $timesDiff ms "
 	grep "in use at exit" < $tmp | sed 's/^==[0-9]*==     in use at exit/Memoire/'
 	grep "total heap usage" < $tmp | sed 's/^==[0-9]*==   total heap usage/Allocation/'
-	echo -e "${Normal}"
+	echo -e "${Normal}"local t2=$(date '+%s')
 }
 function infinityRun() {
 	local PID_SERVER=$1
@@ -52,7 +52,7 @@ function run() {
 	if [ $? -gt 0 ]; then
     	echo "Les chaînes sont identiques."
 	else
-		vrun ./push_swap $tmpVClient '5 8 12 13 3 19 17 7 20 16 14 15 9 2 4 1 18 6 11 10 '
+		vrun ./push_swap $tmpVClient '6 5 2 9 4 8 3 7 1 10 '
 		# vrun ./push_swap $tmpVClient '3 6 5' 2 4  +10
  		# vrun ./push_swap $tmpVClient 5 1 3 6 2 4
 	fi
