@@ -47,11 +47,12 @@ function run() {
 	mkdir -p $OUT_PATH
 	cd $WORKSPACE_PATH
 
+	
 	make re CFLAGS="$CFLAGS $CFLAGSW" > $tmp
 	if [ $? -gt 0 ]; then
     	echo "Les chaînes sont identiques."
 	else
-		vrun ./push_swap $tmpVClient '28 48 22 6 30 19 4 17 1 26 16 12 44 45 23 11 14 10 24 38 31 20 42 37 40 36 39 9 46 35 29 41 25 8 13 3 33 7 47 27 43 49 5 21 15 34 32 50 2 18 '
+		vrun ./push_swap $tmpVClient '5 8 12 13 3 19 17 7 20 16 14 15 9 2 4 1 18 6 11 10 '
 		# vrun ./push_swap $tmpVClient '3 6 5' 2 4  +10
  		# vrun ./push_swap $tmpVClient 5 1 3 6 2 4
 	fi

@@ -61,6 +61,7 @@ class CommandHandler(FileSystemEventHandler):
     def terminate(self):
         if self.oldProcess:
             self.print("terminer le processus.....",COLOR_RED)
+            self.oldProcess.kill()
             self.oldProcess.terminate()
             self.oldProcess.wait()
             self.oldProcess = None
@@ -86,7 +87,6 @@ class CommandHandler(FileSystemEventHandler):
                 self.print(f"{event.src_path} {event.event_type}",COLOR_YELLO)
                 self.terminate()
                 excec(command,self)
-                
 
     def on_modified(self, event):
         self.run(event)
