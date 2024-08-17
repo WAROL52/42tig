@@ -9,7 +9,25 @@
 		"memory": "c",
 		"new": "c",
 		"variant": "c",
-		"chrono": "c"
+		"chrono": "c",
+		"array": "c",
+		"bitset": "c",
+		"functional": "c",
+		"fstream": "c",
+		"future": "c",
+		"iomanip": "c",
+		"istream": "c",
+		"limits": "c",
+		"mutex": "c",
+		"ostream": "c",
+		"numeric": "c",
+		"ranges": "c",
+		"sstream": "c",
+		"stop_token": "c",
+		"streambuf": "c",
+		"thread": "c",
+		"tuple": "c",
+		"utility": "c"
 	},
 	"files.exclude": {
 		"**/.tig": false

@@ -52,7 +52,7 @@ function run() {
 	if [ $? -gt 0 ]; then
     	echo "Les chaînes sont identiques."
 	else
-		vrun ./push_swap $tmpVClient '11 38 41 10 65 96 7 70 32 45 69 9 40 26 30 95 56 47 22 51 66 68 88 37 77 28 75 48 29 25 49 17 15 99 36 63 90 31 76 78 71 20 73 82 13 42 35 21 60 64 52 23 34 72 83 81 86 12 93 14 8 46 100 62 6 79 92 3 53 58 2 97 5 61 39 84 98 57 74 55 43 19 18 1 54 85 87 67 91 50 44 16 89 4 80 59 24 27 33 94 '
+		vrun ./push_swap $tmpVClient '12 10 4 3 19 8 7 2 1 15 5 16 18 9 11 6 13 17 20 14 '
 		# vrun ./push_swap $tmpVClient '3 6 5' 2 4  +10
  		# vrun ./push_swap $tmpVClient 5 1 3 6 2 4
 	fi
