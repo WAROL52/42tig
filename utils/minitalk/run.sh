@@ -76,6 +76,6 @@ function run() {
 		sleep 1
 		read -p "[CMD]:Entrer le PID :" PID_SERVER
 		vrun ./client $tmpVClient $PID_SERVER  "$textV"
-		infinityRun $PID_SERVER
+		# infinityRun $PID_SERVER
 	fi
 }
