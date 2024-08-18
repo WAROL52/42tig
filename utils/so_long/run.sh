@@ -20,7 +20,6 @@ RUN_PATH=$RUN_PATH
 UTILS_PATH=$UTILS_PATH
 OUT_PATH=$OUT_PATH
 ##############################
-
 function logVar(){
 	echo "
 	UTILS_DIR=$UTILS_DIR
@@ -37,10 +36,14 @@ function logVar(){
 	UTILS_PATH=$UTILS_PATH
 	"
 }
+
+
 function run() {
-	# valgrind_run <nom_du_fishier> [args...]
-	# make_run
-	# make_re
-	echo "A FAIRE..."
-	logVar
+	local args=$(head -n 1 $UTILS_PATH/args.txt)
+	make_all
+	if [ $? -gt 0 ]; then
+    	echo "Les chaînes sont identiques."
+	else
+		valgrind_run ./so_long "$args"
+	fi
 }
