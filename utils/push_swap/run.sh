@@ -44,15 +44,15 @@ function infinityRun() {
 function run() {
 	local tmp=$OUT_PATH/tmp
 	local tmpVClient=$OUT_PATH/tmpVClient
+	local args=$(head -n 1 $UTILS_PATH/args.txt)
 	mkdir -p $OUT_PATH
 	cd $WORKSPACE_PATH
 
-	
 	make re CFLAGS="$CFLAGS $CFLAGSW" > $tmp
 	if [ $? -gt 0 ]; then
     	echo "Les chaînes sont identiques."
 	else
-		vrun ./push_swap $tmpVClient '12 10 4 3 19 8 7 2 1 15 5 16 18 9 11 6 13 17 20 14 '
+		vrun ./push_swap $tmpVClient "$args"
 		# vrun ./push_swap $tmpVClient '3 6 5' 2 4  +10
  		# vrun ./push_swap $tmpVClient 5 1 3 6 2 4
 	fi
