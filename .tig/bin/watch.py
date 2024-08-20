@@ -1,5 +1,6 @@
 import os
 import sys
+import glob
 import subprocess
 import threading
 import time
@@ -12,15 +13,13 @@ COLOR_BLUE="\033[94;1m"
 COLOR_YELLO="\033[93;1m"
 COLOR_GREEN="\033[92;1m"
 COLOR_NORMAL="\033[0m"
-def escape_to_regex(pattern):
-    # Échapper les caractères spéciaux de regex
-    escaped_pattern = re.escape(pattern)
-    
-    # Remplacer l'échappement du caractère '*' par '.*'
-    final_pattern = escaped_pattern.replace(r'\*', '.*')
-    
-    return final_pattern
 
+
+def match(pattern,find):
+    matches = []
+    for ext in pattern.split(" "):
+        matches.extend(glob.glob(f"**/{ext}", recursive=True))
+    return find in matches
 
 def debounce(wait):
     def decorator(fn):
@@ -80,7 +79,7 @@ class CommandHandler(FileSystemEventHandler):
                 isMacth=any(event.src_path.endswith(ext) for ext in listExt)
 
             if not isMacth:
-                isMacth=any( re.match(escape_to_regex(el),event.src_path) for el in self.extensions)
+                isMacth=any( match(patern,event.src_path) for patern in self.extensions)
 
             if isMacth:
                 command=self.command.replace("@FILENAME",event.src_path).replace("@TYPE",event.event_type)

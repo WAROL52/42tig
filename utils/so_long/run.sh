@@ -40,9 +40,12 @@ function logVar(){
 
 function run() {
 	local args=$(head -n 1 $UTILS_PATH/args.txt)
-	make_all
+	# make_all
+	mkdir -p $OUT_PATH
+	cd $WORKSPACE_PATH
+	make  > $OUT_PATH/make_out
 	if [ $? -gt 0 ]; then
-    	echo "Les chaînes sont identiques."
+    	echo -e "\033[1;31mMakefile Error!\033[0m"
 	else
 		valgrind_run ./so_long "$args"
 	fi

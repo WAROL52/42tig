@@ -65,7 +65,7 @@ run\:%:
 	@$(call make_run,$(subst run:,,$@))
 	@$(call logEnd,$@)
 
-GET_PATERN=./$(UTILS_DIR)/$1/*$2 ./$(REPOS_DIR)/$1/*$2 ./$(RUN_DIR)/$1/*$2
+GET_PATERN=./$(UTILS_DIR)/$1/**/*$2 ./$(REPOS_DIR)/$1/**/*$2 ./$(RUN_DIR)/$1/**/*$2
 PATERN_C= $(call GET_PATERN,$1,.c) $(call GET_PATERN,$1,.h) $(call GET_PATERN,$1,.cpp)
 PATERN_CMD= $(call GET_PATERN,$1,.sh)
 PATERN_TXT= $(call GET_PATERN,$1,.txt) $(call GET_PATERN,$1,.text)
