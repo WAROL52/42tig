@@ -1,8 +1,8 @@
 import random
 
 # Taille du labyrinthe sans la bordure
-INNER_WIDTH = 0
-INNER_HEIGHT = 0
+INNER_WIDTH = 10
+INNER_HEIGHT = 10
 
 # Directions pour les mouvements : (dx, dy)
 DIRECTIONS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
@@ -29,7 +29,7 @@ def carve_passages(maze, x, y):
 
 def print_maze(maze):
     for row in maze:
-        print(' '.join(str(cell) for cell in row))
+        print(''.join(str(cell) for cell in row))
     for row in maze:
         print(' '.join(str(cell) for cell in row).replace("0"," ").replace("1","\033[32m#\033[0m"))
 
