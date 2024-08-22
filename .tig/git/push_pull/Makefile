@@ -14,12 +14,18 @@ define git_push
 	@$(call cmd_safe, pwd, git add ., git commit -m '$1', git push $(GIT_REMOTE) $(GIT_BRANCH))
 endef
 
+define git_push_auto_msg
+	@$(foreach moduleName,$(REPOS_NAMES),$(call git_push_childs,$(REPOS_DIR)/$(moduleName),$1))
+	$(call logTitle,git push:,$(CURRENT_DIR))
+	@read -p "message: "  GIT_PUSH_MSG
+	@$(call cmd_safe, pwd, git add ., git commit -m '$1 $$GIT_PUSH_MSG', git push $(GIT_REMOTE) $(GIT_BRANCH))
+endef
+
 define git_push_auto
 	$(eval PUSH_COUNT=$(call math,$(PUSH_COUNT),+,1))
 	$(call save_in_tmp)
-	@read -p "message: "  GIT_PUSH_MSG
 	$(eval GIT_PUSH_MSG = $$GIT_PUSH_MSG)
-	$(call git_push,<$(CURRENT_DIR)>[$(PUSH_TITLE)]($(PUSH_COUNT)): $(GIT_PUSH_MSG) )
+	$(call git_push_auto_msg,<$(CURRENT_DIR)>[$(PUSH_TITLE)]($(PUSH_COUNT)):)
 endef
 
 define git_pull
