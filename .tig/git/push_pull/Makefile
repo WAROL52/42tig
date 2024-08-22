@@ -17,8 +17,8 @@ endef
 define git_push_auto
 	$(eval PUSH_COUNT=$(call math,$(PUSH_COUNT),+,1))
 	$(call save_in_tmp)
-	$(shell read -p "Votre message: " read msg && echo "$$msg" > name.txt)
-	$(eval GIT_PUSH_MSG=$(shell cat name.txt))
+	$(shell read -p "Votre message: " read msg && echo "$$msg" > $(TIG_DIR)/push_msg.txt)
+	$(eval GIT_PUSH_MSG=$(shell cat $(TIG_DIR)/push_msg.txt))
 	$(call git_push,[$(PUSH_TITLE) $(PUSH_COUNT)]: $(GIT_PUSH_MSG))
 endef
 
