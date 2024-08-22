@@ -19,7 +19,7 @@ define git_push_auto
 	$(call save_in_tmp)
 	read -p "message: " GIT_PUSH_MSG && \
 	echo $$GIT_PUSH_MSG > temp_name.txt
-	$(call git_push,[$(PUSH_TITLE)]($(PUSH_COUNT)):$$(cat temp_name.txt))
+	$(call git_push,[$(PUSH_TITLE)]($(PUSH_COUNT)):$(shell $(cat temp_name.txt)))
 endef
 
 define git_pull
