@@ -19,6 +19,7 @@ define git_push_auto
 	$(call save_in_tmp)
 	read GIT_PUSH_MSG && echo "$$GIT_PUSH_MSG" > name.txt
 	$(eval GIT_PUSH_MSG=$(shell cat name.txt))
+	echo "$(GIT_PUSH_MSG)" > name.txt
 	$(call git_push,[$(PUSH_TITLE) $(PUSH_COUNT)]: $(GIT_PUSH_MSG))
 endef
 
