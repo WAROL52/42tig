@@ -17,8 +17,9 @@ endef
 define git_push_auto
 	$(eval PUSH_COUNT=$(call math,$(PUSH_COUNT),+,1))
 	$(call save_in_tmp)
-	@read -p "message: " GIT_PUSH_MSG
-	$(call git_push,<$(CURRENT_DIR)>[$(PUSH_TITLE)]($(PUSH_COUNT)): $$GIT_PUSH_MSG)
+	@read -p "message: "  GIT_PUSH_MSG
+	$(eval GIT_PUSH_MSG = $$GIT_PUSH_MSG)
+	$(call git_push,<$(CURRENT_DIR)>[$(PUSH_TITLE)]($(PUSH_COUNT)): $(GIT_PUSH_MSG) )
 endef
 
 define git_pull
