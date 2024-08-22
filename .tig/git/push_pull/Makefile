@@ -1,5 +1,5 @@
 define push_to_github
-	$(call cmd_safe, cd $1,pwd,git add ., git commit -m "$$GIT_PUSH_MSG", git push $(GIT_REMOTE) $(GIT_BRANCH))
+	$(call cmd_safe, cd $1,pwd,git add ., git commit -m '$2', git push $(GIT_REMOTE) $(GIT_BRANCH))
 endef
 
 define git_push_childs
