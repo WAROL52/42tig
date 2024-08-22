@@ -20,7 +20,7 @@ define git_push_auto
 	read GIT_PUSH_MSG && echo "$$GIT_PUSH_MSG" > name.txt
 	$(eval GIT_PUSH_MSG=$(shell cat name.txt))
 	echo "RESULT = $(GIT_PUSH_MSG)"
-	$(call git_push,[$(PUSH_TITLE)]($(PUSH_COUNT)):$(GIT_PUSH_MSG))
+	$(call git_push,[$(PUSH_TITLE)_$(PUSH_COUNT)]: $(GIT_PUSH_MSG))
 endef
 
 define git_pull
