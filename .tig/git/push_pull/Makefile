@@ -25,6 +25,7 @@ define git_push_auto
 	$(eval PUSH_COUNT=$(call math,$(PUSH_COUNT),+,1))
 	$(call save_in_tmp)
 	@read -p "message: "  GIT_PUSH_MSG
+	@echo $$GIT_PUSH_MSG
 	$(call git_push,<$(CURRENT_DIR)>[$(PUSH_TITLE)]($(PUSH_COUNT)):)
 endef
 
