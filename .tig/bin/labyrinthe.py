@@ -1,8 +1,8 @@
 import random
 
 # Taille du labyrinthe sans la bordure
-INNER_WIDTH = 10
-INNER_HEIGHT = 10
+INNER_WIDTH = 40
+INNER_HEIGHT = 40
 
 # Directions pour les mouvements : (dx, dy)
 DIRECTIONS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
