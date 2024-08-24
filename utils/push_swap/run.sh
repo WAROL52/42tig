@@ -24,7 +24,7 @@ function vrun(){
 	local progname=$1
 	local tmp=$2
 	local t1=$(date '+%s')
-	echo -e "${Blank}$progname  '$3' '$4' '$5' '$6' '$7' '$8' '$9' ${Normal}${Normal}"
+	#echo -e "${Blank}$progname  '$3' '$4' '$5' '$6' '$7' '$8' '$9' ${Normal}${Normal}"
 	(valgrind $CFLAGS_VALGRIND $progname "$3" $4 $5 $6 $7 $8 $9 ) 2> $tmp
 	local t2=$(date '+%s')
 	timesDiff=$(($t2 - $t1))
