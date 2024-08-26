@@ -30,7 +30,8 @@
     "thread": "c",
     "tuple": "c",
     "utility": "c",
-    "so_long.h": "c"
+    "so_long.h": "c",
+    "iterator": "c"
   },
   "files.exclude": {
     "**/.tig": false
