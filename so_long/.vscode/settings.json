@@ -1,8 +1,0 @@
-{
-  "files.associations": {
-    "*.excalidraw": "json",
-    "*.excalidrawlib": "json",
-    "*.tsx": "typescriptreact",
-    "so_long.h": "c"
-  }
-}
