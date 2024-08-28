@@ -1,6 +1,6 @@
 /* XPM */
 static char * player_image_xpm[] = {
-"64 64 907 2",
+"32 32 907 2",
 "  	c #115E43",
 ". 	c #0B3E2C",
 "+ 	c #804055",

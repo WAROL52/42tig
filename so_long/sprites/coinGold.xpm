@@ -1,6 +1,6 @@
 /* XPM */
 static char * coinGold_xpm[] = {
-"64 64 159 2",
+"32 32 159 2",
 "  	c None",
 ". 	c #FEE380",
 "+ 	c #FEE481",

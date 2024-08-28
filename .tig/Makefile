@@ -71,8 +71,9 @@ PATERN_CMD= $(call GET_PATERN,$1,.sh)
 PATERN_TXT= $(call GET_PATERN,$1,.txt) $(call GET_PATERN,$1,.text)
 PATERN_MAKEFILE= $(call GET_PATERN,$1,Makefile)
 PATERN_PY= $(call GET_PATERN,$1,.py)
+PATERN_BER= $(call GET_PATERN,$1,.ber)
 
-PATERN_ALL= $(call PATERN_C,$1) $(call PATERN_CMD,$1) $(call PATERN_MAKEFILE,$1) $(call PATERN_PY,$1) $(call PATERN_TXT,$1)
+PATERN_ALL= $(call PATERN_BER,$1) $(call PATERN_C,$1) $(call PATERN_CMD,$1) $(call PATERN_MAKEFILE,$1) $(call PATERN_PY,$1) $(call PATERN_TXT,$1)
 DEPS=
 run-w\:%:clean-out
 	@rm -rf out/*.a
