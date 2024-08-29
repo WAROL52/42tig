@@ -143,7 +143,7 @@ fclean\:%:
 	@$(call logEnd,$@)
 
 help:
-	@(python3 -m pip list | grep "rich" || python3 -m pip install rich --user --break-system-packages) > $(TIG_DIR)/buff
+	@(python3 -m pip list | grep "rich" || python3 -m pip install rich --user ) > $(TIG_DIR)/buff
 	@python3 -m rich.markdown README.md
 
 MAKE_DEPS= $(if $(DEPS),$(TIG_DIR)/make,)
@@ -159,7 +159,7 @@ $(TIG_DIR)/make:$(DEPS)
 	@$(call logEnd,$@)
 
 define make_watch 
-	(python3 -m pip list | grep "watchdog" || python3 -m pip install watchdog --user --break-system-packages) > $(TIG_DIR)/buff
+	(python3 -m pip list | grep "watchdog" || python3 -m pip install watchdog --user ) > $(TIG_DIR)/buff
 	
 	python3 $(TIG_DIR)/bin/watch.py "$1" "$2"
 endef
