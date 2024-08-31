@@ -32,7 +32,9 @@
 		"utility": "c",
 		"so_long.h": "c",
 		"iterator": "c",
-		"mlx.h": "c"
+		"mlx.h": "c",
+		"string_view": "c",
+		"regex": "c"
 	},
 	"files.exclude": {
 		"**/.tig": false
