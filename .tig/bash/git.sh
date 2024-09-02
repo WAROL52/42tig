@@ -1,11 +1,18 @@
 #!/bin/bash
 
+printline(){
+	local size=$1
+	printf "\033[1;36m"
+	printf "%.0s_" $(seq 1 $size)
+	printf "\033[0m\n"
+}
 
 git_push(){
 	local name=$1
-	printf "\033[0;34m|--------------------|\033[0m\n"
-	printf "|%s|\n" "$name"
-	printf "\033[0;34m|--------------------|\033[0m\n"
+	local text=$(printf "\033[1;36m|git push:\033[0m %18s\033[1;36m|\033[0m" "$name")
+	printline 30
+	printf "%s\n" "$text"
+	printline 30
 	cd $name
 	pwd
 	if [ -e ".git" ]; then
