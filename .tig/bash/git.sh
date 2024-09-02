@@ -59,6 +59,7 @@ git_push_auto() {
 	done < <(echo "$GITHUB_URL" | awk '{for (i=1; i<=NF; i+=2) print $i, $(i+1)}')
 	cd ..
 	local projetname=$(basename pwd)
+	cd..
 	pwd
 	echo "$projetname"
 	git_push "$projetname" "$GIT_PUSH_MSG"
