@@ -39,7 +39,7 @@ git_push(){
         echo "Push effectué pour $name"
       else
         # echo "Aucune modification pour $name"
-		log_info "Alert:" "Aucune modification pour $name"
+		log_info "Info:" "Aucune modification pour $name!"
       fi
     else
       echo -e "\033[0;36mWorkspace/$name\033[0m non installé!"
