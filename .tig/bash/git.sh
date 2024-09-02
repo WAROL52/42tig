@@ -2,14 +2,14 @@
 
 printline(){
 	local size=$1
-	printf "\033[1;36m"
+	printf "\033[0;36m|"
 	printf "%.0s_" $(seq 1 $size)
 	printf "\033[0m\n"
 }
 
 git_push(){
 	local name=$1
-	local text=$(printf "\033[1;36m|git push:\033[0m %18s\033[1;36m|\033[0m" "$name")
+	local text=$(printf "\033[1;36m|git push:\033[0m %19s\033[1;36m|\033[0m" "$name")
 	printline 30
 	printf "%s\n" "$text"
 	printline 30
@@ -43,8 +43,6 @@ git_push_auto() {
 	# Parcourir chaque projet
 	cd $REPOS_DIR
 	while read -r name url; do
-	echo "pour $name"
-	pwd
 	git_push $name
 	echo -e "\n"
 	done < <(echo "$GITHUB_URL" | awk '{for (i=1; i<=NF; i+=2) print $i, $(i+1)}')
