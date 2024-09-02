@@ -6,6 +6,10 @@ printline(){
 	printf "%.0s_" $(seq 1 $size)
 	printf "\033[0m\n"
 }
+log_info()
+{
+	echo -e "\033[0;33m Info:\033[m $@"
+}
 
 git_push(){
 	local name=$1
@@ -14,10 +18,10 @@ git_push(){
 	printf "%s\n" "$text"
 	printline 30
 	cd $name
-	pwd
 	if [ -e ".git" ]; then
       # Vérifier s'il y a des modifications à committer
       if [ -n "$(git status --porcelain)" ]; then
+		pwd
         # Ajouter tous les changements
         git add .
         
@@ -29,10 +33,11 @@ git_push(){
         
         echo "Push effectué pour $name"
       else
-        echo "Aucune modification à pousser pour $name"
+        # echo "Aucune modification pour $name"
+		log_info "Aucune modification pour $name"
       fi
     else
-      echo "Le répertoire $name n'est pas un dépôt Git."
+      echo -e "\033[0;36mWorkspace/$name\033[0m non installé!"
     fi
 	cd ..
 }
