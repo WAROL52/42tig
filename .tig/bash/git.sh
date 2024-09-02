@@ -60,7 +60,5 @@ git_push_auto() {
 	cd ..
 	local projetname=$(basename $(pwd))
 	cd ..
-	pwd
-	echo "$projetname"
 	git_push "$projetname" "$GIT_PUSH_MSG"
 }

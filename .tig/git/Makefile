@@ -49,7 +49,7 @@ $(call gitalias,$(GIT_ALIAS_REMOVE)):
 	@$(call logEnd,$@)
 
 $(call gitaliasWithargs,$(GIT_ALIAS_PUSH),auto):clean-out
-	$(call git_push_auto)
+	@$(call bash_function,git_push_auto)
 	@$(call logEnd,$@)
 
 $(call gitaliasWithargs,$(GIT_ALIAS_PUSH)):clean-out
@@ -71,6 +71,3 @@ $(call gitalias,$(GIT_ALIAS_PULL)):
 	@$(call cmd_safe,git pull --rebase --recurse-submodules)
 	$(call foreach_repos,giturl_checkout)
 	@$(call logEnd,$@)
-
-gitpush:
-	@$(call bash_function,git_push_auto,rolio)
