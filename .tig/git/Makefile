@@ -71,3 +71,6 @@ $(call gitalias,$(GIT_ALIAS_PULL)):
 	@$(call cmd_safe,git pull --rebase --recurse-submodules)
 	$(call foreach_repos,giturl_checkout)
 	@$(call logEnd,$@)
+
+gitpush:
+	@$(call bash_function,git_push_auto,rolio)

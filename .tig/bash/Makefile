@@ -1,4 +1,5 @@
 define bash_env
+	GITHUB_URL='$(GITHUB_URL)'\
 	UTILS_DIR=$(UTILS_DIR)\
 	REPOS_DIR=$(REPOS_DIR)\
 	RUN_DIR=$(RUN_DIR)\
