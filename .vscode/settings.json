@@ -34,7 +34,8 @@
 		"iterator": "c",
 		"mlx.h": "c",
 		"string_view": "c",
-		"regex": "c"
+		"regex": "c",
+		"so_long_bonus.h": "c"
 	},
 	"files.exclude": {
 		"**/.tig": false
