@@ -35,7 +35,8 @@
 		"mlx.h": "c",
 		"string_view": "c",
 		"regex": "c",
-		"so_long_bonus.h": "c"
+		"so_long_bonus.h": "c",
+		"get_next_line.h": "c"
 	},
 	"files.exclude": {
 		"**/.tig": false
