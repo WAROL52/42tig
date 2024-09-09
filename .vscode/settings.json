@@ -36,7 +36,10 @@
 		"string_view": "c",
 		"regex": "c",
 		"so_long_bonus.h": "c",
-		"get_next_line.h": "c"
+		"get_next_line.h": "c",
+		"typedef.h": "c",
+		"header_typedef.h": "c",
+		"header_game.h": "c"
 	},
 	"files.exclude": {
 		"**/.tig": false
