@@ -48,5 +48,6 @@ function run() {
     	echo -e "\033[1;31mMakefile Error!\033[0m"
 	else
 		valgrind_run ./so_long_bonus "$args"
+		# ./so_long_bonus "$args"
 	fi
 }
