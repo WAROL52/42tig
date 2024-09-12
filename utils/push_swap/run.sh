@@ -48,11 +48,11 @@ function run() {
 	mkdir -p $OUT_PATH
 	cd $WORKSPACE_PATH
 
-	make bonus CFLAGS="$CFLAGS $CFLAGSW" > $tmp
+	make CFLAGS="$CFLAGS $CFLAGSW" > $tmp
 	if [ $? -gt 0 ]; then
     	echo "Les chaînes sont identiques."
 	else
-		vrun ./checker $tmpVClient "$args"
+		vrun ./push_swap $tmpVClient "$args"
 		# vrun ./push_swap $tmpVClient "$args"
 		# vrun ./push_swap $tmpVClient '3 6 5' 2 4  +10
  		# vrun ./push_swap $tmpVClient 5 1 3 6 2 4
