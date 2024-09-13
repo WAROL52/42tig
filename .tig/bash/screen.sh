@@ -28,7 +28,8 @@ function screenHeader() {
 	echo -e "${Blank}${Space}${Normal}"
 }
 function screenLine() {
-	echo -e "${Blank} ${Normal}     $1${Space:$(expr $(expr length "$1") + 7 )}${Blank} ${Normal}"
+	new_width=$((width -7))
+	printf "${Blank} ${Normal}     %-${new_width}s${Blank} ${Normal}\n" "$1"
 }
 function screenFooter() {
 	echo -e "${Blank} ${Normal}${Space:2}${Blank} ${Normal}"

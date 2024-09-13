@@ -22,7 +22,10 @@ OUT_PATH=$OUT_PATH
 ##############################
 
 function add_workspace() {
-	echo "Mandea stara... $1"
+	cd $TIG_DIR
+	cd ..
+	create_conf $1 $2 $3
+	git submodule add -f $2 $REPOS_DIR/$1
 }
 
 function add_all_workspace() {

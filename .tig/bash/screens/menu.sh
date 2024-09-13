@@ -3,7 +3,7 @@
 function screenMenu() {
 	screenHeader "Menu"
 	screenLine ""
-	screenLine "> list:<register|workspace|env>"
+	screenLine "> list"
 	screenLine $dot
 	screenLine "> add:<nom-du-repo> url=<url-du-repo>"
 	screenLine "> delete:<nom-du-repo>"
@@ -44,7 +44,7 @@ function menuChoise(){
 			;;
 		"perf") monitorPerf
 			;;
-		"q"|"Q") echo "Bonne journée et à la prochaine ...";
+		"q"|"Q"|"quitter"|"Quitter"|"QUITTER") echo "Bonne journée et à la prochaine ...";
 		IS_RINNING=false
 		  ;;
 		*) echo " ${Red} Mauvais choix${Normal}" && sleep 0.5

@@ -1,12 +1,15 @@
 #!/bin/bash
 
-
+width=$(tput cols)
 function screenList() {
-	screenHeader "List: register | workspace | env"
+	local rended=$(list_workspace)
+	screenHeader "List Workspace"
 	screenLine ""
-	screenLine "> register"
-	screenLine "> workspace"
-	screenLine "> env"
+	while IFS= read -r line; do
+		# screenLine "$line..."
+		new_width=$((width -7+36))
+		printf "${Blank} ${Normal}     %-${new_width}s${Blank} ${Normal}\n" "$line"
+	done <<< "$rended"
 	screenLine $dot
 	screenFooter
 }
@@ -14,13 +17,7 @@ function screenList() {
 function listChoise(){
 	read  -p ">> "  choix
 	case "$choix" in
-		"register") monitorRegister
-			;;
-		"workspace") monitorWorkspace
-			;;
-		"env") monitorEnv
-			;;
-		"q"|"Q")
+		"q"|"Q"|"quitter"|"Quitter"|"QUITTER")
 		IS_RINNING=false
 		  ;;
 		*) echo -e " ${Red} Mauvais choix ${Normal}" && sleep 0.5

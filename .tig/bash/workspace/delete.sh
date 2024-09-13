@@ -21,19 +21,19 @@ UTILS_PATH=$UTILS_PATH
 OUT_PATH=$OUT_PATH
 ##############################
 
-DOT="\033[1;32m:\033[0m"
-PLUS="\033[32m+\033[0m"
-MINUS="\033[31m-\033[0m"
-LIGHT_GREY='\033[38;5;250m'
-DARK_GREY='\033[38;5;240m'
-function info_workspace() {
-	local symbole=$MINUS
-	if [ -e "$1/.git" ]; then
-		symbole=$PLUS
+function delete_workspace() {
+	local name=$1
+	local conf_file="$TIG_DIR/register/$name.conf"
+	if [ -f $conf_file ]; then
+		rm -rf $conf_file
 	fi
-	echo -e "\033[34m$symbole$1$DOT $DARK_GREY$2"
+	if [ -e $REPOS_DIR/$1 ]; then
+		rm -rf $REPOS_DIR/$1
+	fi
+	git rm --cached $REPOS_DIR/$1
+	sed -i '/\[submodule "Workspace/$1"\]/,+2d' .gitmodules
 }
 
-function list_workspace() {
-	foreach_workspace info_workspace
+function delete_all_workspace() {
+	echo "delete_all_workspace a faire..."
 }

@@ -28,8 +28,6 @@ Ce script Bash permet de gerer des projets a 42. Il est conçu pour plein de tru
 #
 # Liste tous les repos disponibles.
 > make list # dans le registre et dans workspace
-> make list:register # dans le registre
-> make list:workspace # dans le workspace
 #
 #
 # Ajoute un nouveau repo avec un nom et une URL

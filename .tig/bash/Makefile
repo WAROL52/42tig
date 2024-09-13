@@ -18,14 +18,30 @@ define bash_env
 endef
 
 define bash_function
-	$(call bash_env,$2) bash -c 'source ./$(TIG_DIR)/bash/core.sh UTILS_DIR=$(UTILS_DIR) && $1 $2'
+	$(call bash_env,$2) bash -c 'source ./$(TIG_DIR)/bash/core.sh UTILS_DIR=$(UTILS_DIR) && $1 $2 $3 $4 $5 $6 $7 $8 $9'
 endef
 
 workspace_add:
 	@$(call bash_function,add_all_workspace)
+	@$(call logEnd,$@)
 
 workspace_add\:%:
-	@$(call bash_function,add_workspace,$(subst workspace_add:,,$@))
+ifdef url
+	@$(call bash_function,add_workspace,$(subst workspace_add:,,$@),$(url))
+else
+	@echo "La variable $(call textObj,url)est réquise!"
+endif
+	@$(call logEnd,$@)
+
 
 workspace_list:
 	@$(call bash_function,list_workspace)
+	@$(call logEnd,$@)
+
+workspace_delete:
+	@$(call bash_function,delete_all_workspace)
+	@$(call logEnd,$@)
+
+workspace_delete\:%:
+	@$(call bash_function,delete_workspace,$(subst workspace_delete:,,$@))
+	@$(call logEnd,$@)
