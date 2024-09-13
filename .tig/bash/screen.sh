@@ -5,6 +5,7 @@ source $(dirname "$(realpath "$BASH_SOURCE")")/screens/menu.sh
 source $(dirname "$(realpath "$BASH_SOURCE")")/screens/list.sh
 source $(dirname "$(realpath "$BASH_SOURCE")")/screens/workspace.sh
 source $(dirname "$(realpath "$BASH_SOURCE")")/screens/run.sh
+source $(dirname "$(realpath "$BASH_SOURCE")")/screens/test.sh
 
 char=" "
 lines=$1

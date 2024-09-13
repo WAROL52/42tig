@@ -28,7 +28,7 @@ Ce script Bash permet de gerer des projets a 42. Il est conçu pour plein de tru
 #
 # Liste tous les repos disponibles.
 > make list # dans le registre et dans workspace
-> make list:registre # dans le registre
+> make list:register # dans le registre
 > make list:workspace # dans le workspace
 #
 #
@@ -54,7 +54,7 @@ Ce script Bash permet de gerer des projets a 42. Il est conçu pour plein de tru
 > make push:<nom-du-repo>
 #
 #
-# gere la commande `git pull`
+# gere la commande 'git pull'
 > make pull # Tous les repos dans le Workspace
 > make pull:<nom-du-repo>
 #

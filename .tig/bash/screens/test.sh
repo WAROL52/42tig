@@ -21,12 +21,13 @@ UTILS_PATH=$UTILS_PATH
 OUT_PATH=$OUT_PATH
 ##############################
 
-function run_workspase() {
+
+function test_workspase() {
 	local PROJET_NAME=$1
 	clear
 	echo "-------------------------"
 	echo -e "${Title}PROJET_NAME${Normal}= $PROJET_NAME |PID: $$"
 	echo "-------------------------"
-	source $PWD/$UTILS_DIR/$PROJET_NAME/run.sh
-	run
+	source $PWD/$UTILS_DIR/$PROJET_NAME/test.sh
+	make_test
 }
