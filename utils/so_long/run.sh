@@ -43,7 +43,7 @@ function run() {
 	# make_all
 	mkdir -p $OUT_PATH
 	cd $WORKSPACE_PATH
-	make bonus > $OUT_PATH/make_out
+	make bonus CFLAGS="$CFLAGS $CFLAGSW" > $OUT_PATH/make_out
 	if [ $? -gt 0 ]; then
     	echo -e "\033[1;31mMakefile Error!\033[0m"
 	else

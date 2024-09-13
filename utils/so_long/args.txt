@@ -1,1 +1,1 @@
-map/map3_bonus.ber
+map/map.ber
