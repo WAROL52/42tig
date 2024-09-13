@@ -37,7 +37,7 @@ function logVar(){
 	UTILS_PATH=$UTILS_PATH
 	"
 }
-function make_clear() {
+function make_cmd() {
 	# valgrind_run <nom_du_fishier> [args...]
 	# make_run
 	# make_re

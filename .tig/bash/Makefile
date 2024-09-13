@@ -20,3 +20,12 @@ endef
 define bash_function
 	$(call bash_env,$2) bash -c 'source ./$(TIG_DIR)/bash/core.sh UTILS_DIR=$(UTILS_DIR) && $1 $2'
 endef
+
+workspace_add:
+	@$(call bash_function,add_all_workspace)
+
+workspace_add\:%:
+	@$(call bash_function,add_workspace,$(subst workspace_add:,,$@))
+
+workspace_list:
+	@$(call bash_function,list_workspace)
