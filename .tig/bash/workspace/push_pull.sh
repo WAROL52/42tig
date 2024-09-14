@@ -43,9 +43,7 @@ function push_all_workspace() {
 }
 
 function pull_workspace() {
-	echo "pull_workspace..."
+	git pull --rebase --recurse-submodules
+	foreach_workspace git_checkout
 }
 
-function pull_all_workspace() {
-	echo "pull_all_workspace..."
-}

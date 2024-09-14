@@ -69,3 +69,7 @@ workspace_push:
 workspace_push\:%:
 	@$(call bash_function,push_workspace,$(subst workspace_push:,,$@))
 	@$(call logEnd,$@)
+
+workspace_pull:
+	@$(call bash_function,pull_workspace)
+	@$(call logEnd,$@)
