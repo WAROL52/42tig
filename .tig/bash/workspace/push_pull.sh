@@ -23,18 +23,20 @@ OUT_PATH=$OUT_PATH
 
 function push_workspace() {
 	cd $REPOS_DIR
-	git_push $1 "rolio"
+	git_push $1 $2
 	cd ..
 }
 
+_GIT_PUSH_MSG_=""
+
+function _push_all_() {
+	push_workspace $1 "$_GIT_PUSH_MSG_"
+}
+
 function push_all_workspace() {
-	cd $REPOS_DIR
 	read -p "Description: " GIT_PUSH_MSG
-	while read -r name url; do
-	git_push $name "$GIT_PUSH_MSG"
-	echo -e "\n"
-	done < <(echo "$GITHUB_URL" | awk '{for (i=1; i<=NF; i+=2) print $i, $(i+1)}')
-	cd ..
+	_GIT_PUSH_MSG_=$GIT_PUSH_MSG
+	foreach_workspace _push_all_
 	local projetname=$(basename $(pwd))
 	cd ..
 	git_push "$projetname" "$GIT_PUSH_MSG"
