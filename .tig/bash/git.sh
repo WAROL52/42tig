@@ -23,25 +23,18 @@ git_push(){
 	fi
 	cd $name
 	if [ -e ".git" ]; then
-      # Vérifier s'il y a des modifications à committer
       if [ -n "$(git status --porcelain)" ]; then
 	  log_info "[1]:" "pwd"
 		pwd
-        # Ajouter tous les changements
 		log_info "[2]:" "git add ."
         git add .
-        
-        # Effectuer un commit avec un message générique
 		log_info "[3]:" "git commit -m \"\033[32m$GIT_PUSH_MSG\033[0m\""
         git commit -m "$GIT_PUSH_MSG"
-        
-        # Effectuer un push vers le dépôt distant
 		log_info "[4]:" "git push $GIT_REMOTE $GIT_BRANCH"
-        git push $GIT_REMOTE $GIT_BRANCH # Remplacez 'main' par la branche appropriée si nécessaire
+        git push $GIT_REMOTE $GIT_BRANCH 
         
         echo "Push effectué pour $name"
       else
-        # echo "Aucune modification pour $name"
 		log_info "Info:" "Aucune modification pour $name!"
       fi
     else
@@ -53,7 +46,6 @@ git_push(){
 
 git_push_auto() {
 
-	# Parcourir chaque projet
 	cd $REPOS_DIR
 	read -p "Description: " GIT_PUSH_MSG
 	while read -r name url; do

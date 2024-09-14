@@ -38,6 +38,8 @@ function logVar(){
 	"
 }
 function make_run() {
+	cd $REPOS_DIR/$PROJET_NAME
+	make 
 	# valgrind_run <nom_du_fishier> [args...]
 	# make_run
 	# make_re

@@ -9,9 +9,6 @@ TIG_DIR=.tig
 endif
 include $(TIG_DIR)/.env
 include $(TIG_DIR)/.tmp
-include $(TIG_DIR)/git/Makefile
-include $(TIG_DIR)/test/Makefile
-include $(TIG_DIR)/run/Makefile
 include $(TIG_DIR)/logs/Makefile
 include $(TIG_DIR)/bash/Makefile
 
@@ -44,7 +41,7 @@ define save_in_tmp
 	$(call git_url, giturl_tmp_push)
 endef
 
-define for_each 
+define for_each
 	$(if $3,$(eval _step=$3),$(eval _step=1))
 	$(eval list=$(strip $1))
 	$(eval item=$(wordlist 1,$(_step), $(strip $1)))
@@ -58,56 +55,6 @@ isTrue=$(subst 0,,$(strip $1))
 define make_run
 	bash -c 'source ./$(UTILS_DIR)/$1/run.sh && run'
 endef
-
-
-run\:%:
-	@# $(call make_run_c,$(subst run:,,$@))
-	@$(call make_run,$(subst run:,,$@))
-	@$(call logEnd,$@)
-
-GET_PATERN=./$(UTILS_DIR)/$1/**/*$2 ./$(REPOS_DIR)/$1/**/*$2 ./$(RUN_DIR)/$1/**/*$2
-PATERN_C= $(call GET_PATERN,$1,.c) $(call GET_PATERN,$1,.h) $(call GET_PATERN,$1,.cpp)
-PATERN_CMD= $(call GET_PATERN,$1,.sh)
-PATERN_TXT= $(call GET_PATERN,$1,.txt) $(call GET_PATERN,$1,.text)
-PATERN_MAKEFILE= $(call GET_PATERN,$1,Makefile)
-PATERN_PY= $(call GET_PATERN,$1,.py)
-PATERN_BER= $(call GET_PATERN,$1,.ber)
-
-PATERN_ALL= $(call PATERN_BER,$1) $(call PATERN_C,$1) $(call PATERN_CMD,$1) $(call PATERN_MAKEFILE,$1) $(call PATERN_PY,$1) $(call PATERN_TXT,$1)
-DEPS=
-run-w\:%:clean-out
-	@rm -rf out/*.a
-	@$(call make_fclean_c,$(subst run-w:,,$@))
-	@# @watch -n 0.2 -c -d "make run:$(subst run-w:,,$@)"
-	@sleep 1 ; clear
-	@$(call make_watch, $(call bash_function,run_workspase,$(subst run-w:,,$@)) ,$(call PATERN_ALL,$(subst run-w:,,$@)) $(DEPS))
-	@$(call logEnd,$@)
-
-crun\:%:
-	$(call run,$(subst run:,,$@))
-	@$(call logEnd,$@)
-
-vrun\:%:
-	$(call vrun,$(subst vrun:,,$@))
-	@$(call logEnd,$@)
-
-lldb\:%:
-	$(call lldb,$(subst lldb:,,$@))
-	@$(call logEnd,$@)
-
-gdb\:%:
-	$(call gdb,$(subst gdb:,,$@))
-	@$(call logEnd,$@)
-
-run:
-	@rm -rf out/*.a
-	$(call generate_obj,$(RUN_SOURCES) $(LIB_SOURCES) $(TEST_SOURCES_WITHOUT_MAIN) $(UTILS_SOURCES))
-	@$(CC) -o $(OUT_DIR)/main.a $(OUT_DIR)/*.o
-	$(call echoObj,compilation:,$(call textOk,OK))
-	$(call echoWarn,./$(call progName,main))
-	@$(OUT_DIR)/main.a
-	@echo
-	@$(call logEnd,$@)
 
 clean-out : clean-test clean-file
 

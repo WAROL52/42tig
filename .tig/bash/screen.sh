@@ -26,6 +26,7 @@ function screenHeader() {
 	echo -e "${Blank}${Space}${Normal}"
 	echo -e "${Blank} ${Normal} $1${Space:$(expr $(expr length "$1") + 3 )}${Blank} ${Normal}"
 	echo -e "${Blank}${Space}${Normal}"
+	screenLine "$PWD"
 }
 function screenLine() {
 	new_width=$((width -7))
