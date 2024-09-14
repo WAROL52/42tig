@@ -23,7 +23,7 @@ OUT_PATH=$OUT_PATH
 
 function push_workspace() {
 	cd $REPOS_DIR
-	git_push $1 $2
+	git_push $1 "$2"
 	cd ..
 }
 
