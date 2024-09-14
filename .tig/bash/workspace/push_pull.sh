@@ -35,7 +35,7 @@ function _push_all_() {
 
 function push_all_workspace() {
 	read -p "Description: " GIT_PUSH_MSG
-	_GIT_PUSH_MSG_=$GIT_PUSH_MSG
+	_GIT_PUSH_MSG_="$GIT_PUSH_MSG"
 	foreach_workspace _push_all_
 	local projetname=$(basename $(pwd))
 	cd ..
