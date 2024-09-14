@@ -7,6 +7,7 @@ function list_workspace() {}
 function delete_workspace() {}
 function delete_all_workspace() {}
 function install_workspace() {}
+function install_all_workspace() {}
 function remove_workspace() {}
 function remove_all_workspace() {}
 function push_workspace() {}

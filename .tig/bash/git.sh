@@ -18,6 +18,9 @@ git_push(){
 	printline 30
 	printf "%s\n" "$text"
 	printline 30
+	if [ -z "$GIT_PUSH_MSG" ]; then
+		read -p "Description: " GIT_PUSH_MSG
+	fi
 	cd $name
 	if [ -e ".git" ]; then
       # Vérifier s'il y a des modifications à committer

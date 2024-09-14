@@ -37,7 +37,16 @@ function logVar(){
 	UTILS_PATH=$UTILS_PATH
 	"
 }
-function make_run() {
+
+function make_test() {
+	# valgrind_run <nom_du_fishier> [args...]
+	# make_run
+	# make_re
+	echo "A FAIRE..."
+	logVar
+}
+
+function make_test_bonus() {
 	# valgrind_run <nom_du_fishier> [args...]
 	# make_run
 	# make_re

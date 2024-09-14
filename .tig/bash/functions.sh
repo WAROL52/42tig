@@ -2,9 +2,10 @@
 
 source $(dirname "$(realpath "$BASH_SOURCE")")/env.sh
 source $(dirname "$(realpath "$BASH_SOURCE")")/c_tools.sh
-source $(dirname "$(realpath "$BASH_SOURCE")")/workspace/add.sh
-source $(dirname "$(realpath "$BASH_SOURCE")")/workspace/delete.sh
 source $(dirname "$(realpath "$BASH_SOURCE")")/workspace/list.sh
+source $(dirname "$(realpath "$BASH_SOURCE")")/workspace/add_delete.sh
+source $(dirname "$(realpath "$BASH_SOURCE")")/workspace/install_remove.sh
+source $(dirname "$(realpath "$BASH_SOURCE")")/workspace/push_pull.sh
 source $(dirname "$(realpath "$BASH_SOURCE")")/screen.sh
 source $(dirname "$(realpath "$BASH_SOURCE")")/git.sh
 
@@ -27,16 +28,29 @@ function WaitEnter() {
 }
 
 foreach_workspace() {
+	local repos_list=$(ls $TIG_DIR/register)
 	local func=$1
-	cd $REPOS_DIR
 	while read -r name url; do
-	$func $name $url
-	done < <(echo "$GITHUB_URL" | awk '{for (i=1; i<=NF; i+=2) print $i, $(i+1)}')
+	source $TIG_DIR/register/$name
+	$func $CONF_NAME $CONF_URL_GITHUB $CONF_URL_42
+	done < <(echo "$repos_list" | awk '{for (i=1; i<=NF; i+=1) print $i}')
+}
+
+
+git_checkout() {
+	local name=$1
+	local path=$PWD
+	if [ -f $PWD/$WORKSPACE_DIR/$name/.git ]; then
+		echo -e "git checkout ${OK_COLOR}$name${NO_COLOR} $GIT_BRANCH"
+		cd $PWD/$WORKSPACE_DIR/$name
+		git checkout $GIT_BRANCH
+	fi
+	cd $path
 }
 
 import_conf(){
 	local name=$1
-	local conf_file="$TIG_DIR/register/$name.conf"
+	local conf_file="$TIG_DIR/register/$name"
 	if [ -f $conf_file ]; then
 		source $conf_file
 	fi
@@ -44,7 +58,7 @@ import_conf(){
 
 export_conf(){
 	local name=$1
-	local conf_file="$TIG_DIR/register/$name.conf"
+	local conf_file="$TIG_DIR/register/$name"
 	if [ -f $conf_file ]; then
 		source $conf_file
 		sed -i "s/^CONF_NAME=.*/CONF_NAME=$1/" $conf_file
@@ -55,7 +69,7 @@ export_conf(){
 
 create_conf(){
 	local name=$1
-	local conf_file="$TIG_DIR/register/$name.conf"
+	local conf_file="$TIG_DIR/register/$name"
 	if [ -f $conf_file ]; then
 		echo "'$conf_file' existe!"
 	else

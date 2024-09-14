@@ -45,3 +45,27 @@ workspace_delete:
 workspace_delete\:%:
 	@$(call bash_function,delete_workspace,$(subst workspace_delete:,,$@))
 	@$(call logEnd,$@)
+
+workspace_install:
+	@$(call bash_function,install_all_workspace)
+	@$(call logEnd,$@)
+
+workspace_install\:%:
+	@$(call bash_function,install_workspace,$(subst workspace_install:,,$@))
+	@$(call logEnd,$@)
+
+workspace_remove:
+	@$(call bash_function,remove_all_workspace)
+	@$(call logEnd,$@)
+
+workspace_remove\:%:
+	@$(call bash_function,remove_workspace,$(subst workspace_remove:,,$@))
+	@$(call logEnd,$@)
+
+workspace_push:
+	@$(call bash_function,push_all_workspace)
+	@$(call logEnd,$@)
+
+workspace_push\:%:
+	@$(call bash_function,push_workspace,$(subst workspace_push:,,$@))
+	@$(call logEnd,$@)
