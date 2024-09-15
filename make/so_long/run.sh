@@ -37,6 +37,7 @@ function logVar(){
 	UTILS_PATH=$UTILS_PATH
 	"
 }
+
 function make_run() {
 	cd $REPOS_DIR/$PROJET_NAME
 	make 

@@ -1,32 +1,51 @@
-textcolor =${1}${2} $(NO_COLOR)$3
-textCom =$(call textcolor,$(COM_COLOR),${1},${2})
-textObj =$(call textcolor,$(OBJ_COLOR),${1},${2})
-textOk =$(call textcolor,$(OK_COLOR),${1},${2})
-textError =$(call textcolor,$(ERROR_COLOR),${1},${2})
-textWarn =$(call textcolor,$(WARN_COLOR),${1},${2})
+#################################################
+include $(TIG_DIR)/make.conf ####################
+#################################################
+include $(TIG_DIR)/sh.conf ######################
+#################################################
 
+
+#################################################
+# color                                         #
+#################################################
+VAR_NO_COLOR=$(subst ",,$(NO_COLOR))
+VAR_COM_COLOR=$(subst ",,$(COM_COLOR))
+VAR_OBJ_COLOR=$(subst ",,$(OBJ_COLOR))
+VAR_OK_COLOR=$(subst ",,$(OK_COLOR))
+VAR_ERROR_COLOR=$(subst ",,$(ERROR_COLOR))
+VAR_WARN_COLOR=$(subst ",,$(WARN_COLOR))
+
+
+#################################################
+# text                                          #
+#################################################
+textcolor =${1}${2} $(VAR_NO_COLOR)$3
+textCom =$(call textcolor,$(VAR_COM_COLOR),${1},${2})
+textObj =$(call textcolor,$(VAR_OBJ_COLOR),${1},${2})
+textOk =$(call textcolor,$(VAR_OK_COLOR),${1},${2})
+textError =$(call textcolor,$(VAR_ERROR_COLOR),${1},${2})
+textWarn =$(call textcolor,$(VAR_WARN_COLOR),${1},${2})
+
+
+#################################################
+# echo                                          #
+#################################################
 echoCom = (echo "$(call textCom,${1})${2}")
 echoObj = (echo "$(call textObj,${1})${2}")
 echoOK = (echo "$(call textOk,${1})${2}")
 echoError = (echo "$(call textError,${1})${2}")
 echoWarn = (echo "$(call textWarn,${1})${2}")
 
-logOK=$(call echoObj,$1,$(call textOk,$2))
-logStart=$(call logOK,$1,Start)
-logEnd=$(call logOK,$1,Finish)
-define logTitle
-	@$(call echoObj,\n|------------------------------|)
-	@$(call echoObj,|$1,$2)
-	@$(call echoObj,|------------------------------|)
-endef
 NOLOG=
 NOLOG:PHONY
 	$(eval NOLOG=narto)
 	$(call phony)
 
-cmdshell=$(if $(NOLOG),true,$(call echoWarn,[$2]:,$1)) && $1 $(if $(subst 0,,$(strip $(SUCCESS_SHOW))),&&$(call echoWarn,[$2]:,$(call textOk,$(SUCCESS_MESSAGE))))
+isTrue=$(subst 0,,$(strip $1))
 
+cmdshell=$(if $(NOLOG),true,$(call echoWarn,[$2]:,$1)) && $1 $(if $(subst 0,,$(strip $(SUCCESS_SHOW))),&&$(call echoWarn,[$2]:,$(call textOk,$(SUCCESS_MESSAGE))))
 cmdshell_with_error=$(call cmdshell,$1,$2) $(if $(call isTrue,$(ERROR_SHOW)),|| $(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE))))
+cmdshell_safe=$(call cmdshell,$1,$2) $(if $(call isTrue,$(ERROR_SHOW)),|| ($(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE)))&& false))
 
 define cmd
 	$(call cmdshell_with_error,$1,1)\
@@ -52,8 +71,6 @@ define cmd
 
 endef
 
-cmdshell_safe=$(call cmdshell,$1,$2) $(if $(call isTrue,$(ERROR_SHOW)),|| ($(call echoWarn,[$2]:,$(call textError,$(ERROR_MESSAGE)))&& false))
-
 define cmd_safe
 	$(call cmdshell_safe,$1,1)\
 	$(if $2,&&$(call cmdshell_safe,$2,2))\
@@ -78,22 +95,9 @@ define cmd_safe
 
 endef
 
-varinfo:
-	$(call echoObj,MY_NAME:,$(MY_NAME))
-	$(call echoObj,CC:,$(CC))
-	$(call echoObj,TMP_SRC:,$(TMP_SRC))
-	$(call echoObj,LOG_SRC:,$(LOG_SRC))
-	$(call echoObj,CFLAGS:,$(CFLAGS))
-	$(call echoObj,OUT_DIR:,$(OUT_DIR))
-	$(call echoObj,RUN_DIR:,$(RUN_DIR))
-	$(call echoObj,LIB_NAMES:,$(LIB_NAMES))
-	$(call echoObj,LIB_SOURCES:,$(LIB_SOURCES))
-	$(call echoObj,GITHUB_URL:,$(GITHUB_URL))
-	$(call echoObj,URL_LIBFT:,$(URL_LIBFT))
-	$(call echoObj,URL_PRINTF:,$(URL_PRINTF))
-	$(call echoObj,URL_GET_NEXT_LINE:,$(URL_GET_NEXT_LINE))
-	$(call echoObj,GIT_MODULES:,$(GIT_MODULES))
-	$(call echoObj,RUN_SOURCES:,$(RUN_SOURCES))
-	$(call echoObj,TEST_SOURCES:,$(TEST_SOURCES))
-	$(call echoObj,TEST_SOURCES_WITHOUT_MAIN:,$(TEST_SOURCES_WITHOUT_MAIN))
-	@echo
+define make_watch 
+	(python3 -m pip list | grep "watchdog" || python3 -m pip install watchdog --user ) > $(TIG_DIR)/buff
+	
+	python3 $(TIG_DIR)/bin/watch.py "$1" "$2"
+endef
+

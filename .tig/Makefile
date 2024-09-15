@@ -1,117 +1,124 @@
-.PHONY: all clean help gitpush run varinfo submodule gitpull reinstall install add git\:init NOLOG
-PHONY:
-	@echo > $(TIG_DIR)/.log
-define phony
-	@echo > $(TIG_DIR)/.log
+####################################
+include $(TIG_DIR)/core/Makefile ###
+####################################
+
+
+define bash_function
+	bash -c 'source ./$(TIG_DIR)/bash/core.sh UTILS_DIR=$(UTILS_DIR) && $1 $2 $3 $4 $5 $6 $7 $8 $9'
 endef
-ifndef TIG_DIR
-TIG_DIR=.tig
+
+GIT_TARGET=$(GIT_PREFIX_ALIAS)$(SEPARATOR)
+gitalias=$(foreach _alias,$1,$(GIT_TARGET)$(_alias))
+gitaliasWithargs=$(foreach _alias,$1,$(GIT_TARGET)$(_alias)\:$(if $2,$2,%))
+gitaliasArg=$(shell echo $1 | sed 's/$(GIT_TARGET).*://g')
+
+$(call gitalias,$(GIT_ALIAS_ADD)):
+	@$(call bash_function,add_all_workspace)
+	@$(call logEnd,$@)
+
+$(call gitaliasWithargs,$(GIT_ALIAS_ADD)):
+ifdef url
+	@$(call bash_function,add_workspace,$(call gitaliasArg,$@),$(url))
+else
+	@echo "La variable $(call textObj,url)est réquise!"
 endif
-include $(TIG_DIR)/.env
-include $(TIG_DIR)/.tmp
-include $(TIG_DIR)/logs/Makefile
-include $(TIG_DIR)/bash/Makefile
-
-
-RUN_SOURCES=$(wildcard $(RUN_DIR)/*.c)
-
-GIT_MODULES=$(shell cat .gitmodules)
-LIB_NAMES=$(shell awk '/\[submodule .*?\]/{getline; print $$3}' ".gitmodules")
-
-TEST_SOURCES=$(foreach name,$(LIB_NAMES),$(wildcard $(RUN_DIR)/$(name)/*.c))
-TEST_SOURCES_WITHOUT_MAIN=$(filter-out %/main.c,$(TEST_SOURCES))
-LIB_SOURCES=$(foreach name,$(LIB_NAMES),$(wildcard $(name)/*.c))
-UTILS_SOURCES=$(wildcard $(UTILS_DIR)/*.c)
-CURRENT_DIR:=$(shell echo $${PWD##*/})
-progName=$(OUT_DIR)/$1.out
-
-allfileSource = $(if $(findstring get_next_line,$1),$(foreach file,$(GET_NEXT_LINE_SOURCE),$(REPOS_DIR)/$1/$(file)),\
-				$(if $(findstring get_next_line_bonus,$1),$(GET_NEXT_LINE_BONUS_SOURCE),\
-				$(wildcard $(REPOS_DIR)/$1/*/*.c) $(wildcard $(REPOS_DIR)/$1/*/*/*.c) $(wildcard $(REPOS_DIR)/$1/*.c)))
-fileSource = $(call allfileSource,$1) $(wildcard $(RUN_DIR)/$1/*.c) $(UTILS_SOURCES)
-
-math=$(shell awk "BEGIN {print $1 $2 $3}")
-
-define save_in_tmp
-	@echo "MY_NAME=$(MY_NAME)"> $(TMP_SRC)
-	@echo "PUSH_TITLE=$(PUSH_TITLE)" >> $(TMP_SRC)
-	@echo "PUSH_MESSAGE=$(PUSH_MESSAGE)" >> $(TMP_SRC)
-	@echo "PUSH_COUNT=$(PUSH_COUNT)" >> $(TMP_SRC)
-	@echo "GITHUB_URL=\\" >> $(TMP_SRC)
-	$(call git_url, giturl_tmp_push)
-endef
-
-define for_each
-	$(if $3,$(eval _step=$3),$(eval _step=1))
-	$(eval list=$(strip $1))
-	$(eval item=$(wordlist 1,$(_step), $(strip $1)))
-	$(eval newlist=$(strip $(wordlist $(call math,$(_step),+,1),$(words $(strip $1)), $(strip $1))))
-	$(if $(item),$(call $2,$(item)))
-	$(if $(newlist), $(call for_each,$(newlist),$2,$(_step)))
-endef
-
-isTrue=$(subst 0,,$(strip $1))
-
-define make_run
-	bash -c 'source ./$(UTILS_DIR)/$1/run.sh && run'
-endef
-
-clean-out : clean-test clean-file
-
-clean-file :
-	@$(call cmd,\
-	rm -rf $(REPOS_DIR)/get_next_line/*.o,\
-	rm -rf $(REPOS_DIR)/get_next_line/*.a,\
-	rm -rf $(REPOS_DIR)/printf/*.o,\
-	rm -rf $(REPOS_DIR)/printf/*.a,\
-	rm -rf $(REPOS_DIR)/libft/*.o,\
-	rm -rf $(REPOS_DIR)/libft/*.a,\
-	rm -rf out/*)
 	@$(call logEnd,$@)
 
-clean-test :
-	@$(call cmd,\
-	rm -rf $(REPOS_DIR)/get_next_line/$(TEST_DIRNAME),\
-	rm -rf $(REPOS_DIR)/printf/$(TEST_DIRNAME),\
-	rm -rf $(REPOS_DIR)/libft/$(TEST_DIRNAME))
+
+$(call gitalias,$(GIT_ALIAS_LIST)):
+	@$(call bash_function,list_workspace)
 	@$(call logEnd,$@)
 
-call\:%:
-	$(eval _callname=$(subst call:,,$@))
-	$(call $(_callname),$1,$2,$3)
+$(call gitalias,$(GIT_ALIAS_DELETE)):
+	@$(call bash_function,delete_all_workspace)
 	@$(call logEnd,$@)
 
-clean\:%:
-	$(call make_clean_c,$(subst clean:,,$@))
+$(call gitaliasWithargs,$(GIT_ALIAS_DELETE)):
+	@$(call bash_function,delete_workspace,$(call gitaliasArg,$@))
 	@$(call logEnd,$@)
 
-fclean\:%:
-	$(call make_fclean_c,$(subst fclean:,,$@))
+$(call gitalias,$(GIT_ALIAS_INSTALL)):
+	@$(call bash_function,install_all_workspace)
 	@$(call logEnd,$@)
+
+$(call gitaliasWithargs,$(GIT_ALIAS_INSTALL)):
+	@$(call bash_function,install_workspace,$(call gitaliasArg,$@))
+	@$(call logEnd,$@)
+
+$(call gitalias,$(GIT_ALIAS_REMOVE)):
+	@$(call bash_function,remove_all_workspace)
+	@$(call logEnd,$@)
+
+$(call gitaliasWithargs,$(GIT_ALIAS_REMOVE)):
+	@$(call bash_function,remove_workspace,$(call gitaliasArg,$@))
+	@$(call logEnd,$@)
+
+$(call gitalias,$(GIT_ALIAS_PUSH)):
+	@$(call bash_function,push_all_workspace)
+	@$(call logEnd,$@)
+
+$(call gitaliasWithargs,$(GIT_ALIAS_PUSH)):
+	@$(call bash_function,push_workspace,$(call gitaliasArg,$@))
+	@$(call logEnd,$@)
+
+$(call gitalias,$(GIT_ALIAS_PULL)):
+	@$(call bash_function,pull_workspace)
+	@$(call logEnd,$@)
+
+$(call gitaliasWithargs,$(ALIAS_RUN)):
+	@$(call bash_function,run_workspace,$(call gitaliasArg,$@))
+	@$(call logEnd,$@)
+
+$(call gitaliasWithargs,$(ALIAS_TEST)):
+	@$(call bash_function,test_workspace,$(call gitaliasArg,$@))
+	@$(call logEnd,$@)
+
+$(call gitaliasWithargs,$(ALIAS_PERF)):
+	@$(call bash_function,perf_workspace,$(call gitaliasArg,$@))
+	@$(call logEnd,$@)
+
+GET_PATERN=./$(MAKE_CMD_DIR)/$1/**/*$2 ./$(REPOS_DIR)/$1/**/*$2 ./$(RUN_DIR)/$1/**/*$2
+PATERN_C= $(call GET_PATERN,$1,.c) $(call GET_PATERN,$1,.h) $(call GET_PATERN,$1,.cpp)
+PATERN_CMD= $(call GET_PATERN,$1,.sh)
+PATERN_TXT= $(call GET_PATERN,$1,.txt) $(call GET_PATERN,$1,.text)
+PATERN_MAKEFILE= $(call GET_PATERN,$1,Makefile)
+PATERN_PY= $(call GET_PATERN,$1,.py)
+PATERN_BER= $(call GET_PATERN,$1,.ber)
+
+PATERN_ALL= $(call PATERN_BER,$1) $(call PATERN_C,$1) $(call PATERN_CMD,$1) $(call PATERN_MAKEFILE,$1) $(call PATERN_PY,$1) $(call PATERN_TXT,$1)
+DEPS=
+run-w\:%:clean-out
+	@rm -rf out/*.a
+	@$(call make_fclean_c,$(subst run-w:,,$@))
+	@# @watch -n 0.2 -c -d "make run:$(subst run-w:,,$@)"
+	@sleep 0.5 ; clear
+	@$(call make_watch, $(call bash_function,run_w_workspace,$(subst run-w:,,$@)) ,$(call PATERN_ALL,$(subst run-w:,,$@)) $(DEPS))
+	@$(call logEnd,$@)COM_COLOR
+
+env:
+	@$(call echoObj,MY_NAME:,$(MY_NAME))
+	@$(call echoObj,CC:,$(CC))
+	@$(call echoObj,TMP_SRC:,$(TMP_SRC))
+	@$(call echoObj,LOG_SRC:,$(LOG_SRC))
+	@$(call echoObj,CFLAGS:,$(CFLAGS))
+	@$(call echoObj,OUT_DIR:,$(OUT_DIR))
+	@$(call echoObj,RUN_DIR:,$(RUN_DIR))
+	@$(call echoObj,GITHUB_URL_DEFAULT:,$(GITHUB_URL_DEFAULT))
+	@echo
 
 help:
 	@(python3 -m pip list | grep "rich" || python3 -m pip install rich --user ) > $(TIG_DIR)/buff
 	@python3 -m rich.markdown README.md
 
-MAKE_DEPS= $(if $(DEPS),$(TIG_DIR)/make,)
-
-define make_log 
-	echo "[$$(date +%F_%T)] $1" >> $(TIG_DIR)/make
-endef
-
-make:$(TIG_DIR)/make
-$(TIG_DIR)/make:$(DEPS)
-	$(call make_log,$(COMMANDS))
-	@$(call cmd,$(COMMANDS))
+clean\:%:
+	$(call make_clean_c)
 	@$(call logEnd,$@)
 
-define make_watch 
-	(python3 -m pip list | grep "watchdog" || python3 -m pip install watchdog --user ) > $(TIG_DIR)/buff
-	
-	python3 $(TIG_DIR)/bin/watch.py "$1" "$2"
-endef
+fclean:
+	$(call make_fclean_c)
+	@$(call logEnd,$@)
 
-TEST=NO
 watch:
-	$(eval TEST=$(subst ", \", $(COMMANDS)))
-	@$(call make_watch,$(TEST),$(DEPS))
+	$(eval COMMANDS=$(subst ", \", $(COMMANDS)))
+	@$(call make_watch,$(COMMANDS),$(DEPS))
+
