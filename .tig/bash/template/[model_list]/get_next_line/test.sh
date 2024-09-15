@@ -39,11 +39,11 @@ function logVar(){
 }
 
 function make_test() {
-	# valgrind_run <nom_du_fishier> [args...]
-	# make_run
-	# make_re
+	# git clone https://github.com/Tripouille/gnlTester.git
+	# make
+	# git clone https://github.com/Tripouille/gnlTester.git
+	# make
 	echo "A FAIRE..."
-	logVar
 }
 
 function make_test_bonus() {
@@ -51,5 +51,4 @@ function make_test_bonus() {
 	# make_run
 	# make_re
 	echo "A FAIRE..."
-	logVar
 }
