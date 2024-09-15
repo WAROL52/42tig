@@ -7,6 +7,7 @@ source $(dirname "$(realpath "$BASH_SOURCE")")/workspace/add_delete.sh
 source $(dirname "$(realpath "$BASH_SOURCE")")/workspace/install_remove.sh
 source $(dirname "$(realpath "$BASH_SOURCE")")/workspace/push_pull.sh
 source $(dirname "$(realpath "$BASH_SOURCE")")/workspace/run_test_perf.sh
+source $(dirname "$(realpath "$BASH_SOURCE")")/workspace/model.sh
 source $(dirname "$(realpath "$BASH_SOURCE")")/screen.sh
 source $(dirname "$(realpath "$BASH_SOURCE")")/git.sh
 

@@ -93,7 +93,7 @@ run-w\:%:clean-out
 	@# @watch -n 0.2 -c -d "make run:$(subst run-w:,,$@)"
 	@sleep 0.5 ; clear
 	@$(call make_watch, $(call bash_function,run_w_workspace,$(subst run-w:,,$@)) ,$(call PATERN_ALL,$(subst run-w:,,$@)) $(DEPS))
-	@$(call logEnd,$@)COM_COLOR
+	@$(call logEnd,$@)
 
 env:
 	@$(call echoObj,MY_NAME:,$(MY_NAME))
@@ -121,4 +121,24 @@ fclean:
 watch:
 	$(eval COMMANDS=$(subst ", \", $(COMMANDS)))
 	@$(call make_watch,$(COMMANDS),$(DEPS))
+
+model-save\:%:
+	@$(call bash_function,model_save_workspace,$(subst model-save:,,$@))
+	@$(call logEnd,$@)
+
+model-delete\:%:
+	@$(call bash_function,model_delete_workspace,$(subst model-delete:,,$@))
+	@$(call logEnd,$@)
+
+model-list:
+	@$(call bash_function,model_list_workspace)
+	@$(call logEnd,$@)
+
+model-update\:%:
+	@$(call bash_function,model_update_workspace,$(subst model-update:,,$@))
+	@$(call logEnd,$@)
+
+model-get\:%:
+	@$(call bash_function,model_get_workspace,$(subst model-get:,,$@))
+	@$(call logEnd,$@)
 
