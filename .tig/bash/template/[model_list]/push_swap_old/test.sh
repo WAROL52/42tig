@@ -38,9 +38,7 @@ function logVar(){
 	"
 }
 
-function make_run() {
-	cd $REPOS_DIR/$PROJET_NAME
-	make 
+function make_test() {
 	# valgrind_run <nom_du_fishier> [args...]
 	# make_run
 	# make_re
@@ -48,7 +46,7 @@ function make_run() {
 	logVar
 }
 
-function make_run_bonus() {
+function make_test_bonus() {
 	# valgrind_run <nom_du_fishier> [args...]
 	# make_run
 	# make_re

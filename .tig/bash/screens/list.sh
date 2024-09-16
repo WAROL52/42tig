@@ -7,7 +7,7 @@ function screenList() {
 	screenLine ""
 	while IFS= read -r line; do
 		# screenLine "$line..."
-		new_width=$((width -7+36))
+		new_width=$((width -7+39))
 		printf "${Blank} ${Normal}     %-${new_width}s${Blank} ${Normal}\n" "$line"
 	done <<< "$rended"
 	screenLine $dot

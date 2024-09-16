@@ -134,8 +134,8 @@ model-list:
 	@$(call bash_function,model_list_workspace)
 	@$(call logEnd,$@)
 
-model-update\:%:
-	@$(call bash_function,model_update_workspace,$(subst model-update:,,$@))
+model-set\:%:
+	@$(call bash_function,model_set_workspace,$(subst model-set:,,$@))
 	@$(call logEnd,$@)
 
 model-get\:%:
