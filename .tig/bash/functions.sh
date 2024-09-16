@@ -38,6 +38,13 @@ foreach_workspace() {
 	done < <(echo "$repos_list" | awk '{for (i=1; i<=NF; i+=1) print $i}')
 }
 
+foreach_workspace_default() {
+	local func=$1
+	for name in "${!DEFAULT_REPOS_LIST[@]}" ; do
+		$func "$name" "${DEFAULT_REPOS_LIST[$name]}"
+	done
+}
+
 
 git_checkout() {
 	local name=$1

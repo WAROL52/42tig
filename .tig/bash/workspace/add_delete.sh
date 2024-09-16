@@ -32,12 +32,20 @@ function add_workspace() {
 }
 
 function add_all_workspace() {
-	echo "Mandea stara..."
+	echo -e "Les changements locaux dans ${OBJ_COLOR}$WORKSPACE_DIR/*${NO_COLOR} seront perdus."
+	printf "${URL_COLOR}Voulez-vous continuer ? (oui/non): ${NO_COLOR}"
+	read reponse
+	if [[ "$reponse" == "oui" || "$reponse" == "o" || "$reponse" == "O" ]]; then
+		delete_all_workspace
+		foreach_workspace_default add_workspace
+	else
+		echo "Annulation de la commande."
+	fi
 }
 
 function delete_workspace() {
 	local name=$1
-	local conf_file="$TIG_DIR/register/$name.conf"
+	local conf_file="$TIG_DIR/register/$name"
 	if [ -f $conf_file ]; then
 		rm -rf $conf_file
 	fi
@@ -47,5 +55,12 @@ function delete_workspace() {
 }
 
 function delete_all_workspace() {
-	echo "delete_all_workspace a faire..."
+	echo -e "Les changements locaux dans ${OBJ_COLOR}$WORKSPACE_DIR/*${NO_COLOR} seront efface."
+	printf "${URL_COLOR}Voulez-vous continuer ? (oui/non): ${NO_COLOR}"
+	read reponse
+	if [[ "$reponse" == "oui" || "$reponse" == "o" || "$reponse" == "O" ]]; then
+		foreach_workspace delete_workspace
+	else
+		echo "Annulation de la commande."
+	fi
 }

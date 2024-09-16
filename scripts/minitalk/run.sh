@@ -42,7 +42,7 @@ function make_run() {
 	# make_run
 	# make_re
 	echo "A FAIRE..."
-	echo ${!DEFAULT_REPOS_LIST[@]}
+	logVar
 }
 
 function make_run_bonus() {
