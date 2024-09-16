@@ -59,7 +59,7 @@ function infinityRun() {
 	vrun ./client $tmpVClient $PID_SERVER  "$MESSAGE_FOR_SERVER"
 	infinityRun $PID_SERVER
 }
-function run() {
+function make_run() {
 	local tmp=$OUT_PATH/tmp
 	local tmpVClient=$OUT_PATH/tmpVClient
 	local tmpVServer=$OUT_PATH/tmpVServer
@@ -78,4 +78,12 @@ function run() {
 		vrun ./client $tmpVClient $PID_SERVER  "$textV"
 		# infinityRun $PID_SERVER
 	fi
+}
+
+function make_run_bonus() {
+	# valgrind_run <nom_du_fishier> [args...]
+	# make_run
+	# make_re
+	echo "A FAIRE..."
+	logVar
 }

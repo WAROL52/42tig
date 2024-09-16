@@ -41,7 +41,7 @@ function infinityRun() {
 	vrun ./client $tmpVClient $PID_SERVER  "$MESSAGE_FOR_SERVER"
 	infinityRun $PID_SERVER
 }
-function run() {
+function make_run() {
 	local tmp=$OUT_PATH/tmp
 	local tmpVClient=$OUT_PATH/tmpVClient
 	local args=$(head -n 1 $UTILS_PATH/args.txt)
@@ -57,4 +57,12 @@ function run() {
 		# vrun ./push_swap $tmpVClient '3 6 5' 2 4  +10
  		# vrun ./push_swap $tmpVClient 5 1 3 6 2 4
 	fi
+}
+
+function make_run_bonus() {
+	# valgrind_run <nom_du_fishier> [args...]
+	# make_run
+	# make_re
+	echo "A FAIRE..."
+	logVar
 }
