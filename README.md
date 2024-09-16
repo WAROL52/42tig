@@ -8,7 +8,9 @@ Ce script Bash permet de gerer des projets a 42. Il est conçu pour plein de tru
 
 - **Système d'exploitation** : [ex. Debian, Ubuntu, etc.]
 - **Dépendances** : [build-essential]
-
+## Test projets
+Si c'est seulement pour des tests -->
+[42script test](https://github.com/WAROL52/script/blob/master/42/README.md)
 ## Installation
 
 1. Assurez-vous que les dépendances sont installées :
