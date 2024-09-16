@@ -1,5 +1,6 @@
 #!/bin/bash
 source "$PWD/.tig/sh.conf"
+source "$PWD/.config"
 export BASH_DIR=$(dirname "$(realpath "$BASH_SOURCE")")
 export Red="\033[31m"
 export Blue="\033[34m"

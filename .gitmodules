@@ -16,3 +16,6 @@
 [submodule "Workspace/minitalk"]
 	path = Workspace/minitalk
 	url = git@github.com:WAROL52/42-minitalk.git
+[submodule "Workspace/script"]
+	path = Workspace/script
+	url = https://github.com/WAROL52/script.git

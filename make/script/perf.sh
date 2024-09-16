@@ -37,15 +37,16 @@ function logVar(){
 	UTILS_PATH=$UTILS_PATH
 	"
 }
-function make_run() {
+
+function make_perf() {
 	# valgrind_run <nom_du_fishier> [args...]
 	# make_run
 	# make_re
 	echo "A FAIRE..."
-	echo ${!DEFAULT_REPOS_LIST[@]}
+	logVar
 }
 
-function make_run_bonus() {
+function make_perf_bonus() {
 	# valgrind_run <nom_du_fishier> [args...]
 	# make_run
 	# make_re
