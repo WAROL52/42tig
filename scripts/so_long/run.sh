@@ -5,9 +5,9 @@
 #-----------------------------
 # Pour aider ...
 # ----------------------------
-UTILS_DIR=$UTILS_DIR
-REPOS_DIR=$REPOS_DIR
-RUN_DIR=$RUN_DIR
+SCRIPT_DIR=$SCRIPT_DIR
+WORKSPACE_DIR=$WORKSPACE_DIR
+
 CFLAGS=$CFLAGS
 CFLAGSW=$CFLAGSW
 CFLAGS_VALGRIND=$CFLAGS_VALGRIND
@@ -16,15 +16,15 @@ TIG_DIR=$TIG_DIR
 PROJET_NAME=$PROJET_NAME
 # ----------------------------
 WORKSPACE_PATH=$WORKSPACE_PATH
-RUN_PATH=$RUN_PATH
-UTILS_PATH=$UTILS_PATH
+
+SCRIPT_PATH=$SCRIPT_PATH
 OUT_PATH=$OUT_PATH
 ##############################
 function logVar(){
 	echo "
-	UTILS_DIR=$UTILS_DIR
-	REPOS_DIR=$REPOS_DIR
-	RUN_DIR=$RUN_DIR
+	SCRIPT_DIR=$SCRIPT_DIR
+	WORKSPACE_DIR=$WORKSPACE_DIR
+	
 	CFLAGS=$CFLAGS
 	CFLAGSW=$CFLAGSW
 	CFLAGS_VALGRIND=$CFLAGS_VALGRIND
@@ -32,14 +32,14 @@ function logVar(){
 	TIG_DIR=$TIG_DIR
 	----------------
 	WORKSPACE_PATH=$WORKSPACE_PATH
-	RUN_PATH=$RUN_PATH
-	UTILS_PATH=$UTILS_PATH
+
+	SCRIPT_PATH=$SCRIPT_PATH
 	"
 }
 
 
 function make_run() {
-	local args=$(head -n 1 $UTILS_PATH/args.txt)
+	local args=$(head -n 1 $SCRIPT_PATH/args.txt)
 	# make_all
 	mkdir -p $OUT_PATH
 	cd $WORKSPACE_PATH
