@@ -20,6 +20,7 @@ WORKSPACE_PATH=$WORKSPACE_PATH
 SCRIPT_PATH=$SCRIPT_PATH
 OUT_PATH=$OUT_PATH
 ##############################
+
 function logVar(){
 	echo "
 	SCRIPT_DIR=$SCRIPT_DIR
@@ -36,18 +37,18 @@ function logVar(){
 	SCRIPT_PATH=$SCRIPT_PATH
 	"
 }
-
-
 function make_run() {
-	local args=$(head -n 1 $SCRIPT_PATH/args.txt)
-	# make_all
-	mkdir -p $OUT_PATH
-	cd $WORKSPACE_PATH
-	make bonus CFLAGS="$CFLAGS $CFLAGSW" > $OUT_PATH/make_out
-	if [ $? -gt 0 ]; then
-    	echo -e "\033[1;31mMakefile Error!\033[0m"
-	else
-		valgrind_run ./so_long_bonus "$args"
-		# ./so_long_bonus "$args"
-	fi
+	# valgrind_run <nom_du_fishier> [args...]
+	# make_run
+	# make_re
+	echo "A FAIRE..."
+	logVar
+}
+
+function make_run_bonus() {
+	# valgrind_run <nom_du_fishier> [args...]
+	# make_run
+	# make_re
+	echo "A FAIRE..."
+	logVar
 }

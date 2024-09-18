@@ -10,6 +10,9 @@
 [submodule "Workspace/printf"]
 	path = Workspace/printf
 	url = git@github.com:WAROL52/42-printf.git
+[submodule "Workspace/philo"]
+	path = Workspace/philo
+	url = git@github.com:WAROL52/42-philosophers.git
 [submodule "Workspace/so_long"]
 	path = Workspace/so_long
 	url = git@github.com:WAROL52/42-so_long.git
