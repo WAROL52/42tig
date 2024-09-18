@@ -38,11 +38,10 @@ function logVar(){
 	"
 }
 function make_run() {
-	# valgrind_run <nom_du_fishier> [args...]
-	# make_run
-	# make_re
-	echo "A FAIRE..."
-	logVar
+	WORKSPACE_PATH=$WORKSPACE_PATH/philo
+	local progname="./$WORKSPACE_PATH/philo"
+	make_all
+	valgrind_run $progname
 }
 
 function make_run_bonus() {
