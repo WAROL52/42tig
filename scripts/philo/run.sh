@@ -41,7 +41,7 @@ function make_run() {
 	WORKSPACE_PATH=$WORKSPACE_PATH/philo
 	local progname="./$WORKSPACE_PATH/philo"
 	make_all
-	valgrind_run $progname
+	valgrind_run $progname 2 800 200 300 3
 }
 
 function make_run_bonus() {
