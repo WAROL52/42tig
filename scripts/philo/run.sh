@@ -37,11 +37,16 @@ function logVar(){
 	SCRIPT_PATH=$SCRIPT_PATH
 	"
 }
+
 function make_run() {
 	WORKSPACE_PATH=$WORKSPACE_PATH/philo
 	local progname="./$WORKSPACE_PATH/philo"
 	make_all
-	valgrind_run $progname 2 800 200 300 3
+	if [ $? -gt 0 ]; then
+    	echo -e "${ERROR_COLOR}make error${NO_COLOR}"
+	else
+		valgrind_run $progname 2 800 200 300 -3
+	fi
 }
 
 function make_run_bonus() {
