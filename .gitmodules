@@ -1,3 +1,6 @@
+[submodule "Workspace/minishell"]
+	path = Workspace/minishell
+	url = git@github.com:WAROL52/42-minishell.git
 [submodule "Workspace/minitalk"]
 	path = Workspace/minitalk
 	url = git@github.com:WAROL52/42-minitalk.git
@@ -19,9 +22,3 @@
 [submodule "Workspace/get_next_line"]
 	path = Workspace/get_next_line
 	url = git@github.com:WAROL52/42-get_next_line.git
-[submodule "Workspace/minishell"]
-	path = Workspace/minishell
-	url = git@github.com:WAROL52/42-minishell.git
-[submodule "Workspace/script"]
-	path = Workspace/script
-	url = git@github.com:WAROL52/script.git
