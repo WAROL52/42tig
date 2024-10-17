@@ -41,7 +41,8 @@
 		"header_typedef.h": "c",
 		"header_game.h": "c",
 		"push_swap_bonus.h": "c",
-		"get_next_line_bonus.h": "c"
+		"get_next_line_bonus.h": "c",
+		"minishell.h": "c"
 	},
 	"files.exclude": {
 		"**/.tig": false

@@ -38,17 +38,24 @@ function logVar(){
 	"
 }
 function make_run() {
-	# valgrind_run <nom_du_fishier> [args...]
-	# make_run
-	# make_re
-	echo "A FAIRE..."
-	logVar
+	WORKSPACE_PATH=$WORKSPACE_PATH
+	local progname="./$WORKSPACE_PATH/minishell"
+	make_all
+	if [ $? -gt 0 ]; then
+    	echo -e "${ERROR_COLOR}make error${NO_COLOR}"
+	else
+		# valgrind_run $progname 5 800 200 300 7
+		valgrind_run $progname
+	fi
 }
 
 function make_run_bonus() {
-	# valgrind_run <nom_du_fishier> [args...]
-	# make_run
-	# make_re
-	echo "A FAIRE..."
-	logVar
+	WORKSPACE_PATH=$WORKSPACE_PATH/philo_bonus
+	local progname="./$WORKSPACE_PATH/philo_bonus"
+	make_all
+	if [ $? -gt 0 ]; then
+    	echo -e "${ERROR_COLOR}make error${NO_COLOR}"
+	else
+		valgrind_run $progname
+	fi
 }
