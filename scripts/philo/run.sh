@@ -44,9 +44,9 @@ function make_run() {
 	if [ $? -gt 0 ]; then
     	echo -e "${ERROR_COLOR}make error${NO_COLOR}"
 	else
-		$progname 4 301 150 150
-		# valgrind_run $progname 100 700 200 400 7
-		# helgrind_run $progname 2 800 200 300 7
+		# $progname 2 800 200 300
+		# valgrind_run $progname 2 800 200 300
+		helgrind_run $progname 2 800 200 300
 	fi
 }
 
@@ -57,6 +57,6 @@ function make_run_bonus() {
 	if [ $? -gt 0 ]; then
     	echo -e "${ERROR_COLOR}make error${NO_COLOR}"
 	else
-		valgrind_run $progname 5 800 200 300 7
+		valgrind_run $progname 5 2 1 1 1
 	fi
 }
