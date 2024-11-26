@@ -46,7 +46,7 @@ function make_run() {
 	else
 		# $progname 2 800 200 300
 		# valgrind_run $progname 2 800 200 300
-		helgrind_run $progname 2 800 200 300
+		helgrind_run $progname 4 800 200 300
 	fi
 }
 
