@@ -1,0 +1,32 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run philo",
+      "type": "cppdbg", // Type de débogueur (C/C++).
+      "request": "launch", // Lance une nouvelle instance.
+      "program": "${workspaceFolder}/Workspace/philo/philo/philo", // Pas nécessaire si tu utilises `make run`.
+      "args": [], // Arguments supplémentaires (laisse vide ici).
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}", // Répertoire courant où exécuter la commande.
+      "environment": [],
+      "externalConsole": true,
+      "preLaunchTask": "run philo" // Exécute `make run` avant de lancer.
+    },
+    {
+      "name": "Run minishell",
+      "type": "cppdbg", // Type de débogueur (C/C++).
+      "request": "launch", // Lance une nouvelle instance.
+      "program": "${workspaceFolder}/your_program", // Pas nécessaire si tu utilises `make run`.
+      "args": [], // Arguments supplémentaires (laisse vide ici).
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}", // Répertoire courant où exécuter la commande.
+      "environment": [],
+      "externalConsole": true,
+      "preLaunchTask": "make run" // Exécute `make run` avant de lancer.
+    }
+  ]
+}

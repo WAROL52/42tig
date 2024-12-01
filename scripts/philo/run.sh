@@ -44,9 +44,9 @@ function make_run() {
 	if [ $? -gt 0 ]; then
     	echo -e "${ERROR_COLOR}make error${NO_COLOR}"
 	else
-		# $progname 2 800 200 300
+		# $progname 3 800 200 300
 		# valgrind_run $progname 2 800 200 300
-		helgrind_run $progname 4 800 200 300
+		helgrind_run $progname 3 800 200 300
 	fi
 }
 
